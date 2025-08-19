@@ -2,4 +2,5 @@
 
 NAME = Minishell
 CC = -Wall -Wextra -Werror
-RM = rm -f
+
+CFLAGS = -Wall -Wextra -Werror
