@@ -1,24 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/19 17:03:16 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/08/19 17:21:36 by yingzhan         ###   ########.fr       */
+/*   Created: 2025/08/20 19:50:04 by jkubaev           #+#    #+#             */
+/*   Updated: 2025/08/20 19:51:21 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
-
-#include <stdio.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include "./libft/includes/libft.h"
-#include "./libft/includes/ft_printf.h"
-#include "./libft/includes/get_next_line.h"
+#ifndef PARSING_H
+# define PARSING_H
 
 
 

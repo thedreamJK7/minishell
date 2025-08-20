@@ -1,33 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/19 17:21:52 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/08/20 19:52:57 by jkubaev          ###   ########.fr       */
+/*   Created: 2025/08/19 17:03:16 by yingzhan          #+#    #+#             */
+/*   Updated: 2025/08/20 19:52:45 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/minishell.h"
+#ifndef MINISHELL_H
+# define MINISHELL_H
 
-int	main(void)
-{
-	char	*input;
+#include <stdio.h>
+#include <readline/readline.h>
+#include <readline/history.h>
+#include "../libft/includes/libft.h"
+#include "../libft/includes/ft_printf.h"
+#include "../libft/includes/get_next_line.h"
 
-	while (1)
-	{
-		input = readline("minishell$ ");
-		if (!input)
-		{
-			printf("exit\n");
-			exit(1);
-		}
-		if (*input)
-			add_history(input);
-		printf("%s\n", input);
-		free(input);
-	}
-	return (0);
-}
+
+
+#endif
