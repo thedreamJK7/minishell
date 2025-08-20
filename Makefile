@@ -1,6 +1,7 @@
 NAME = minishell
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
+LFLAGS = -lreadline
 RM = rm -f
 INCLUDES = -I./ -I./libft/includes/
 
@@ -11,7 +12,7 @@ LIBFT = ./libft/libft.a
 
 all: $(NAME)
 $(NAME): $(OBJS) $(LIBFT)
-	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) $(LFLAGS) $(LIBFT) -o $(NAME)
 
 $(LIBFT):
 	make -C libft
