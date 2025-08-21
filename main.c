@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 17:21:52 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/08/20 19:52:57 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/08/21 21:12:11 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	main(void)
 		}
 		if (*input)
 			add_history(input);
-		printf("%s\n", input);
+		ft_tokenize(input);
 		free(input);
 	}
 	return (0);

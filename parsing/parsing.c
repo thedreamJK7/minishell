@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 20:14:03 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/08/21 18:08:37 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/08/21 21:07:37 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	add_token(t_token **list, t_token_type type, char *value)
 	if (!new)
 		return ;
 	new->type = type;
-	new->cmd = value;
+	new->value = value;
 	new->next = NULL;
 	if (!*list)
 	{
@@ -67,6 +67,19 @@ int	handle_quotes(char *s, char c, t_token *list)
 	return (len);
 }
 
+int	handle_word(char *s, t_token *list)
+{
+	char	*end;
+	char	*start;
+	int		len;
+
+	start = s;
+	end = ft_strchr(start, 32) - 1;
+	add_token(&list, T_WORD, ft_substr(s, 0, end - start + 1));
+	len = end - start + 1;
+	return (len);
+}
+
 t_token	*ft_tokenize(char *s)
 {
 	t_token	*list;
@@ -95,8 +108,6 @@ t_token	*ft_tokenize(char *s)
 		else if (s[i] == '"' || s[i] == "'")
 			i += handle_quotes(s + i, s[i], list);
 		else
-		{
-			handle_words
-		}
+			i += handle_word(s, list);
 	}
 }
