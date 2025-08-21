@@ -1,0 +1,8 @@
+# Ignore editor/IDE settings
+.vscode/
+.idea/
+*.swp
+*~
+
+# Ignore build files
+*.o
