@@ -3,7 +3,7 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
 LFLAGS = -lreadline
 RM = rm -f
-INCLUDES = -I./ -I./libft/includes/
+INCLUDES = -I./includes/ -I./libft/includes/
 
 SRCS = main.c
 OBJS = $(SRCS:.c=.o)
