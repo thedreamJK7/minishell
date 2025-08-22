@@ -5,7 +5,7 @@ LFLAGS = -lreadline
 RM = rm -f
 INCLUDES = -I./includes/ -I./libft/includes/
 
-SRCS = main.c
+SRCS = main.c ./parcing/parcing.c
 OBJS = $(SRCS:.c=.o)
 
 LIBFT = ./libft/libft.a
