@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 15:20:54 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/07/23 18:58:32 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/08/22 10:41:55 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static int	ft_new_lines(char **buffer, char **line)
 	char	*newline_pos;
 
 	newline_pos = ft_strchr_g(*buffer, '\n');
-	*line = ft_substr(*buffer, 0, newline_pos - *buffer + 1);
+	*line = ft_substr_g(*buffer, 0, newline_pos - *buffer + 1);
 	if (!*line)
 		return (-1);
 	if (*(newline_pos + 1) == '\0')
