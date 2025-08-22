@@ -5,7 +5,7 @@ LFLAGS = -lreadline
 RM = rm -f
 INCLUDES = -I./includes/ -I./libft/includes/
 
-SRCS = main.c ./parcing/parcing.c
+SRCS = main.c ./parsing/parsing.c ./parsing/tokenizing.c
 OBJS = $(SRCS:.c=.o)
 
 LIBFT = ./libft/libft.a

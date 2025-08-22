@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 15:22:32 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/07/23 18:58:21 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/08/22 10:42:07 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	*ft_strdup(const char *str)
 	return (buffer);
 }
 
-char	*ft_substr(char const *str, unsigned int start, size_t len)
+char	*ft_substr_g(char const *str, unsigned int start, size_t len)
 {
 	char	*buffer;
 	char	*ptr;
