@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: javokhir <javokhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 20:14:03 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/08/22 16:28:42 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/08/24 11:59:00 by javokhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,28 @@ t_token	*ft_tokenize(char *s)
 	return (list);
 }
 
+//	tokens to build an AST,
+
+void	build_ast(t_token *list, t_node *node)
+{
+	while (list->type != T_EOF)
+	{
+		if (list->type == T_WORD)
+		{
+			node->type = list->type;
+			node->cmd.name = T_WORD;
+		}
+		else if(list->type == T_PIPE)
+		{
+			build_ast(list->next, node->next);
+		}
+		list = list->next;
+	}
+}
+
 void	ft_parse(char *input)
 {
 	t_token	*token_list;
-	t_token	*temp;
 
 	token_list = ft_tokenize(input);
-	temp = token_list;
 }
