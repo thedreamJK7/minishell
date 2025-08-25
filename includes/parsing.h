@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 19:50:04 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/08/24 19:40:51 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/08/25 11:41:16 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ typedef struct	s_redir{
 }				t_redir;
 
 typedef struct	s_command {
-	char	*name;         // "ls", "grep", etc.
-	char	**args;        // ["-l"], ["txt"], etc.
-	struct	s_redir redir;  // Redirection
+	char	*name;			// "ls", "grep", etc.
+	char	**args;			// ["-l"], ["txt"], etc.
+	struct	s_redir redir;	// Redirection
 }				t_command;
 
 typedef struct	s_pipe {
@@ -70,7 +70,6 @@ typedef struct	s_node {
 		struct	s_command cmd;  // Command Node uchun
 		struct	s_pipe pipe;    // Pipe Node uchun
 	};
-	struct s_node	*next;
 }				t_node;
 
 // Functions

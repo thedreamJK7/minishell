@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 20:14:03 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/08/24 19:56:24 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/08/25 12:06:07 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,40 @@ t_token	*ft_tokenize(char *s)
 	return (list);
 }
 
+//	redirections
+t_redir	*collect_redirections(t_token **current_token)
+{
+	t_token	*tmp;
+	t_redir	*prev_redir;
+	t_redir	*current_redir;
+	
+	prev_redir = malloc(sizeof(t_redir));
+	tmp = *current_token;
+	if (tmp->type == T_GREAT)
+		prev_redir->redir_type = OUT;
+	if (tmp->type == T_LESS)
+		prev_redir->redir_type = IN;
+	if (tmp->type == T_DGREAT)
+		prev_redir->redir_type = APPEND;
+	if (tmp->type == T_DLESS)
+		prev_redir->redir_type = HEREDOC;
+	tmp = tmp->next;
+	if (tmp->next != T_WORD)
+		exit(1);
+	if (tmp->type != T_PIPE && tmp->type != T_EOF)
+	{
+		
+	}
+	*current_token = tmp;
+	return (tmp);
+}
+
 //	tokens to build an AST,
 
 t_node	*create_node(t_node_type type, t_token **current_token)
 {
 	t_node	*new_node;
+	t_redir	*redir;
 	t_token	*tmp;
 	int i;
 
@@ -62,11 +91,19 @@ t_node	*create_node(t_node_type type, t_token **current_token)
 			exit(1);
 		while (tmp->type != T_PIPE && tmp->type != T_EOF)
 		{
-			new_node->cmd.args[i++] = ft_strdup(tmp->value);
-			// should be thinked to clean all the alocated memories, we need some functions for cleaning
-			new_node->cmd.args = realloc(new_node->cmd.args, i + 1);
-			// should be checked allocation fails and if fails, free previous array elements
-			tmp = tmp->next;
+			if (tmp->type == T_DGREAT || tmp->type == T_LESS ||
+				tmp->type == T_GREAT || tmp->type == T_DLESS)
+			{
+				
+			}
+			else
+			{
+				new_node->cmd.args[i++] = ft_strdup(tmp->value);
+				// should be thinked to clean all the alocated memories, we need some functions for cleaning
+				new_node->cmd.args = realloc(new_node->cmd.args, i + 1);
+				// should be checked allocation fails and if fails, free previous array elements	
+				tmp = tmp->next;
+			}
 		}
 		new_node->cmd.args[i] = NULL;
 	}
