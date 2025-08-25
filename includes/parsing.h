@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 19:50:04 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/08/22 16:22:51 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/08/24 19:40:51 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,16 @@ typedef enum	e_redir_type
 	HEREDOC    // <<
 }	t_redir_type;
 
+typedef struct	s_redir{
+	t_redir_type	redir_type;// IN, OUT..
+	char			*file;// Filename or limiter
+	struct s_node	*child;// Node for redirection
+}				t_redir;
+
 typedef struct	s_command {
 	char	*name;         // "ls", "grep", etc.
 	char	**args;        // ["-l"], ["txt"], etc.
+	struct	s_redir redir;  // Redirection
 }				t_command;
 
 typedef struct	s_pipe {
@@ -56,19 +63,12 @@ typedef struct	s_pipe {
 	struct s_node	*right;  // right child (Command or Pipe)
 }				t_pipe;
 
-typedef struct	s_redir{
-	t_redir_type	redir_type;// IN, OUT..
-	char			*file;// Filename or limiter
-	struct s_node	*child;// Node for redirection
-}				t_redir;
-
 typedef struct	s_node {
 	t_node_type	type;     // COMMAND, PIPE
 	union
 	{
 		struct	s_command cmd;  // Command Node uchun
 		struct	s_pipe pipe;    // Pipe Node uchun
-		struct	s_redir redir;  // Redirection
 	};
 	struct s_node	*next;
 }				t_node;
