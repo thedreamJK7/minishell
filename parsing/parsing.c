@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 20:14:03 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/08/24 19:56:24 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/08/25 11:53:07 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ t_token	*ft_tokenize(char *s)
 		else
 			i += handle_words(s + i, &list);
 	}
+	add_tokens(&list, T_EOF, NULL);
 //	print_tokens(list);//should be removed later
 //	clean_tokens(&list);//should be used later
 	return (list);

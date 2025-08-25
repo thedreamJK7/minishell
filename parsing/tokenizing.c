@@ -6,14 +6,14 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 12:53:25 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/08/22 13:36:09 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/08/25 11:52:02 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
 //Add new nodes to the back of link list
-static void	add_tokens(t_token **list, t_token_type type, char *value)
+void	add_tokens(t_token **list, t_token_type type, char *value)
 {
 	t_token	*new;
 	t_token	*last;

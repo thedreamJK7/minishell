@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 19:50:04 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/08/24 19:40:51 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/08/25 11:52:18 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ typedef struct	s_node {
 
 // Functions
 void	ft_parse(char *input);
+void	add_tokens(t_token **list, t_token_type type, char *value);
 int		specify_tokens(char c, t_token **list, int single);
 int		handle_quotes(char *s, char c, t_token **list);
 int		handle_words(char *s, t_token **list);
