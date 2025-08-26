@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 20:14:03 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/08/25 18:54:41 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/08/26 17:29:36 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ t_token	*ft_tokenize(char *s)
 	}
 	add_tokens(&list, T_EOF, NULL);
 //	print_tokens(list);//should be removed later
-//	clean_tokens(&list);//should be used later
 	return (list);
 }
 
@@ -50,7 +49,7 @@ t_node	*create_node(t_node_type type, t_token **current_token)
 
 	new_node = malloc(sizeof(t_node));
 	if (!new_node)
-		exit(1);
+		exit(1);//direct exit or return and exit in build_ast()?
 	new_node->type = type;
 	if (type == COMMAND)
 	{
@@ -76,18 +75,18 @@ t_node	*create_node(t_node_type type, t_token **current_token)
 	}
 	else if (type == REDIR)
 	{
-		if ((*current_token)->type == IN)
-			new_node->cmd.redir.redir_type = 1;
-		else if ((*current_token)->type == OUT)
-			new_node->cmd.redir.redir_type = 2;
-		else if ((*current_token)->type == APPEND)
-			new_node->cmd.redir.redir_type = 3;
-		else if ((*current_token)->type == HEREDOC)
-			new_node->cmd.redir.redir_type = 4;
+		if ((*current_token)->type == T_LESS)
+			new_node->redir.redir_type = IN;
+		else if ((*current_token)->type == T_GREAT)
+			new_node->redir.redir_type = OUT;
+		else if ((*current_token)->type == T_DGREAT)
+			new_node->redir.redir_type = APPEND;
+		else if ((*current_token)->type == T_DLESS)
+			new_node->redir.redir_type = HEREDOC;
 		*current_token = (*current_token)->next;
 		if (*current_token && (*current_token)->type == T_WORD)
 		{
-			new_node->cmd.redir.file = ft_strdup((*current_token)->value);
+			new_node->redir.file = ft_strdup((*current_token)->value);
 			*current_token = (*current_token)->next;
 		}
 		else
@@ -96,7 +95,7 @@ t_node	*create_node(t_node_type type, t_token **current_token)
 			free(new_node);
 			exit(1);
 		}
-		new_node->cmd.redir.child = NULL;
+		new_node->redir.child = NULL;
 	}
 	return (new_node);
 }
@@ -107,6 +106,7 @@ t_node	*build_ast(t_token **list)
 	t_node	*pipe_node;
 	t_node	*redir_node;
 
+	left_node = NULL;
 	while (*list && (*list)->type != T_EOF)
 	{
 		if ((*list)->type == T_WORD)
@@ -114,7 +114,9 @@ t_node	*build_ast(t_token **list)
 		else if ((*list)->type == T_LESS || (*list)->type == T_GREAT || (*list)->type == T_DLESS || (*list)->type == T_DGREAT)
 		{
 			redir_node = create_node(REDIR, list);
-			redir_node->cmd.redir.child = left_node;
+			if (!left_node && (*list)->type == T_WORD)
+				left_node = create_node(COMMAND, list);
+			redir_node->redir.child = left_node;
 			left_node = redir_node;
 		}
 		else if((*list)->type == T_PIPE)
@@ -129,8 +131,78 @@ t_node	*build_ast(t_token **list)
 	return (left_node);
 }
 
-//print_ast
-//free_ast
+void	print_ast(t_node *nodes, int depth)
+{
+	int	i;
+
+	if (!nodes)
+		return ;
+	i = 0;
+	while (i < depth)
+	{
+		printf("----");
+		i++;
+	}
+	if (nodes->type == COMMAND)
+	{
+		printf("COMMAND: ");
+		i = 0;
+		while (nodes->cmd.args[i])
+		{
+			printf("%s ", nodes->cmd.args[i]);
+			i++;
+		}
+		printf("\n");
+	}
+	else if (nodes->type == PIPE)
+	{
+		printf("PIPE: \n");
+		print_ast(nodes->pipe.left, depth + 1);
+		print_ast(nodes->pipe.right, depth + 1);
+	}
+	else if (nodes->type == REDIR)
+	{
+		printf("REDIR: ");
+		if (nodes->redir.redir_type == 0)
+			printf("< ");
+		else if (nodes->redir.redir_type == 1)
+			printf("> ");
+		else if (nodes->redir.redir_type == 2)
+			printf(">> ");
+		else if (nodes->redir.redir_type == 3)
+			printf("<< ");
+		printf("Filename/Limiter: %s\n", nodes->redir.file);
+		print_ast(nodes->redir.child, depth + 1);
+	}
+}
+void	free_ast(t_node *nodes)
+{
+	int	i;
+
+	if (!nodes)
+		return ;
+	if (nodes->type == COMMAND)
+	{
+		i = 0;
+		while (nodes->cmd.args && nodes->cmd.args[i])
+		{
+			free(nodes->cmd.args[i]);
+			i++;
+		}
+		free(nodes->cmd.args);
+	}
+	else if (nodes->type == PIPE)
+	{
+		free_ast(nodes->pipe.left);
+		free_ast(nodes->pipe.right);
+	}
+	else if (nodes->type == REDIR)
+	{
+		free(nodes->redir.file);
+		free_ast(nodes->redir.child);
+	}
+	free(nodes);
+}
 
 void	ft_parse(char *input)
 {
@@ -141,7 +213,8 @@ void	ft_parse(char *input)
 	token_list = ft_tokenize(input);
 	tmp_list = token_list;
 	nodes = build_ast(&tmp_list);
-	print_ast(nodes, 0);
+	print_ast(nodes, 0);//For test, should be removed later
+//	execution;
 	free_ast(nodes);
-	clean_tokens(token_list);
+	clean_tokens(&token_list);
 }
