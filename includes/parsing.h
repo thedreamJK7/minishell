@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 19:50:04 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/08/25 11:52:18 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/08/26 16:55:29 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,7 @@ typedef struct	s_redir{
 }				t_redir;
 
 typedef struct	s_command {
-	char	*name;         // "ls", "grep", etc.
 	char	**args;        // ["-l"], ["txt"], etc.
-	struct	s_redir redir;  // Redirection
 }				t_command;
 
 typedef struct	s_pipe {
@@ -69,8 +67,8 @@ typedef struct	s_node {
 	{
 		struct	s_command cmd;  // Command Node uchun
 		struct	s_pipe pipe;    // Pipe Node uchun
+		struct	s_redir redir;  // Redirection
 	};
-	struct s_node	*next;
 }				t_node;
 
 // Functions
@@ -79,7 +77,8 @@ void	add_tokens(t_token **list, t_token_type type, char *value);
 int		specify_tokens(char c, t_token **list, int single);
 int		handle_quotes(char *s, char c, t_token **list);
 int		handle_words(char *s, t_token **list);
-void	clean_tokens(t_token **list);//should be used later
+void	clean_tokens(t_token **list);
 void	print_tokens(t_token *list);//should be removed later
+void	free_ast(t_node *nodes);
 
 #endif
