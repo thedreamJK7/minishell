@@ -6,25 +6,29 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 12:53:25 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/08/22 13:36:09 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/08/26 17:23:40 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
 //Add new nodes to the back of link list
-static void	add_tokens(t_token **list, t_token_type type, char *value)
+void	add_tokens(t_token **list, t_token_type type, char *value)
 {
 	t_token	*new;
 	t_token	*last;
 
-	if (!value)
-		return ;
+	if (!value && type != T_EOF)
+	{
+		clean_tokens(list);
+		exit(1);
+	}
 	new = malloc(sizeof(t_token));
 	if (!new)
 	{
 		free(value);
-		return ;
+		clean_tokens(list);
+		exit(1);
 	}
 	new->type = type;
 	new->value = value;
@@ -43,22 +47,64 @@ static void	add_tokens(t_token **list, t_token_type type, char *value)
 //Specify special tokens and add to the list
 int	specify_tokens(char c, t_token **list, int single)
 {
+	char	*value;
+
 	if (!single)
 	{
 		if (c == '<')
-			add_tokens(list, T_DLESS, ft_strdup("<<"));
+		{
+			value = ft_strdup("<<");
+			if (!value)
+			{
+				clean_tokens(list);
+				exit(1);
+			}
+			add_tokens(list, T_DLESS, value);
+		}
 		else if (c == '>')
-			add_tokens(list, T_DGREAT, ft_strdup(">>"));
+		{
+			value = ft_strdup(">>");
+			if (!value)
+			{
+				clean_tokens(list);
+				exit(1);
+			}
+			add_tokens(list, T_DGREAT, value);
+		}
 		return (2);
 	}
 	else
 	{
 		if (c == '|')
-			add_tokens(list, T_PIPE, ft_strdup("|"));
+		{
+			value = ft_strdup("|");
+			if (!value)
+			{
+				clean_tokens(list);
+				exit(1);
+			}
+			add_tokens(list, T_PIPE, value);
+		}
 		else if (c == '<')
-			add_tokens(list, T_LESS, ft_strdup("<"));
+		{
+			value = ft_strdup("<");
+			if (!value)
+			{
+				clean_tokens(list);
+				exit(1);
+			}
+			add_tokens(list, T_LESS, value);
+		}
 		else if (c == '>')
-			add_tokens(list, T_GREAT, ft_strdup(">"));
+		{
+			value = ft_strdup(">");
+			if (!value)
+			{
+				clean_tokens(list);
+				exit(1);
+			}
+			add_tokens(list, T_GREAT, value);
+		}
 		return (1);
 	}
 }
@@ -74,8 +120,12 @@ int	handle_quotes(char *s, char c, t_token **list)
 	if (!end_quote)
 		return (1);
 	value = ft_substr(s, 0, end_quote - s + 1);
-	if (value)
-		add_tokens(list, T_WORD, value);
+	if (!value)
+	{
+		clean_tokens(list);
+		exit(1);
+	}
+	add_tokens(list, T_WORD, value);
 	return (end_quote - s + 1);
 }
 
@@ -90,8 +140,12 @@ int	handle_words(char *s, t_token **list)
 	while (*end && !(*end == ' ' || (*end >= '\t' && *end <= '\r')) && !ft_strchr("|><'\"", *end))
 		end++;
 	value = ft_substr(s, 0, end - s);
-	if (value && *value)
-		add_tokens(list, T_WORD, value);
+	if (!value)
+	{
+		clean_tokens(list);
+		exit(1);
+	}
+	add_tokens(list, T_WORD, value);
 	return (end - s);
 }
 
