@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 20:14:03 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/08/27 17:03:33 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/08/27 17:57:24 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,7 +187,7 @@ t_node	*build_ast(t_token **list)
 	left_node = find_left(list);
 	if (*list && (*list)->type == T_PIPE)
 	{
-		if ((*list)->next->type == T_PIPE)
+		if ((*list)->next->type == T_PIPE || (*list)->next->type == T_EOF || !left_node)
 		{
 			printf("Syntax error: Invalid pipeline");
 			free_ast(left_node);

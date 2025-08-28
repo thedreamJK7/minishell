@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 12:53:25 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/08/26 17:23:40 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/08/27 18:04:03 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,16 @@ int	specify_tokens(char c, t_token **list, int single)
 				exit(1);
 			}
 			add_tokens(list, T_DGREAT, value);
+		}
+		else
+		{
+			value = ft_strdup("|");
+			if (!value)
+			{
+				clean_tokens(list);
+				exit(1);
+			}
+			add_tokens(list, T_PIPE, value);
 		}
 		return (2);
 	}
