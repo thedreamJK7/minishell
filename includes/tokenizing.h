@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizing.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javokhir <javokhir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 22:04:04 by javokhir          #+#    #+#             */
-/*   Updated: 2025/08/27 22:23:03 by javokhir         ###   ########.fr       */
+/*   Updated: 2025/08/28 15:10:40 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ typedef enum e_token_type
 	T_LESS, //	<
 	T_DGREAT,//	>>
 	T_DLESS,//	<<
-	T_EOF//	end of file
+	T_EOF,//	end of file
+	T_VAR//		variable to be expanded
 }		t_token_type;
 
 typedef struct	s_token

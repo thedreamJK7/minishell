@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_command.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javokhir <javokhir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 23:12:38 by javokhir          #+#    #+#             */
-/*   Updated: 2025/08/28 09:23:28 by javokhir         ###   ########.fr       */
+/*   Updated: 2025/08/28 16:25:07 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_node	*create_cmd_node(t_token **list, int empty)
 	}
 	i = 0;
 	tmp = *list;
-	while (tmp && tmp->type == T_WORD)
+	while (tmp && (tmp->type == T_WORD || tmp->type == T_VAR))
 	{
 		i++;
 		tmp = tmp->next;
@@ -42,7 +42,7 @@ t_node	*create_cmd_node(t_token **list, int empty)
 	if (!new_node->cmd.args)
 		exit(1);//cleanup memery
 	i = 0;
-	while (*list && (*list)->type == T_WORD)
+	while (*list && ((*list)->type == T_WORD || (*list)->type == T_VAR))
 	{
 		new_node->cmd.args[i++] = ft_strdup((*list)->value);
 		// should be thinked to clean all the alocated memories, we need some functions for cleaning

@@ -1,16 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenizing.c                                       :+:      :+:    :+:   */
+/*   tokenizing_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javokhir <javokhir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 12:53:25 by yingzhan          #+#    #+#             */
-<<<<<<< HEAD:parsing/tokenizing.c
-/*   Updated: 2025/08/27 18:04:03 by yingzhan         ###   ########.fr       */
-=======
-/*   Updated: 2025/08/27 22:00:46 by javokhir         ###   ########.fr       */
->>>>>>> github/main:tokenizing/tokenizing_utils.c
+/*   Updated: 2025/08/28 16:41:37 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +80,7 @@ int	specify_tokens(char c, t_token **list, int single)
 				exit(1);
 			}
 			add_tokens(list, T_PIPE, value);
+			return (1);
 		}
 		return (2);
 	}
@@ -151,7 +148,7 @@ int	handle_words(char *s, t_token **list)
 	char	*value;
 
 	end = s;
-	while (*end && !(*end == ' ' || (*end >= '\t' && *end <= '\r')) 
+	while (*end && !(*end == ' ' || (*end >= '\t' && *end <= '\r'))
 		&& !ft_strchr("|><'\"", *end))
 		end++;
 	value = ft_substr(s, 0, end - s);
@@ -164,3 +161,31 @@ int	handle_words(char *s, t_token **list)
 	return (end - s);
 }
 
+//Interpret $ and add to list
+//Only [a-zA-Z_][a-zA-Z0-9_] is treated as valid t_var without $ sign
+//Otherwise taken as t_word
+int	handle_dollar(char *s, t_token **list)
+{
+	char	*value;
+	int		i;
+
+	i = 1;
+	if (!s[i])
+		return (handle_words(s, list));
+	if (s[i] == '?')
+	{
+		value = ft_strdup("?");
+		add_tokens(list, T_VAR, value);
+		return (2);
+	}
+	else if (s[i] == '_' || ft_isalpha(s[i]))
+	{
+		while (s[i + 1] == '_' || ft_isalnum(s[i + 1]))
+			i++;
+		value = ft_substr(s, 1, i);
+		add_tokens(list, T_VAR, value);
+		return (i + 1);
+	}
+	else
+		return (handle_words(s, list));
+}
