@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: javokhir <javokhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 12:14:59 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/05/17 14:30:01 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/08/27 22:45:02 by javokhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,9 @@ static void	ft_assign(char *s, int len, int nb)
 
 char	*ft_itoa(int n)
 {
-	int		i;
 	int		c;
 	char	*str;
 
-	i = 0;
 	c = ft_nmemb(n);
 	str = malloc(sizeof(char) * (c + 1));
 	if (!str)

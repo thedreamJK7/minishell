@@ -1,27 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   print_tokens.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: javokhir <javokhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/19 17:03:16 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/08/27 22:05:36 by javokhir         ###   ########.fr       */
+/*   Created: 2025/08/27 22:01:01 by javokhir          #+#    #+#             */
+/*   Updated: 2025/08/27 22:01:49 by javokhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "../includes/minishell.h"
 
-#include <stdio.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include "../libft/includes/libft.h"
-#include "../libft/includes/ft_printf.h"
-#include "../libft/includes/get_next_line.h"
-#include "parsing.h"
-#include "tokenizing.h"
+//This is a test function for ft_tokenize (which will be deleted later)
+void	print_tokens(t_token *list)
+{
+	t_token	*tmp;
 
-
-
-#endif
+	tmp = list;
+	while (tmp)
+	{
+		printf("Type: %d, Value: %s\n", tmp->type, tmp->value);
+		tmp = tmp->next;
+	}
+}
