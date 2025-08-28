@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_ast.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javokhir <javokhir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 21:46:38 by javokhir          #+#    #+#             */
-/*   Updated: 2025/08/28 09:11:02 by javokhir         ###   ########.fr       */
+/*   Updated: 2025/08/28 17:18:33 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ t_node	*build_ast(t_token **list)
 		return (NULL);
 	left_node = NULL;
 	left_node = find_left(list);
+	if (!left_node)
+		return (NULL);
 	if (*list && (*list)->type == T_PIPE)
 	{
 		if ((*list)->next->type == T_PIPE)
@@ -37,6 +39,7 @@ t_node	*build_ast(t_token **list)
 		pipe_node->pipe.left = left_node;
 		*list = (*list)->next;
 		pipe_node->pipe.right = build_ast(list);
+		
 		left_node = pipe_node;
 	}
 	return (left_node);

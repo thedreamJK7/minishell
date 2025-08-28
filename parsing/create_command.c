@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   create_command.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 23:12:38 by javokhir          #+#    #+#             */
-/*   Updated: 2025/08/28 16:25:07 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/08/29 10:37:34 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../includes/minishell.h"
 
@@ -21,13 +22,13 @@ t_node	*create_cmd_node(t_token **list, int empty)
 
 	new_node = malloc(sizeof(t_node));
 	if (!new_node)
-		exit(1);//direct exit or return and exit in build_ast()?
+		return (NULL);
 	new_node->type = COMMAND;
 	if (empty)
 	{
 		new_node->cmd.args = malloc(sizeof(char *));
 		if (!new_node->cmd.args)
-			exit(1);//cleanup memery
+			return (NULL);
 		new_node->cmd.args[0] = NULL;
 		return (new_node);
 	}
@@ -40,13 +41,11 @@ t_node	*create_cmd_node(t_token **list, int empty)
 	}
 	new_node->cmd.args = malloc(sizeof(char *) * (i + 1));
 	if (!new_node->cmd.args)
-		exit(1);//cleanup memery
+		return (NULL);
 	i = 0;
 	while (*list && ((*list)->type == T_WORD || (*list)->type == T_VAR))
 	{
 		new_node->cmd.args[i++] = ft_strdup((*list)->value);
-		// should be thinked to clean all the alocated memories, we need some functions for cleaning
-		// should be checked allocation fails and if fails, free previous array elements
 		*list = (*list)->next;
 	}
 	new_node->cmd.args[i] = NULL;

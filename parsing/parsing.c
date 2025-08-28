@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 20:14:03 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/08/28 16:17:41 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/08/29 10:37:13 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ void	add_cmd_args(t_node *cmd_node, t_token **list)
 		j++;
 	}
 	value = ft_strdup((*list)->value);
-	if (!value)
-		exit(1);//cleanup memory
 	new_array[i] = value;
 	new_array[i + 1] = NULL;
 	free(cmd_node->cmd.args);
@@ -79,17 +77,19 @@ t_node	*find_left(t_token **list)
 		return (cmd_node);
 }
 
-void	ft_parse(char *input)
+void	ft_parse(char **input)
 {
 	t_token	*token_list;
 	t_token	*tmp_list;
 	t_node	*nodes;
 
-	token_list = ft_tokenize(input);
+	token_list = ft_tokenize(*input);
 	tmp_list = token_list;
 	nodes = build_ast(&tmp_list);
+	if (!nodes)
+		free(*input);
 	print_ast(nodes, 0);//For test, should be removed later
-//	execution;
+	//	execution;
 	free_ast(nodes);
 	clean_tokens(&token_list);
 }

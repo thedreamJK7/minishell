@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_tokens.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javokhir <javokhir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 21:42:40 by javokhir          #+#    #+#             */
-/*   Updated: 2025/08/27 21:45:35 by javokhir         ###   ########.fr       */
+/*   Updated: 2025/08/28 15:57:31 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ void	clean_tokens(t_token **list)
 	while (*list)
 	{
 		tmp = (*list)->next;
-		free((*list)->value);
+		if ((*list)->value)
+			free((*list)->value);
 		free(*list);
 		*list = tmp;
 	}
