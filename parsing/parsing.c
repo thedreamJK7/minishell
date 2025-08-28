@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javokhir <javokhir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 20:14:03 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/08/28 09:37:56 by javokhir         ###   ########.fr       */
+/*   Updated: 2025/08/28 16:17:41 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ t_node	*find_left(t_token **list)
 	last_redir = NULL;
 	while (*list && (*list)->type != T_EOF && (*list)->type != T_PIPE)
 	{
-		if ((*list)->type == T_WORD)
+		if ((*list)->type == T_WORD || (*list)->type == T_VAR)
 		{
 			if (!cmd_node)
 				cmd_node = create_cmd_node(list, 0);
