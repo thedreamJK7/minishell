@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizing.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: javokhir <javokhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 12:53:25 by yingzhan          #+#    #+#             */
+<<<<<<< HEAD:parsing/tokenizing.c
 /*   Updated: 2025/08/27 18:04:03 by yingzhan         ###   ########.fr       */
+=======
+/*   Updated: 2025/08/27 22:00:46 by javokhir         ###   ########.fr       */
+>>>>>>> github/main:tokenizing/tokenizing_utils.c
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +151,8 @@ int	handle_words(char *s, t_token **list)
 	char	*value;
 
 	end = s;
-	while (*end && !(*end == ' ' || (*end >= '\t' && *end <= '\r')) && !ft_strchr("|><'\"", *end))
+	while (*end && !(*end == ' ' || (*end >= '\t' && *end <= '\r')) 
+		&& !ft_strchr("|><'\"", *end))
 		end++;
 	value = ft_substr(s, 0, end - s);
 	if (!value)
@@ -159,32 +164,3 @@ int	handle_words(char *s, t_token **list)
 	return (end - s);
 }
 
-//This is a clean function for end of grogram
-void	clean_tokens(t_token **list)
-{
-	t_token	*tmp;
-
-	if (!list)
-		return ;
-	while (*list)
-	{
-		tmp = (*list)->next;
-		free((*list)->value);
-		free(*list);
-		*list = tmp;
-	}
-	*list = NULL;
-}
-
-//This is a test function for ft_tokenize (which will be deleted later)
-void	print_tokens(t_token *list)
-{
-	t_token *tmp;
-
-	tmp = list;
-	while (tmp)
-	{
-		printf("Type: %d, Value: %s\n", tmp->type, tmp->value);
-		tmp = tmp->next;
-	}
-}
