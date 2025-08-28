@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   clean_tokens.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: javokhir <javokhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/19 17:03:16 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/08/27 22:05:36 by javokhir         ###   ########.fr       */
+/*   Created: 2025/08/27 21:42:40 by javokhir          #+#    #+#             */
+/*   Updated: 2025/08/27 21:45:35 by javokhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "../includes/minishell.h"
 
-#include <stdio.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include "../libft/includes/libft.h"
-#include "../libft/includes/ft_printf.h"
-#include "../libft/includes/get_next_line.h"
-#include "parsing.h"
-#include "tokenizing.h"
+//This is a clean function for end of grogram
+void	clean_tokens(t_token **list)
+{
+	t_token	*tmp;
 
-
-
-#endif
+	if (!list)
+		return ;
+	while (*list)
+	{
+		tmp = (*list)->next;
+		free((*list)->value);
+		free(*list);
+		*list = tmp;
+	}
+	*list = NULL;
+}

@@ -6,30 +6,18 @@
 /*   By: javokhir <javokhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 19:50:04 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/08/27 21:28:33 by javokhir         ###   ########.fr       */
+/*   Updated: 2025/08/28 09:20:35 by javokhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSING_H
 # define PARSING_H
 
-typedef enum e_token_type
-{
-	T_WORD,//	normal word
-	T_PIPE,//	|
-	T_GREAT,//	>
-	T_LESS, //	<
-	T_DGREAT,//	>>
-	T_DLESS,//	<<
-	T_EOF//	end of file
-} t_token_type;
+// Errors
+# define SYNTAX_ERROR1 "Syntax error: Invalid pipeline"
+# define SYNTAX_ERROR2 "Syntax error: Invalid filename/limiter of redirection"
 
-typedef struct	s_token
-{
-	t_token_type	type;
-	char			*value; //command
-	struct s_token	*next; // next node
-}	t_token;
+# include "tokenizing.h"
 
 typedef enum	e_node_type
 {
@@ -62,7 +50,7 @@ typedef struct	s_pipe {
 }				t_pipe;
 
 typedef struct	s_node {
-	t_node_type	type;     // COMMAND, PIPE
+	t_node_type	type;     // COMMAND, PIPE, REDIR
 	union
 	{
 		struct	s_command cmd;  // Command Node uchun
@@ -71,14 +59,12 @@ typedef struct	s_node {
 	};
 }				t_node;
 
-// Functions
 void	ft_parse(char *input);
-void	add_tokens(t_token **list, t_token_type type, char *value);
-int		specify_tokens(char c, t_token **list, int single);
-int		handle_quotes(char *s, char c, t_token **list);
-int		handle_words(char *s, t_token **list);
-void	clean_tokens(t_token **list);
-void	print_tokens(t_token *list);//should be removed later
 void	free_ast(t_node *nodes);
+void	print_ast(t_node *nodes, int depth);//should be removed later or better to keep it
+t_node	*build_ast(t_token **list);
+t_node	*find_left(t_token **list);
+t_node	*create_redir_node(t_token **list);
+t_node	*create_cmd_node(t_token **list, int empty);
 
 #endif
