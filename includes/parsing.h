@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 19:50:04 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/08/28 17:18:27 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/08/29 14:18:55 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ typedef struct	s_pipe {
 
 typedef struct	s_node {
 	t_node_type	type;     // COMMAND, PIPE, REDIR
-	int			fail;
 	union
 	{
 		struct	s_command cmd;  // Command Node uchun
@@ -61,7 +60,7 @@ typedef struct	s_node {
 }				t_node;
 
 
-void	ft_parse(char *input);
+void	ft_parse(char **input);
 void	free_ast(t_node *nodes);
 void	print_ast(t_node *nodes, int depth);//should be removed later or better to keep it
 t_node	*build_ast(t_token **list);

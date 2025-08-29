@@ -6,13 +6,13 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 22:56:40 by javokhir          #+#    #+#             */
-/*   Updated: 2025/08/28 15:45:57 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/08/29 12:07:45 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-t_node	*create_redir_node(t_token **list, t_token	**head_list)
+t_node	*create_redir_node(t_token **list)
 {
 	t_node	*new_node;
 	t_token	*tmp;
@@ -39,9 +39,9 @@ t_node	*create_redir_node(t_token **list, t_token	**head_list)
 	else
 	{
 		printf(SYNTAX_ERROR2);
-		clean_tokens(head_list);
 		free(new_node);
-		exit(1);//cleanup memery
+		return (NULL);
+		//exit(1);//cleanup memery
 	}
 	new_node->redir.child = NULL;
 	*list = tmp;

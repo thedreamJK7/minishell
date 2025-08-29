@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 21:46:38 by javokhir          #+#    #+#             */
-/*   Updated: 2025/08/28 17:18:33 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/08/29 20:16:12 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ t_node	*build_ast(t_token **list)
 		pipe_node->pipe.left = left_node;
 		*list = (*list)->next;
 		pipe_node->pipe.right = build_ast(list);
-		
 		left_node = pipe_node;
 	}
 	return (left_node);

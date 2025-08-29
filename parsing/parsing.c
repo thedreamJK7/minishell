@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 20:14:03 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/08/29 10:37:13 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/08/29 11:58:00 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,10 @@ void	ft_parse(char **input)
 	tmp_list = token_list;
 	nodes = build_ast(&tmp_list);
 	if (!nodes)
+	{
+		printf("node null qaytardi");
 		free(*input);
+	}
 	print_ast(nodes, 0);//For test, should be removed later
 	//	execution;
 	free_ast(nodes);
