@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 12:53:25 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/08/28 16:41:37 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/08/29 13:04:28 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ int	specify_tokens(char c, t_token **list, int single)
 
 //Interpret quotation marks and add to list
 //Unclosed quotation marks treated as normal words until seperated by special tokens
-int	handle_quotes(char *s, char c, t_token **list)
+/*int	handle_quotes(char *s, char c, t_token **list)
 {
 	char	*end_quote;
 	char	*value;
@@ -138,11 +138,11 @@ int	handle_quotes(char *s, char c, t_token **list)
 	}
 	add_tokens(list, T_WORD, value);
 	return (end_quote - s + 1);
-}
+}*/
 
 //Interpret normal words and add to list
 //Backslash and semicolon treated as normal words
-int	handle_words(char *s, t_token **list)
+/*int	handle_words(char *s, t_token **list)
 {
 	char	*end;
 	char	*value;
@@ -159,19 +159,19 @@ int	handle_words(char *s, t_token **list)
 	}
 	add_tokens(list, T_WORD, value);
 	return (end - s);
-}
+}*/
 
 //Interpret $ and add to list
 //Only [a-zA-Z_][a-zA-Z0-9_] is treated as valid t_var without $ sign
 //Otherwise taken as t_word
-int	handle_dollar(char *s, t_token **list)
+int	handle_dollar(char *s, t_token **list, int quote)
 {
 	char	*value;
 	int		i;
 
 	i = 1;
 	if (!s[i])
-		return (handle_words(s, list));
+		return (handle_words(s, quote, list));
 	if (s[i] == '?')
 	{
 		value = ft_strdup("?");
@@ -187,5 +187,5 @@ int	handle_dollar(char *s, t_token **list)
 		return (i + 1);
 	}
 	else
-		return (handle_words(s, list));
+		return (handle_words(s, quote, list));
 }
