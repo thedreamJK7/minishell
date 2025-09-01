@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   clean_tokens.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javokhir <javokhir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 21:42:40 by javokhir          #+#    #+#             */
-/*   Updated: 2025/08/27 21:45:35 by javokhir         ###   ########.fr       */
+/*   Updated: 2025/09/01 16:07:37 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
 //This is a clean function for end of grogram
-void	clean_tokens(t_token **list)
+void	clean_tokens(t_token **list, int exit_flag)
 {
 	t_token	*tmp;
 
@@ -27,4 +27,6 @@ void	clean_tokens(t_token **list)
 		*list = tmp;
 	}
 	*list = NULL;
+	if (exit_flag)
+		exit(1);
 }

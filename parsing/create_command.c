@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 23:12:38 by javokhir          #+#    #+#             */
-/*   Updated: 2025/08/28 16:25:07 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/01 12:01:00 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,12 @@ t_node	*create_cmd_node(t_token **list, int empty)
 	i = 0;
 	while (*list && ((*list)->type == T_WORD || (*list)->type == T_VAR))
 	{
+		if (!(*list)->value)
+		{
+			new_node->cmd.args[0] = NULL;
+			*list = (*list)->next;
+			return (new_node);
+		}
 		new_node->cmd.args[i++] = ft_strdup((*list)->value);
 		// should be thinked to clean all the alocated memories, we need some functions for cleaning
 		// should be checked allocation fails and if fails, free previous array elements
