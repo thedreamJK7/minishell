@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 19:50:04 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/08/29 14:18:55 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/01 22:25:34 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef enum	e_redir_type
 
 typedef struct	s_redir{
 	t_redir_type	redir_type;// IN, OUT..
+	struct s_node	*cmd;
 	char			*file;// Filename or limiter
 	struct s_node	*child;// Node for redirection
 }				t_redir;
@@ -61,11 +62,11 @@ typedef struct	s_node {
 
 
 void	ft_parse(char **input);
-void	free_ast(t_node *nodes);
+//void	free_ast(t_node *nodes);
 void	print_ast(t_node *nodes, int depth);//should be removed later or better to keep it
-t_node	*build_ast(t_token **list);
-t_node	*find_left(t_token **list);
-t_node	*create_redir_node(t_token **list);
-t_node	*create_cmd_node(t_token **list, int empty);
+// t_node	*build_ast(t_token **list);
+// t_node	*find_left(t_token **list);
+// t_node	*create_redir_node(t_token **list);
+// t_node	*create_cmd_node(t_token **list, int empty);
 
 #endif
