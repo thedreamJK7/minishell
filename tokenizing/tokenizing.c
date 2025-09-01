@@ -6,29 +6,11 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 22:19:04 by javokhir          #+#    #+#             */
-/*   Updated: 2025/08/29 13:20:51 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/01 16:08:06 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-/*int	handle_quotes(char *s, char c, t_token **list)
-{
-	char	*end_quote;
-	char	*value;
-
-	end_quote = ft_strchr(s + 1, (int)c);
-	if (!end_quote)
-		return (1);
-	value = ft_substr(s, 0, end_quote - s + 1);
-	if (!value)
-	{
-		clean_tokens(list);
-		exit(1);
-	}
-	add_tokens(list, T_WORD, value);
-	return (end_quote - s + 1);
-}*/
 
 int	change_quote(char c, int *quote)
 {
@@ -38,6 +20,8 @@ int	change_quote(char c, int *quote)
 			*quote = q_close;
 		else if (*quote == q_close)
 			*quote = q_sopen;
+		else
+			return (0);
 	}
 	else if (c == '"')
 	{
@@ -45,62 +29,66 @@ int	change_quote(char c, int *quote)
 			*quote = q_close;
 		else if (*quote == q_close)
 			*quote = q_dopen;
+		else
+			return (0);
 	}
 	return (1);
 }
 
-void	ft_realloc(int pos, char c, char **value)
+//Specify special tokens and add to the list
+int	specify_tokens(char *s, t_token **list)
 {
-	char	*tmp;
-	int		i;
-
-	tmp = malloc(pos + 2);
-//	if (!tmp)
-//		return (NULL);
-	i = 0;
-	while (i < pos)
-	{
-		tmp[i] = (*value)[i];
-		i++;
-	}
-	tmp[pos] = c;
-	tmp[pos + 1] = 0;
-	free (*value);
-	*value = tmp;
-}
-
-int	handle_words(char *s, int quote, t_token **list)
-{
-	char	*start;
-	int		pos;
 	char	*value;
 
 	value = NULL;
-	start = s;
-	pos = 0;
-	while(*s)
+	if (*(s + 1) && *(s + 1) == *s)
+		return (specify_tokens_double(&value, *s, list));
+	else
 	{
-		if (*s == '\'' || *s == '"')
-			s += change_quote(*s, &quote);
-		if (!quote && *s != '\'' && *s != '"')
-		{
-			if (!*s || *s == ' ' || (*s >= '\t' && *s <= '\r') || ft_strchr("|><", *s))
-			{
-				add_tokens(list, T_WORD, value);
-				return (s - start);
-			}
-			ft_realloc(pos, *s, &value);
-			pos++;
-		}
-		else if (quote && *s != '\'' && *s != '"')
-		{
-			ft_realloc(pos, *s, &value);
-			pos++;
-		}
-		s++;
+		specify_tokens_single(&value, *s, list);
+		return (1);
 	}
+}
+
+int	handle_words(char *s, int *quote, t_token **list)
+{
+	char	*start;
+	char	*value;
+
+	start = s;
+	value = NULL;
+	add_word(&s, quote, list, &value);
 	add_tokens(list, T_WORD, value);
 	return (s - start);
+}
+
+//Interpret $ and add to list
+//Only [a-zA-Z_][a-zA-Z0-9_] is treated as valid t_var without $ sign
+//Otherwise taken as t_word
+int	handle_dollar(char *s, t_token **list, int quote)
+{
+	char	*value;
+	int		i;
+
+	i = 1;
+	if (!s[i])
+		return (handle_words(s, &quote, list));
+	if (s[i] == '?')
+	{
+		value = ft_strdup("?");
+		add_tokens(list, T_VAR, value);
+		return (2);
+	}
+	else if (s[i] == '_' || ft_isalpha(s[i]))
+	{
+		while (s[i + 1] == '_' || ft_isalnum(s[i + 1]))
+			i++;
+		value = ft_substr(s, 1, i);
+		add_tokens(list, T_VAR, value);
+		return (i + 1);
+	}
+	else
+		return (handle_words(s, &quote, list));
 }
 
 t_token	*ft_tokenize(char *s)
@@ -116,18 +104,14 @@ t_token	*ft_tokenize(char *s)
 	{
 		while (s[i] == ' ' || (s[i] >= '\t' && s[i] <= '\r'))
 			i++;
-		if (!s[i])
-			break ;
 		if (s[i] == '\'' || s[i] == '"')
 			i += change_quote(s[i], &quote);
-		if (!quote && ft_strchr("|><", s[i]) && s[i + 1] && s[i + 1] == s[i])
-			i += specify_tokens(s[i], &list, 0);
-		else if (!quote && ft_strchr("|><", s[i]) && !(s[i + 1] && s[i + 1] == s[i]))
-			i += specify_tokens(s[i], &list, 1);
+		if (s[i] && !quote && ft_strchr("|><", s[i]))
+			i += specify_tokens(s + i, &list);
 		else if ((!quote || quote == q_dopen) && s[i] == '$')
 			i += handle_dollar(s + i, &list, quote);
-		else
-			i += handle_words(s + i, quote, &list);
+		else if (s[i] && s[i] != ' ' && !(s[i] >= '\t' && s[i] <= '\r'))
+			i += handle_words(s + i, &quote, &list);
 	}
 	add_tokens(&list, T_EOF, NULL);
 	print_tokens(list);//should be removed later

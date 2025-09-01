@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_ast.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javokhir <javokhir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 21:46:38 by javokhir          #+#    #+#             */
-/*   Updated: 2025/08/28 09:11:02 by javokhir         ###   ########.fr       */
+/*   Updated: 2025/09/01 15:55:10 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_node	*build_ast(t_token **list)
 		{
 			printf(SYNTAX_ERROR1);
 			free_ast(left_node);
-			clean_tokens(list);
+			clean_tokens(list, 1);
 			exit(1);//cleanup memery
 		}
 		pipe_node = malloc(sizeof(t_node));
