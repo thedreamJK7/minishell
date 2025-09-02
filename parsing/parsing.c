@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 20:14:03 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/01 22:25:57 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/02 21:00:09 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	add_cmd_args(t_node *cmd_node, t_token **list)
 		i++;
 	new_array = malloc(sizeof(char *) * (i + 2));
 	if (!new_array)
-		exit(1);//cleanup memery
+		exit(1); //cleanup memory
 	j = 0;
 	while (j < i)
 	{
@@ -45,7 +45,7 @@ t_node	*find_left(t_token **list)
 	t_node	*redir_node;
 	t_node	*last_redir;
 
-	// <<1 <<2 rev>outline
+	// <<1 <<2 rev>outline 
 	cmd_node = NULL;
 	redir_node = NULL;
 	last_redir = NULL;
@@ -76,6 +76,8 @@ t_node	*find_left(t_token **list)
 	else
 		return (cmd_node);
 }
+
+// <<1 <<2 rev > outline
 
 // void	ft_parse(char **input)
 // {

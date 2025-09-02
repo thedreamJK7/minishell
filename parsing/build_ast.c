@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 21:46:38 by javokhir          #+#    #+#             */
-/*   Updated: 2025/09/01 11:57:15 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/02 21:02:49 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_node	*build_ast(t_token **list)
 			printf(SYNTAX_ERROR1);
 			free_ast(left_node);
 			clean_tokens(list);
-			exit(1);//cleanup memery
+			exit(1); //cleanup memery
 		}
 		pipe_node = malloc(sizeof(t_node));
 		if (!pipe_node)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_ast.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javokhir <javokhir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 21:31:07 by javokhir          #+#    #+#             */
-/*   Updated: 2025/08/27 22:13:44 by javokhir         ###   ########.fr       */
+/*   Updated: 2025/09/02 15:12:29 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ void	print_ast(t_node *nodes, int depth)
 	{
 		printf("COMMAND: ");
 		i = 0;
-		while (nodes->cmd.args[i])
+		while (nodes->cmd.cmd_token)
 		{
-			printf("%s ", nodes->cmd.args[i]);
-			i++;
+			printf("%s ", nodes->cmd.cmd_token->value);
+			nodes->cmd.cmd_token = nodes->cmd.cmd_token->next;
 		}
 		printf("\n");
 	}
