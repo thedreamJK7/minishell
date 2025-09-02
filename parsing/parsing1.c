@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 14:37:42 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/01 23:36:28 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/02 11:06:53 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ t_node *createNode(t_node_type type)
 	node->type = type;
 	node->pipe.left = NULL;
 	node->pipe.right = NULL;
-	node->redir.cmd = NULL;
 	node->redir.file = NULL;
 	node->redir.child = NULL;
 	return (node);
@@ -100,7 +99,7 @@ static void	freeAST(t_node *node)
         freeAST(node->pipe.right);
     } else if (node->type == REDIR)
 	{
-        freeAST(node->redir.cmd);
+        //freeAST(node->redir.cmd);
 		freeAST(node->redir.child);
     }
     free(node);

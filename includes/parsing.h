@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 19:50:04 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/01 22:25:34 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/02 11:04:36 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ typedef enum	e_redir_type
 
 typedef struct	s_redir{
 	t_redir_type	redir_type;// IN, OUT..
-	struct s_node	*cmd;
 	char			*file;// Filename or limiter
 	struct s_node	*child;// Node for redirection
 }				t_redir;
