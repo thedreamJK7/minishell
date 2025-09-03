@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   expanding.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/19 17:03:16 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/02 16:04:10 by yingzhan         ###   ########.fr       */
+/*   Created: 2025/09/02 16:14:06 by yingzhan          #+#    #+#             */
+/*   Updated: 2025/09/02 17:33:19 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef EXPANDING_H
+# define EXPANDING_H
 
-#include <stdio.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include "../libft/includes/libft.h"
-#include "../libft/includes/ft_printf.h"
-#include "../libft/includes/get_next_line.h"
-#include "parsing.h"
+typedef struct s_shell
+{
+	char	**env;
+	int		exit_code;
+}	t_shell;
+
 #include "tokenizing.h"
-#include "expanding.h"
-
-
+#include "parsing.h"
 
 #endif

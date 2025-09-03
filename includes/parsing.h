@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javokhir <javokhir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 19:50:04 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/08/28 09:20:35 by javokhir         ###   ########.fr       */
+/*   Updated: 2025/09/02 16:30:26 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ typedef struct	s_redir{
 }				t_redir;
 
 typedef struct	s_command {
-	char	**args;        // ["-l"], ["txt"], etc.
+	t_token	*args;        // ["-l"], ["txt"], etc.
 }				t_command;
 
 typedef struct	s_pipe {
