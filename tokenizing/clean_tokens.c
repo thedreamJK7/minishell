@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   clean_tokens.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/27 21:42:40 by javokhir          #+#    #+#             */
-/*   Updated: 2025/09/01 16:07:37 by yingzhan         ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2025/09/03 17:13:14 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../includes/minishell.h"
 
@@ -22,7 +23,8 @@ void	clean_tokens(t_token **list, int exit_flag)
 	while (*list)
 	{
 		tmp = (*list)->next;
-		free((*list)->value);
+		if ((*list)->value)
+			free((*list)->value);
 		free(*list);
 		*list = tmp;
 	}

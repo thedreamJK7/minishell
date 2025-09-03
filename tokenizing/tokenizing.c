@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizing.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 22:19:04 by javokhir          #+#    #+#             */
-/*   Updated: 2025/09/01 16:08:06 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/03 17:13:50 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,6 @@ t_token	*ft_tokenize(char *s)
 			i += handle_words(s + i, &quote, &list);
 	}
 	add_tokens(&list, T_EOF, NULL);
-	print_tokens(list);//should be removed later
+	//print_tokens(list);//should be removed later
 	return (list);
 }
