@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_ast.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javokhir <javokhir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 21:31:07 by javokhir          #+#    #+#             */
-/*   Updated: 2025/08/27 22:13:44 by javokhir         ###   ########.fr       */
+/*   Updated: 2025/09/03 15:45:56 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,17 @@ void	print_ast(t_node *nodes, int depth)
 	if (nodes->type == COMMAND)
 	{
 		printf("COMMAND: ");
-		i = 0;
-		while (nodes->cmd.args[i])
+		while (nodes->cmd.cmd_token)
 		{
-			printf("%s ", nodes->cmd.args[i]);
-			i++;
+			printf("%s ", nodes->cmd.cmd_token->value);
+			nodes->cmd.cmd_token = nodes->cmd.cmd_token->next;
+		}
+		printf("\n");
+		printf("REDIR: ");
+		while (nodes->cmd.redir_token)
+		{
+			printf("%i %s", nodes->cmd.redir_token->redir_type, nodes->cmd.redir_token->file);
+			nodes->cmd.redir_token = nodes->cmd.redir_token->next;
 		}
 		printf("\n");
 	}
@@ -40,19 +46,5 @@ void	print_ast(t_node *nodes, int depth)
 		printf("PIPE: \n");
 		print_ast(nodes->pipe.left, depth + 1);
 		print_ast(nodes->pipe.right, depth + 1);
-	}
-	else if (nodes->type == REDIR)
-	{
-		printf("REDIR: ");
-		if (nodes->redir.redir_type == 0)
-			printf("< ");
-		else if (nodes->redir.redir_type == 1)
-			printf("> ");
-		else if (nodes->redir.redir_type == 2)
-			printf(">> ");
-		else if (nodes->redir.redir_type == 3)
-			printf("<< ");
-		printf("Filename/Limiter: %s\n", nodes->redir.file);
-		print_ast(nodes->redir.child, depth + 1);
 	}
 }

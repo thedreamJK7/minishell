@@ -5,10 +5,11 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/20 19:50:04 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/02 16:30:26 by yingzhan         ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2025/09/03 17:49:52 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef PARSING_H
 # define PARSING_H
@@ -34,14 +35,17 @@ typedef enum	e_redir_type
 	HEREDOC    // <<
 }	t_redir_type;
 
-typedef struct	s_redir{
+//ls > output.txt -l >>1
+typedef struct	s_redir_token{
 	t_redir_type	redir_type;// IN, OUT..
+	//t_command		cmd;
 	char			*file;// Filename or limiter
-	struct s_node	*child;// Node for redirection
-}				t_redir;
+	struct s_redir_token	*next;// token for redirection
+}				t_redir_token;
 
 typedef struct	s_command {
-	t_token	*args;        // ["-l"], ["txt"], etc.
+	t_token			*cmd_token;        // ["-l"], ["txt"], etc.
+	t_redir_token	*redir_token;            // Redirection node if exists
 }				t_command;
 
 typedef struct	s_pipe {
@@ -55,16 +59,16 @@ typedef struct	s_node {
 	{
 		struct	s_command cmd;  // Command Node uchun
 		struct	s_pipe pipe;    // Pipe Node uchun
-		struct	s_redir redir;  // Redirection
 	};
 }				t_node;
 
-void	ft_parse(char *input);
-void	free_ast(t_node *nodes);
+
+void	ft_parse(char **input);
+//void	free_ast(t_node *nodes);
 void	print_ast(t_node *nodes, int depth);//should be removed later or better to keep it
-t_node	*build_ast(t_token **list);
-t_node	*find_left(t_token **list);
-t_node	*create_redir_node(t_token **list);
-t_node	*create_cmd_node(t_token **list, int empty);
+// t_node	*build_ast(t_token **list);
+// t_node	*find_left(t_token **list);
+// t_node	*create_redir_node(t_token **list);
+// t_node	*create_cmd_node(t_token **list, int empty);
 
 #endif

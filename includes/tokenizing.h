@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizing.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 22:04:04 by javokhir          #+#    #+#             */
-/*   Updated: 2025/09/01 16:06:07 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/03 17:12:49 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ typedef enum e_quote_type
 
 typedef struct	s_token
 {
-		t_token_type	type;
-		char			*value; //command
-		struct s_token	*next; // next node
+	t_token_type	type;
+	char			*value; //command
+	struct s_token	*next; // next node
 }		t_token;
 
 
