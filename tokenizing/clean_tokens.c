@@ -5,15 +5,16 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/27 21:42:40 by javokhir          #+#    #+#             */
-/*   Updated: 2025/08/28 15:57:31 by jkubaev          ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2025/09/03 17:13:14 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../includes/minishell.h"
 
 //This is a clean function for end of grogram
-void	clean_tokens(t_token **list)
+void	clean_tokens(t_token **list, int exit_flag)
 {
 	t_token	*tmp;
 
@@ -28,4 +29,6 @@ void	clean_tokens(t_token **list)
 		*list = tmp;
 	}
 	*list = NULL;
+	if (exit_flag)
+		exit(1);
 }

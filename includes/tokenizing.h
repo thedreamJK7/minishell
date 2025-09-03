@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 22:04:04 by javokhir          #+#    #+#             */
-/*   Updated: 2025/09/02 12:51:14 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/03 17:12:49 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,13 @@ typedef enum e_token_type
 	T_VAR//		variable to be expanded
 }		t_token_type;
 
+typedef enum e_quote_type
+{
+	q_close,
+	q_sopen,
+	q_dopen,
+}	t_quote_type;
+
 typedef struct	s_token
 {
 	t_token_type	type;
@@ -36,11 +43,11 @@ typedef struct	s_token
 //	Functions
 t_token	*ft_tokenize(char *s);
 void	print_tokens(t_token *list);
+int		change_quote(char c, int *quote);
 void	add_tokens(t_token **list, t_token_type type, char *value);
-int		specify_tokens(char c, t_token **list, int single);
-int		handle_quotes(char *s, char c, t_token **list);
-int		handle_words(char *s, t_token **list);
-int		handle_dollar(char *s, t_token **list);
-void	clean_tokens(t_token **list);
+void	specify_tokens_single(char **value, char c, t_token **list);
+int		specify_tokens_double(char **value, char c, t_token **list);
+void	add_word(char **s, int *quote, t_token **list, char **value);
+void	clean_tokens(t_token **list, int exit_flag);
 
 #endif
