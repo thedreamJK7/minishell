@@ -12,6 +12,8 @@ SRCS = main.c \
 	./parsing/addRedir.c ./parsing/cleanAST.c ./parsing/createNode.c \
 	./parsing/isRedirection.c ./parsing/parseCommand.c \
 	./parsing/parseExpression.c ./parsing/parseRedirection.c \
+	./parsing/parsing1.c ./parsing/print_ast.c ./expanding/expanding.c \
+	./expanding/print_exps.c
 
 OBJS = $(SRCS:.c=.o)
 
