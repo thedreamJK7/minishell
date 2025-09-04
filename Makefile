@@ -8,7 +8,8 @@ INCLUDES = -I./includes/ -I./libft/includes/
 SRCS = main.c \
 	./tokenizing/tokenizing.c ./tokenizing/clean_tokens.c \
 	./tokenizing/print_tokens.c ./tokenizing/tokenizing_utils.c \
-	./parsing/parsing1.c ./parsing/print_ast.c
+	./parsing/parsing1.c ./parsing/print_ast.c ./expanding/expanding.c \
+	./expanding/print_exps.c
 
 OBJS = $(SRCS:.c=.o)
 

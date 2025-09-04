@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing1.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 14:37:42 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/03 15:44:55 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/04 12:42:42 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_node *createNode(t_node_type type)
 
 void free_token_list(t_token *list) {
     t_token	*tmp;
-	
+
     while (list)
 	{
 		tmp = list;
@@ -40,17 +40,17 @@ void free_token_list(t_token *list) {
     }
 }
 
-static void	freeAST(t_node *node) 
+static void	freeAST(t_node *node)
 {
-    if (node == NULL) 
+    if (node == NULL)
 		return ;
     if (node->type == COMMAND)
 	{
 		free_token_list(node->cmd.cmd_token);
-		// if (node->cmd.redir) 
+		// if (node->cmd.redir)
 		// 	freeAST(node->cmd.redir->child);
 	}
-	else if (node->type == PIPE) 
+	else if (node->type == PIPE)
 	{
         freeAST(node->pipe.left);
         freeAST(node->pipe.right);
@@ -82,7 +82,7 @@ void add_arg(t_node *cmd, t_token **list)
 
 int	is_redirection(t_token_type type)
 {
-	return (type == T_LESS || type == T_GREAT || type == T_DLESS 
+	return (type == T_LESS || type == T_GREAT || type == T_DLESS
 		|| type == T_DGREAT);
 }
 
@@ -136,7 +136,7 @@ t_node	*parse_command(t_token **list)
 	t_node	*node;
 	t_token	*tmp;
 	t_redir_token	*redir;
-	
+
 	tmp = *list;
 	node = createNode(COMMAND);
 	if (!node)
@@ -201,15 +201,17 @@ void	ft_parse(char **input)
 	t_node	*nodes;
 
 	token_list = ft_tokenize(*input);
+	print_tokens(token_list);
 	tmp_list = token_list;
 	nodes = parse_expression(&tmp_list);
 	if (!nodes)
 	{
 		printf("returned null\n");
-		clean_tokens(&token_list);
+		clean_tokens(&token_list, 0);
 		return ;
 	}
-	print_ast(nodes, 0);
+//	print_ast(nodes, 0);
+	print_exp(nodes);
 	freeAST(nodes);
-	clean_tokens(&token_list);
+	clean_tokens(&token_list, 0);
 }

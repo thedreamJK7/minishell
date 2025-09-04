@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_ast.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 21:31:07 by javokhir          #+#    #+#             */
-/*   Updated: 2025/09/03 15:45:56 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/04 12:40:06 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	print_ast(t_node *nodes, int depth)
 {
 	int	i;
-
+	
 	if (!nodes)
 		return ;
 	i = 0;
