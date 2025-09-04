@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2025/09/04 12:05:56 by yingzhan         ###   ########.fr       */
+/*   Created: 2025/08/20 19:50:04 by jkubaev           #+#    #+#             */
+/*   Updated: 2025/09/04 14:56:48 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,17 @@ typedef struct	s_node {
 }				t_node;
 
 
-void	ft_parse(char **input);
-//void	free_ast(t_node *nodes);
-void	print_ast(t_node *nodes, int depth);//should be removed later or better to keep it
-// t_node	*build_ast(t_token **list);
-// t_node	*find_left(t_token **list);
-// t_node	*create_redir_node(t_token **list);
-// t_node	*create_cmd_node(t_token **list, int empty);
+void			ft_parse(char **input);
+void			print_ast(t_node *nodes, int depth); // Test
+t_node 			*createNode(t_node_type type);
+void			free_token_list(t_token *list);
+void			free_redir_list(t_redir_token *list);
+void			freeAST(t_node *node);
+int				add_arg(t_node *cmd, t_token **list);
+int				is_redirection(t_token_type type);
+void			add_redir(t_node *cmd_node, t_redir_token *redir);
+t_redir_token	*parseRedirection(t_token **list);
+t_node			*parse_command(t_token **list);
+t_node			*parse_expression(t_token **list);
 
 #endif
