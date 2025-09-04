@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 16:16:19 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/04 14:43:04 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/04 15:40:44 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ void	expand_var(t_token **token, t_shell *shell)
 		value = ft_strdup(var);
 	if (!value)
 		return ;//need clean up memory
-	free((*token)->value);
 	(*token)->value = value;
 	(*token)->type = T_WORD;
 }
