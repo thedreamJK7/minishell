@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 21:31:07 by javokhir          #+#    #+#             */
-/*   Updated: 2025/09/03 15:45:56 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/03 23:12:40 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,24 @@ void	print_ast(t_node *nodes, int depth)
 			nodes->cmd.cmd_token = nodes->cmd.cmd_token->next;
 		}
 		printf("\n");
-		printf("REDIR: ");
-		while (nodes->cmd.redir_token)
+		i = 0;
+		while (i < depth)
 		{
-			printf("%i %s", nodes->cmd.redir_token->redir_type, nodes->cmd.redir_token->file);
-			nodes->cmd.redir_token = nodes->cmd.redir_token->next;
+			printf("----");
+			i++;
+		}
+		printf("REDIR: ");
+		if (!nodes->cmd.redir_token)
+		{
+			printf("Empty");
+		}
+		else
+		{
+			while (nodes->cmd.redir_token)
+			{
+				printf("%i %s ", nodes->cmd.redir_token->redir_type, nodes->cmd.redir_token->file);
+				nodes->cmd.redir_token = nodes->cmd.redir_token->next;
+			}
 		}
 		printf("\n");
 	}
