@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 19:50:04 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/04 11:36:37 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/04 12:23:41 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 # define PARSING_H
 
 // Errors
-# define SYNTAX_ERROR1 "Syntax error: Invalid pipeline"
-# define SYNTAX_ERROR2 "Syntax error: Invalid filename/limiter of redirection"
+# define SYNTAX_ERROR1 "Syntax error: Invalid pipeline\n"
+# define SYNTAX_ERROR2 "Syntax error: Invalid filename/limiter of redirection\n"
+
+# define ALLOCATION_FAIL "Malloc error: Memory allocation fails\n"
 
 # include "tokenizing.h"
 

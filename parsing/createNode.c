@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 11:23:34 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/04 11:23:55 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/04 12:55:59 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_node *createNode(t_node_type type)
 
 	node = (t_node *)malloc(sizeof(t_node));
 	if (!node)
-		return (NULL);
+		return (printf(ALLOCATION_FAIL), NULL);
 	node->type = type;
 	node->pipe.left = NULL;
 	node->pipe.right = NULL;
