@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 19:50:04 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/04 14:56:48 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/05 12:02:47 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # define SYNTAX_ERROR1 "Syntax error: Invalid pipeline"
 # define SYNTAX_ERROR2 "Syntax error: Invalid filename/limiter of redirection"
 
+# include "minishell.h"
 # include "tokenizing.h"
 
 typedef enum	e_node_type
@@ -63,7 +64,7 @@ typedef struct	s_node {
 }				t_node;
 
 
-void			ft_parse(char **input);
+void			ft_parse(char **input, t_shell *shell);
 void			print_ast(t_node *nodes, int depth); // Test
 t_node 			*createNode(t_node_type type);
 void			free_token_list(t_token *list);

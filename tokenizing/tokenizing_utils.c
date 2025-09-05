@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 12:53:25 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/01 16:09:09 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/05 20:05:38 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,56 +38,7 @@ void	add_tokens(t_token **list, t_token_type type, char *value)
 	last->next = new;
 }
 
-void	specify_tokens_single(char **value, char c, t_token **list)
-{
-	if (c == '|')
-	{
-		*value = ft_strdup("|");
-		if (!*value)
-			clean_tokens(list, 1);
-		add_tokens(list, T_PIPE, *value);
-	}
-	else if (c == '<')
-	{
-		*value = ft_strdup("<");
-		if (!*value)
-			clean_tokens(list, 1);
-		add_tokens(list, T_LESS, *value);
-	}
-	else if (c == '>')
-	{
-		*value = ft_strdup(">");
-		if (!*value)
-			clean_tokens(list, 1);
-		add_tokens(list, T_GREAT, *value);
-	}
-}
-
-int	specify_tokens_double(char **value, char c, t_token **list)
-{
-	if (c == '<')
-	{
-		*value = ft_strdup("<<");
-		if (!*value)
-			clean_tokens(list, 1);
-		add_tokens(list, T_DLESS, *value);
-	}
-	else if (c == '>')
-	{
-		*value = ft_strdup(">>");
-		if (!*value)
-			clean_tokens(list, 1);
-		add_tokens(list, T_DGREAT, *value);
-	}
-	else if (c == '|')
-	{
-		specify_tokens_single(value, c, list);
-		return (1);
-	}
-	return (2);
-}
-
-static void	ft_realloc(int pos, char c, char **value, t_token **list)
+void	ft_realloc(int pos, char c, char **value, t_token **list)
 {
 	char	*tmp;
 	int		i;
@@ -107,34 +58,7 @@ static void	ft_realloc(int pos, char c, char **value, t_token **list)
 	}
 	tmp[pos] = c;
 	tmp[pos + 1] = 0;
-	free (*value);
+//	if (*value)
+//		free (*value);
 	*value = tmp;
-}
-
-void	add_word(char **s, int *quote, t_token **list, char **value)
-{
-	int		pos;
-
-	pos = 0;
-	while (*(*s))
-	{
-		if (*(*s) == '\'' || *(*s) == '"')
-			(*s) += change_quote(*(*s), quote);
-		if (!*quote && *(*s) != '\'' && *(*s) != '"')
-		{
-			if (!*(*s) || *(*s) == ' ' || (*(*s) >= '\t' && *(*s) <= '\r') \
-			|| ft_strchr("|><", *(*s)))
-				return ;
-			ft_realloc(pos, *(*s), value, list);
-			pos++;
-		}
-		else if (*quote)
-		{
-			if (*quote == q_dopen && *(*s) == '$')
-				return ;
-			ft_realloc(pos, *(*s), value, list);
-			pos++;
-		}
-		(*s)++;
-	}
 }
