@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 11:35:27 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/04 12:55:29 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/04 17:32:53 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ t_node *parse_expression(t_token **list)
 	t_node	*root;
 	t_node	*pipe;
 
-	root = NULL;
-	pipe = NULL;
 	if ((*list) && (*list)->type == T_EOF)
 		return (NULL);
 	if ((*list) && ((*list)->type == T_WORD || is_redirection((*list)->type)))

@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 11:30:50 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/04 12:22:29 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/04 17:26:08 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ static int assignValue(t_redir_token **redir, t_token **list)
 	tmp = tmp->next;
 	if (tmp && tmp->type == T_WORD)
 	{
-		(*redir)->file = tmp->value;
+		(*redir)->file = ft_strdup(tmp->value);
+		if (!(*redir)->file)
+			return (printf(ALLOCATION_FAIL), free(*redir), 1);
 		tmp = tmp->next;
 	}
 	else
