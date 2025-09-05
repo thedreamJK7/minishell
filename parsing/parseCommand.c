@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 11:34:27 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/04 11:41:47 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/04 16:32:09 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_node	*parse_command(t_token **list)
 	t_node	*node;
 	t_token	*tmp;
 	t_redir_token	*redir;
-	
+
 	tmp = *list;
 	node = createNode(COMMAND);
 	if (!node)
@@ -28,7 +28,6 @@ t_node	*parse_command(t_token **list)
         {
             if (add_arg(node, &tmp))
 				return (freeAST(node), NULL);
-			tmp = tmp->next;
         }
         else if (is_redirection(tmp->type))
         {

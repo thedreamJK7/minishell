@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 11:35:27 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/04 11:36:13 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/04 17:32:53 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ t_node *parse_expression(t_token **list)
 	t_node	*root;
 	t_node	*pipe;
 
-	root = NULL;
-	pipe = NULL;
 	if ((*list) && (*list)->type == T_EOF)
 		return (NULL);
 	if ((*list) && ((*list)->type == T_WORD || is_redirection((*list)->type)))
@@ -29,7 +27,7 @@ t_node *parse_expression(t_token **list)
 	}
 	if ((*list) && (*list)->type == PIPE)
 	{
-		if ((*list)->next->type == T_PIPE)
+		if ((*list)->next->type == T_PIPE || (*list)->next->type == T_EOF)
 			return (printf(SYNTAX_ERROR1), freeAST(root), NULL);
 		pipe = createNode(PIPE);
 		if (!pipe)

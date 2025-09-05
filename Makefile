@@ -15,22 +15,27 @@ SRCS = main.c \
 	./parsing/isRedirection.c ./parsing/parseCommand.c \
 	./parsing/parseExpression.c ./parsing/parseRedirection.c \
 
-OBJS = $(SRCS:.c=.o)
+OBJ_DIR = ./obj
+
+OBJS = $(patsubst %.c,$(OBJ_DIR)/%.o,$(SRCS))
 
 LIBFT = ./libft/libft.a
 
 all: $(NAME)
-$(NAME): $(OBJS) $(LIBFT)
+$(NAME): $(OBJ_DIR) $(OBJS) $(LIBFT)
 	$(CC) $(CFLAGS) $(OBJS) $(LFLAGS) $(LIBFT) -o $(NAME)
 
 $(LIBFT):
 	make -C libft
 
-%.o: %.c
+$(OBJ_DIR):
+	mkdir -p $(OBJ_DIR)/tokenizing $(OBJ_DIR)/parsing $(OBJ_DIR)/expanding
+
+$(OBJ_DIR)/%.o: %.c
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
-	$(RM) $(OBJS)
+	$(RM) -r $(OBJ_DIR)
 	make -C libft clean
 
 fclean: clean

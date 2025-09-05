@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 14:37:42 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/05 13:17:33 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/05 20:31:55 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_parse(char **input, t_shell *shell)
 	nodes = parse_expression(&tmp_list);
 	if (!nodes)
 	{
-		printf("returned null\n");
+		freeAST(nodes);
 		clean_tokens(&token_list, 0);
 		return ;
 	}
