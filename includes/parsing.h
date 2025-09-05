@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 19:50:04 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/04 20:47:59 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/05 20:25:46 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 
 # define ALLOCATION_FAIL "Malloc error: Memory allocation fails\n"
 
+# include "minishell.h"
 # include "tokenizing.h"
 
 typedef enum	e_node_type
@@ -65,7 +66,7 @@ typedef struct	s_node {
 }				t_node;
 
 
-void			ft_parse(char **input);
+void			ft_parse(char **input, t_shell *shell);
 void			print_ast(t_node *nodes, int depth); // Test
 t_node 			*createNode(t_node_type type);
 void			free_token_list(t_token *list);
