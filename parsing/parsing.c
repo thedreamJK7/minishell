@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 14:37:42 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/04 15:32:03 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/04 17:31:21 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ void	ft_parse(char **input)
 	nodes = parse_expression(&tmp_list);
 	if (!nodes)
 	{
-		printf("returned null\n");
+		freeAST(nodes);
 		clean_tokens(&token_list, 0);
 		return ;
 	}
-	print_exp(nodes);
+	//print_exp(nodes);
 	freeAST(nodes);
 	clean_tokens(&token_list, 0);
 }
