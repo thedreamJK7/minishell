@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 12:53:25 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/05 20:32:50 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/05 20:42:40 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,5 @@ void	ft_realloc(int pos, char c, char **value, t_token **list)
 	}
 	tmp[pos] = c;
 	tmp[pos + 1] = 0;
-//	if (*value)
-//		free (*value);
 	*value = tmp;
 }
