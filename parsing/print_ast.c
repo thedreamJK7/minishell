@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 21:31:07 by javokhir          #+#    #+#             */
-/*   Updated: 2025/09/04 17:20:11 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/05 13:42:04 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	print_ast(t_node *nodes, int depth)
 {
 	int	i;
+	int j;
 
 	if (!nodes)
 		return ;
@@ -27,10 +28,11 @@ void	print_ast(t_node *nodes, int depth)
 	if (nodes->type == COMMAND)
 	{
 		printf("COMMAND: ");
-		while (nodes->cmd.cmd_token)
+		j = 0;
+		while (nodes->cmd.cmd[j])
 		{
-			printf("%s ", nodes->cmd.cmd_token->value);
-			nodes->cmd.cmd_token = nodes->cmd.cmd_token->next;
+			printf("%s ", nodes->cmd.cmd[j]);
+			j++;
 		}
 		printf("\n");
 		i = 0;

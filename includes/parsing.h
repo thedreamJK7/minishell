@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 19:50:04 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/04 20:47:59 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/05 13:21:57 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,14 @@ typedef enum	e_redir_type
 	HEREDOC    // <<
 }	t_redir_type;
 
-//ls > output.txt -l >>1
 typedef struct	s_redir_token{
 	t_redir_type	redir_type;// IN, OUT..
-	//t_command		cmd;
 	char			*file;// Filename or limiter
 	struct s_redir_token	*next;// token for redirection
 }				t_redir_token;
 
 typedef struct	s_command {
-	t_token			*cmd_token;        // ["-l"], ["txt"], etc.
+	char			**cmd;        // ["-l"], ["txt"], etc.
 	t_redir_token	*redir_token;            // Redirection node if exists
 }				t_command;
 

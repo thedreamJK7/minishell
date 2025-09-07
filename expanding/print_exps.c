@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 14:42:40 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/04 17:31:15 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/05 14:44:14 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	print_exp(t_node *node)
 	shell.env = copy_envir();
 	if (!shell.env)
 		printf("No shell->env");
-	ft_expand(node, &shell);
+	//ft_expand(node, &shell);
 	print_ast(node, 1);
 	clean_env_array(shell.env);
 }

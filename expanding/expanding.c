@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expanding.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 16:16:19 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/04 15:40:44 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/05 14:45:57 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	merge_token(t_token **list)
 }
 */
 
-char	*ft_getenv(t_shell *shell, char *s)
+/*char	*ft_getenv(t_shell *shell, char *s)
 {
 	int		i;
 	int		len;
@@ -124,4 +124,4 @@ void	ft_expand(t_node *root, t_shell *shell)
 		ft_expand(cur->pipe.left, shell);
 		ft_expand(cur->pipe.right, shell);
 	}
-}
+}*/
