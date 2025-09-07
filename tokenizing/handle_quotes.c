@@ -5,13 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-<<<<<<< HEAD:includes/expanding.h
 /*   Created: 2025/09/02 16:14:06 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/05 14:43:32 by jkubaev          ###   ########.fr       */
-=======
-/*   Created: 2025/09/05 18:51:25 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/05 19:50:05 by yingzhan         ###   ########.fr       */
->>>>>>> github/main:tokenizing/handle_quotes.c
+/*   Updated: 2025/09/07 18:19:21 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +14,6 @@
 
 int	change_quote(char c, int *quote)
 {
-<<<<<<< HEAD:includes/expanding.h
-	char	**env;
-	int		exit_code;
-}	t_shell;
-
-//void	print_exp(t_node *node);
-//void	ft_expand(t_node *root, t_shell *shell);
-
-#endif
-=======
 	if (c == '\'')
 	{
 		if (*quote == q_sopen)
@@ -49,4 +34,4 @@ int	change_quote(char c, int *quote)
 	}
 	return (1);
 }
->>>>>>> github/main:tokenizing/handle_quotes.c
+
