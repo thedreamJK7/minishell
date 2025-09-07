@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 15:13:15 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/08/22 10:41:34 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/05 12:17:36 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ size_t	ft_strlen_g(const char *str)
 	return (i);
 }
 
-char	*ft_strdup(const char *str)
+char	*ft_strdup_g(const char *str)
 {
 	char	*buffer;
 	size_t	len;
@@ -69,7 +69,7 @@ char	*ft_substr_g(char const *str, unsigned int start, size_t len)
 		return (NULL);
 	s_len = ft_strlen_g(str);
 	if (len == 0 || start >= s_len)
-		return (ft_strdup(""));
+		return (ft_strdup_g(""));
 	if (len > s_len - start)
 		len = s_len - start;
 	buffer = malloc(sizeof(char) * (len + 1));
@@ -94,11 +94,11 @@ char	*ft_strjoin_g(char const *s1, char const *s2)
 	size_t	len2;
 
 	if (!s1 && !s2)
-		return (ft_strdup(""));
+		return (ft_strdup_g(""));
 	if (!s1 || *s1 == '\0')
-		return (ft_strdup(s2));
+		return (ft_strdup_g(s2));
 	if (!s2 || *s2 == '\0')
-		return (ft_strdup(s1));
+		return (ft_strdup_g(s1));
 	len1 = ft_strlen_g(s1);
 	len2 = ft_strlen_g(s2);
 	buffer = malloc(sizeof(char) * (len1 + len2 + 1));

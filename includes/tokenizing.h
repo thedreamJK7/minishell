@@ -6,12 +6,14 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 22:04:04 by javokhir          #+#    #+#             */
-/*   Updated: 2025/09/05 10:18:01 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/07 18:11:03 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TOKENIZING_H
 # define TOKENIZING_H
+
+#include "minishell.h"
 
 typedef enum e_token_type
 {
@@ -22,7 +24,7 @@ typedef enum e_token_type
 	T_DGREAT,//	>>
 	T_DLESS,//	<<
 	T_EOF,//	end of file
-	T_VAR//		variable to be expanded
+	T_VAR,
 }		t_token_type;
 
 typedef enum e_quote_type
@@ -41,13 +43,14 @@ typedef struct	s_token
 
 
 //	Functions
-t_token	*ft_tokenize(char *s);
+t_token	*ft_tokenize(char *s, t_shell *shell);
+char	*handle_dollar(char **s, t_shell *shell, t_token **list);
 void	print_tokens(t_token *list);
 int		change_quote(char c, int *quote);
 void	add_tokens(t_token **list, t_token_type type, char *value);
-void	specify_tokens_single(char **value, char c, t_token **list);
-int		specify_tokens_double(char **value, char c, t_token **list);
-void	add_word(char **s, int *quote, t_token **list, char **value);
+void	ft_realloc(int pos, char c, char **value, t_token **list);
+int		specify_tokens(char *s, t_token **list);
+int		handle_words(char *s, int *quote, t_token **list, t_shell *shell);
 void	clean_tokens(t_token **list, int exit_flag);
 
 #endif

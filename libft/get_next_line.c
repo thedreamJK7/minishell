@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 15:12:12 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/08/22 10:41:12 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/05 12:16:23 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,9 @@ static int	ft_new_lines(char **buffer, char **line)
 	if (!*line)
 		return (-1);
 	if (*(newline_pos + 1) == '\0')
-		temp = ft_strdup("");
+		temp = ft_strdup_g("");
 	else
-		temp = ft_strdup(newline_pos + 1);
+		temp = ft_strdup_g(newline_pos + 1);
 	if (!temp)
 	{
 		free(*line);
@@ -91,7 +91,7 @@ static char	*ft_return_lines(char **buffer)
 	}
 	else
 	{
-		line = ft_strdup(*buffer);
+		line = ft_strdup_g(*buffer);
 		if (!line)
 			return (NULL);
 		free (*buffer);

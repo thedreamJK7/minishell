@@ -6,19 +6,20 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 14:37:42 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/05 18:37:07 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/07 18:11:41 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	ft_parse(char **input)
+void	ft_parse(char **input, t_shell *shell)
 {
 	t_token	*token_list;
 	t_token	*tmp_list;
 	t_node	*nodes;
 
-	token_list = ft_tokenize(*input);
+	token_list = ft_tokenize(*input, shell);
+	print_tokens(token_list);//print test for token list
 	tmp_list = token_list;
 	nodes = parse_expression(&tmp_list);
 	if (!nodes)
@@ -27,8 +28,7 @@ void	ft_parse(char **input)
 		clean_tokens(&token_list, 0);
 		return ;
 	}
-	//print_exp(nodes);
-	//print_ast(nodes, 0);
+	//print_ast(nodes, 1);// print test for ast node
 	freeAST(nodes);
 	clean_tokens(&token_list, 0);
 }
