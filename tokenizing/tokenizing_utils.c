@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 12:53:25 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/05 20:42:40 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/08 12:08:43 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,20 @@ void	ft_realloc(int pos, char c, char **value, t_token **list)
 	tmp = malloc(pos + 2);
 	if (!tmp)
 	{
-		free(*value);
+		if (!*value)
+			free(*value);
 		*value = NULL;
 		clean_tokens(list, 1);
 	}
 	i = 0;
-	while (i < pos)
+	if (*value)
 	{
-		tmp[i] = (*value)[i];
-		i++;
+		while (i < pos)
+		{
+			tmp[i] = (*value)[i];
+			i++;
+		}
+		free(*value);
 	}
 	tmp[pos] = c;
 	tmp[pos + 1] = 0;
