@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizing_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 12:53:25 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/05 20:42:40 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/08 12:03:10 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
