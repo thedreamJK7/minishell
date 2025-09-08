@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 11:07:44 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/05 11:11:26 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/08 15:48:44 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define EXECUTION_H
 
 # include "parsing.h"
+# include <sys/types.h>
+# include <sys/wait.h>
 
 
 #endif
