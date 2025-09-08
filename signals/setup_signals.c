@@ -1,34 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   setupr_signals.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/01 14:37:42 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/08 10:23:09 by jkubaev          ###   ########.fr       */
+/*   Created: 2025/09/08 10:50:14 by jkubaev           #+#    #+#             */
+/*   Updated: 2025/09/08 10:58:52 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	ft_parse(char **input, t_shell *shell)
+static void	signal_handler()
 {
-	t_token	*token_list;
-	t_token	*tmp_list;
-	t_node	*nodes;
+	printf("\n");
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
+}
 
-	token_list = ft_tokenize(*input, shell);
-	//print_tokens(token_list);//print test for token list
-	tmp_list = token_list;
-	nodes = parse_expression(&tmp_list);
-	if (!nodes)
-	{
-		freeAST(nodes);
-		clean_tokens(&token_list, 0);
-		return ;
-	}
-	//print_ast(nodes, 1);// print test for ast node
-	freeAST(nodes);
-	clean_tokens(&token_list, 0);
+void	setup_signals(void)
+{
+	signal(SIGINT, signal_handler);
+	signal(SIGQUIT, SIG_IGN);
 }

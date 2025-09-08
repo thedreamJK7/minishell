@@ -1,37 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_quotes.c                                    :+:      :+:    :+:   */
+/*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/02 16:14:06 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/07 18:19:21 by jkubaev          ###   ########.fr       */
+/*   Created: 2025/09/05 11:07:44 by jkubaev           #+#    #+#             */
+/*   Updated: 2025/09/05 11:11:26 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#ifndef EXECUTION_H
+# define EXECUTION_H
 
-int	change_quote(char c, int *quote)
-{
-	if (c == '\'')
-	{
-		if (*quote == q_sopen)
-			*quote = q_close;
-		else if (*quote == q_close)
-			*quote = q_sopen;
-		else
-			return (0);
-	}
-	else if (c == '"')
-	{
-		if (*quote == q_dopen)
-			*quote = q_close;
-		else if (*quote == q_close)
-			*quote = q_dopen;
-		else
-			return (0);
-	}
-	return (1);
-}
+# include "parsing.h"
+
+
+#endif
 

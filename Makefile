@@ -14,6 +14,7 @@ SRCS = main.c \
 	./parsing/addRedir.c ./parsing/cleanAST.c ./parsing/createNode.c \
 	./parsing/isRedirection.c ./parsing/parseCommand.c \
 	./parsing/parseExpression.c ./parsing/parseRedirection.c \
+	./signals/setup_signals.c
 
 OBJ_DIR = ./obj
 
@@ -29,7 +30,8 @@ $(LIBFT):
 	make -C libft
 
 $(OBJ_DIR):
-	mkdir -p $(OBJ_DIR)/tokenizing $(OBJ_DIR)/parsing $(OBJ_DIR)/expanding
+	mkdir -p $(OBJ_DIR)/tokenizing $(OBJ_DIR)/parsing $(OBJ_DIR)/expanding \
+	$(OBJ_DIR)/signals
 
 $(OBJ_DIR)/%.o: %.c
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
