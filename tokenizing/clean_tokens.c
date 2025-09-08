@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_tokens.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 19:49:28 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/05 20:32:40 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/08 12:04:49 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
