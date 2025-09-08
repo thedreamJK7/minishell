@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execution.h                                        :+:      :+:    :+:   */
+/*   exec_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/05 11:07:44 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/08 17:22:23 by jkubaev          ###   ########.fr       */
+/*   Created: 2025/09/08 15:56:08 by jkubaev           #+#    #+#             */
+/*   Updated: 2025/09/08 16:53:22 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXECUTION_H
-# define EXECUTION_H
+#include "../includes/minishell.h"
 
-# include "parsing.h"
+int	exec_builtin(char **cmd)
+{
+	int	bool;
 
-int	execute(t_node *node);
-int	exec_builtin(char **cmd);
-int	builtin_pwd(char **cmd);
-
-#endif
-
+	bool = 0;
+	if (!ft_strncmp(cmd[0], "pwd", ft_strlen("pwd")))
+		bool = builtin_pwd(cmd);
+	return (bool);
+}

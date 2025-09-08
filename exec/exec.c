@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 20:13:50 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/08 13:07:08 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/08 18:18:39 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,17 @@ int	is_builtin(char *arg)
 	return (1);
 }
 
-void	exec_simple_command(t_node *cmd)
+int	exec_simple_command(t_node *cmd)
 {
-	if (!is_builtin(cmd->cmd.cmd_token->value))
-	{
-
-	}
+	if (!is_builtin(cmd->cmd.cmd[0]))
+		return (exec_builtin(cmd->cmd.cmd));
+	return (0);
 }
 
-void	execute(t_node *node)
+int	execute(t_node *node)
 {
 	if (!node)
-		return ;
+		return (0);
 	if (node->type == PIPE)
 	{
 		//exec_simple_command();
@@ -46,5 +45,6 @@ void	execute(t_node *node)
 		execute(node->pipe.right);
 	}
 	else
-		exec_simple_command(node);
+		return(exec_simple_command(node));
+	return (0);
 }
