@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 17:03:16 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/07 18:14:35 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/08 10:59:07 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ typedef struct s_shell
 }	t_shell;
 
 #include <stdio.h>
+#include <signal.h>
 #include <readline/readline.h>
 #include <readline/history.h>
 #include "../libft/includes/libft.h"
@@ -29,6 +30,6 @@ typedef struct s_shell
 #include "tokenizing.h"
 #include "execution.h"
 
-
+void	setup_signals(void);
 
 #endif
