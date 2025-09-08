@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 20:13:50 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/08 11:40:25 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/08 13:07:08 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,19 @@ void	exec_simple_command(t_node *cmd)
 {
 	if (!is_builtin(cmd->cmd.cmd_token->value))
 	{
-		
+
 	}
 }
 
 void	execute(t_node *node)
 {
+	if (!node)
+		return ;
 	if (node->type == PIPE)
 	{
-		//exec_simple_command();	
+		//exec_simple_command();
+		execute(node->pipe.left);
+		execute(node->pipe.right);
 	}
 	else
 		exec_simple_command(node);
