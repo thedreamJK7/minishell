@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 20:13:50 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/08 18:47:27 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/09 10:42:22 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,17 @@ int	is_builtin(char *arg)
 int	exec_simple_command(t_node *cmd, t_shell *shell)
 {
 	if (!is_builtin(cmd->cmd.cmd[0]))
-	{
-
-	}
+		return (exec_builtin(cmd->cmd.cmd));
+	return (0);
 }
 
 int	execute(t_node *node, t_shell *shell)
 {
 	if (!node)
-		return (shell->exit_code);
+		return (0);
 	if (node->type == PIPE)
 		return (exec_pipe(node, shell));
 	else
-		return (exec_simple_command(node, shell));
+		return(exec_simple_command(node, shell));
+	return (0);
 }

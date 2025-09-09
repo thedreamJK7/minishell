@@ -1,30 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   setup_signals.c                                    :+:      :+:    :+:   */
+/*   exec_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/08 10:50:14 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/08 18:32:05 by jkubaev          ###   ########.fr       */
+/*   Created: 2025/09/08 15:56:08 by jkubaev           #+#    #+#             */
+/*   Updated: 2025/09/08 16:53:22 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static void	signal_handler()
+int	exec_builtin(char **cmd)
 {
-	printf("\n");
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
+	int	bool;
+
+	bool = 0;
+	if (!ft_strncmp(cmd[0], "pwd", ft_strlen("pwd")))
+		bool = builtin_pwd(cmd);
+	return (bool);
 }
-
-void	setup_signals(void)
-{
-	signal(SIGINT, signal_handler);
-	signal(SIGQUIT, SIG_IGN);
-}
-
-
-// ls -l | grep txt | sort

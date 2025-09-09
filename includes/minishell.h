@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 17:03:16 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/09 10:30:42 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/09 10:40:51 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,15 @@
 # define COMMAND_NOT_EXECUTABLE 126
 # define COMMAND_NOT_FOUND 127
 
-typedef struct s_shell
+typedef struct	s_shell
 {
 	char	**env;
 	int		exit_code;
-}	t_shell;
+}				t_shell;
 
 #include <stdio.h>
 #include <signal.h>
+#include <unistd.h>
 #include <readline/readline.h>
 #include <readline/history.h>
 #include "../libft/includes/libft.h"
