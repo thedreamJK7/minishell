@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 14:37:42 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/08 14:19:40 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/08 17:23:24 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ void	ft_parse(char **input, t_shell *shell)
 		clean_tokens(&token_list, 0);
 		return ;
 	}
-	print_ast(nodes, 1);// print test for ast node
+	if (execute(nodes))
+		printf("Something happened in execution part\n");	
+	//print_ast(nodes, 1);// print test for ast node
 	freeAST(nodes);
 	clean_tokens(&token_list, 0);
 }
