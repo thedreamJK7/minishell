@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 14:37:42 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/08 17:23:24 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/09 10:57:13 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void	ft_parse(char **input, t_shell *shell)
 		clean_tokens(&token_list, 0);
 		return ;
 	}
-	if (execute(nodes))
-		printf("Something happened in execution part\n");	
+	if (execute(nodes, shell))
+		printf("Something happened in execution part\n");
 	//print_ast(nodes, 1);// print test for ast node
 	freeAST(nodes);
 	clean_tokens(&token_list, 0);

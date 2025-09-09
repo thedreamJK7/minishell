@@ -6,11 +6,11 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 18:47:51 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/09 10:33:40 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/09 11:13:24 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "./includes/minishell.h"
 
 int	exec_pipe(t_node *pipe_node, t_shell *shell)
 {
