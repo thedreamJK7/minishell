@@ -3,15 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 17:03:16 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/08 10:59:07 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/09 10:30:42 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
+# define SUCCESS 0
+# define GENERAL_ERROR 1
+# define SYNTAX_ERROR 2
+# define COMMAND_NOT_EXECUTABLE 126
+# define COMMAND_NOT_FOUND 127
 
 typedef struct s_shell
 {
