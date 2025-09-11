@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exec_non_builtin.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 11:13:58 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/09 11:42:18 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/11 12:44:41 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/minishell.h"
+#include "../includes/minishell.h"
 
 int	exec_non_builtin(t_node *cmd, t_shell *shell)
 {

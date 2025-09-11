@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_variable.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 18:51:42 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/05 20:08:24 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/11 16:22:55 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

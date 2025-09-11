@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 17:03:16 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/09 10:40:51 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/11 18:43:45 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,15 @@
 # define COMMAND_NOT_EXECUTABLE 126
 # define COMMAND_NOT_FOUND 127
 
+typedef struct s_env {
+	char			*name;
+	char			*value;
+	struct s_env	*next;
+}	t_env;
+
 typedef struct	s_shell
 {
-	char	**env;
+	t_env	*env_list;
 	int		exit_code;
 }				t_shell;
 
@@ -38,5 +44,8 @@ typedef struct	s_shell
 #include "execution.h"
 
 void	setup_signals(void);
+void	freeEnvList(t_env *envList);
+void	cleanShell(t_shell	*shell);
+t_shell	*init_envp(char **envp);
 
 #endif
