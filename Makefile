@@ -16,7 +16,7 @@ SRCS = main.c \
 	./parsing/parseExpression.c ./parsing/parseRedirection.c \
 	./signals/setup_signals.c \
 	./exec/exec.c ./exec/exec_builtin.c ./exec/built_ins/builtin_pwd.c \
-	./exec/exec_pipe.c ./exec/exec_non_builtin.C
+	./exec/exec_pipe.c ./exec/exec_non_builtin.c ./exec/exec_utils.c
 
 OBJ_DIR = ./obj
 
