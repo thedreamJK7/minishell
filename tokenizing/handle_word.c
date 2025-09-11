@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 18:52:46 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/08 12:03:44 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/11 17:01:06 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ static int	add_var(char **s, char **value, t_shell *shell, t_token **list)
 	var = handle_dollar(s, shell, list);
 	if (!var)
 		clean_tokens(list, 1);
-	tmp = ft_strjoin(*value, var);
+	tmp = ft_strjoin_g(*value, var);
 	if (!tmp)
 		clean_tokens(list, 1);
-	free (var);
-	free (*value);
+	free(var);
+	free(*value);
 	*value = tmp;
 	return ((int)ft_strlen(*value));
 }

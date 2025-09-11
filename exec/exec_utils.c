@@ -1,34 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/01 14:37:42 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/11 15:20:39 by yingzhan         ###   ########.fr       */
+/*   Created: 2025/09/11 17:27:24 by yingzhan          #+#    #+#             */
+/*   Updated: 2025/09/11 17:57:06 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-t_node	*ft_parse(char **input, t_shell *shell)
+void	clean_array(char **arr)
 {
-	t_token	*token_list;
-	t_token	*tmp_list;
-	t_node	*nodes;
+	int	i;
 
-	token_list = ft_tokenize(*input, shell);
-	//print_tokens(token_list);//print test for token list
-	tmp_list = token_list;
-	nodes = parse_expression(&tmp_list);
-	if (!nodes)
+	i = 0;
+	while (arr[i])
 	{
-		freeAST(nodes);
-		clean_tokens(&token_list, 0);
-		return (NULL);
+		free(arr[i]);
+		i++;
 	}
-	clean_tokens(&token_list, 0);
-	return (nodes);
-	//print_ast(nodes, 1);// print test for ast node
+	free(arr);
 }
+
+void	close_fd(int in_fd, int out_fd)
+{
+	if (in_fd > 2)
+		close(in_fd);
+	if (out_fd > 2)
+		close(out_fd);
+}
+
+int		check_access(char *path)
+{
+	if (!access(path, F_OK))
+	{
+		if (!access(path, X_OK))
+			return (0);
+		else
+			return (COMMAND_NOT_EXECUTABLE);
+	}
+	return (COMMAND_NOT_FOUND);
+}
+

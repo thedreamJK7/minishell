@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parseExpression.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 11:35:27 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/08 17:45:46 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/11 16:13:05 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_node *parse_expression(t_token **list)
 	}
 	if ((*list) && (*list)->type == PIPE)
 	{
-		if ((*list)->next->type == T_PIPE || (*list)->next->type == T_EOF)
+		if (!root || (*list)->next->type == T_PIPE || (*list)->next->type == T_EOF)
 			return (printf(SYNTAX_ERROR1), freeAST(root), NULL);
 		pipe = createNode(PIPE);
 		if (!pipe)

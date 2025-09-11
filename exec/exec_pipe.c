@@ -6,11 +6,11 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 18:47:51 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/09 11:13:24 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/11 17:54:30 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/minishell.h"
+#include "../includes/minishell.h"
 
 int	exec_pipe(t_node *pipe_node, t_shell *shell)
 {
@@ -36,7 +36,7 @@ int	exec_pipe(t_node *pipe_node, t_shell *shell)
 		close(pfd[0]);
 		dup2(pfd[1], STDOUT_FILENO);
 		close(pfd[1]);
-		execution(pipe_node->pipe.left);
+		execute(pipe_node->pipe.left, shell);
 		exit(shell->exit_code);
 	}
 	else
@@ -55,7 +55,7 @@ int	exec_pipe(t_node *pipe_node, t_shell *shell)
 			close(pfd[1]);
 			dup2(pfd[0], STDIN_FILENO);
 			close(pfd[0]);
-			execution(pipe_node->pipe.right);
+			execute(pipe_node->pipe.right, shell);
 			exit(shell->exit_code);
 		}
 		close(pfd[0]);
