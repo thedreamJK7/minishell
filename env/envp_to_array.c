@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 10:00:03 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/12 10:33:33 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/12 12:08:00 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,13 @@ char	*env_string(char *name, char *value)
 	char	*temp;
 	char	*result;
 
-	temp = ft_strjoin(name, '=');
+	temp = ft_strjoin_g(name, '=');
 	if (!temp)
 		return (NULL);
 	result = ft_strjoin(temp, value);
 	if (!result)
 		return (free(temp), NULL);
-	return (result);
+	return (free(temp), result);
 }
 
 int	fill_array(char **arr, t_env *env_list)
@@ -52,12 +52,12 @@ int	fill_array(char **arr, t_env *env_list)
 	{
 		arr[i] = env_string(current->name, current->value);
 		if (!arr[i])
-			
+			return (1);
 		current = current->next;
 		i++;
 	}
 	arr[i] = NULL;
-	return(arr);
+	return(0);
 }
 
 char	**envp_to_array(t_env *env_list)
@@ -69,10 +69,7 @@ char	**envp_to_array(t_env *env_list)
 	arr = malloc(sizeof(char *) * (count + 1));
 	if (!arr)
 		return (NULL);
-	if (!fill_array(arr, env_list))
-	{
-		free_commands(arr);
-		return (NULL);
-	}
+	if (fill_array(arr, env_list))
+		return (free_commands(arr), NULL);
 	return (arr);
 }

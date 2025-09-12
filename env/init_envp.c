@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 13:15:26 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/11 18:32:41 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/12 13:19:23 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ t_env *init_envp_list(char **envp)
 	tail = NULL;
 	while (envp[i])
 	{
-		new_list = create_env_list(envp[i]);
+		new_list = parseAndCreateEnvList(envp[i]);
 		if (!new_list)
 			return (freeEnvList(head), NULL);
 		appendEnvList(&head, &tail, new_list);

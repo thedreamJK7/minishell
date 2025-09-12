@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 17:21:52 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/12 09:59:32 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/12 12:54:06 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,13 @@ int	main(int argc, char **argv, char **envp)
 		}
 		if (*input)
 			add_history(input);
-		node = ft_parse(&input, &shell);
+		node = ft_parse(&input, shell);
 		if (!node)
 		{
 			free(input);
 			continue ;
 		}
-		execute(node, &shell);
+		//execute(node, &shell);
 		freeAST(node);
 		free(input);
 	}
