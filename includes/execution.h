@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 11:07:44 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/11 17:55:19 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/12 14:38:13 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	clean_array(char **arr);
 void	close_fd(int in_fd, int out_fd);
 int		check_access(char *path);
 int		builtin_pwd(char **cmd);
+int		builtin_export(t_shell *shell, char	**cmd);
 
 #endif
 

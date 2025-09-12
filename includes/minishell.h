@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 17:03:16 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/12 13:26:12 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/12 17:13:44 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,7 @@ void	freeEnvList(t_env *envList);
 void	cleanShell(t_shell	*shell);
 t_shell	*init_envp(char **envp);
 char	**envp_to_array(t_env *env_list);
+void	print_env(t_shell *shell);
+t_env	*parseAndCreateEnvList(const char *envp);
 
 #endif
