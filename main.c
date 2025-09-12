@@ -6,12 +6,13 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 17:21:52 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/11 18:44:51 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/12 08:04:41 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/minishell.h"
 
+int	main(int argc, char **argv, char **envp)
 int	main(int argc, char **argv, char **envp)
 {
 	char	*input;
@@ -31,7 +32,14 @@ int	main(int argc, char **argv, char **envp)
 		}
 		if (*input)
 			add_history(input);
-		ft_parse(&input, &shell);
+		node = ft_parse(&input, &shell);
+		if (!node)
+		{
+			free(input);
+			continue ;
+		}
+		execute(node, &shell, envp);
+		freeAST(node);
 		free(input);
 	}
 	cleanShell(shell);

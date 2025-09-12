@@ -6,13 +6,13 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 14:37:42 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/11 15:09:00 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/12 08:13:22 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	ft_parse(char **input, t_shell *shell)
+t_node	*ft_parse(char **input, t_shell *shell)
 {
 	t_token	*token_list;
 	t_token	*tmp_list;
@@ -26,11 +26,9 @@ void	ft_parse(char **input, t_shell *shell)
 	{
 		freeAST(nodes);
 		clean_tokens(&token_list, 0);
-		return ;
+		return (NULL);
 	}
 	clean_tokens(&token_list, 0);
-	if (execute(nodes, shell))
-		printf("Something happened in execution part\n");
+	return (nodes);
 	//print_ast(nodes, 1);// print test for ast node
-	freeAST(nodes);
 }
