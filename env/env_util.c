@@ -1,34 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   env_util.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/01 14:37:42 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/12 08:13:22 by jkubaev          ###   ########.fr       */
+/*   Created: 2025/09/11 17:56:42 by jkubaev           #+#    #+#             */
+/*   Updated: 2025/09/11 18:43:54 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-t_node	*ft_parse(char **input, t_shell *shell)
+void	freeEnvList(t_env *envList)
 {
-	t_token	*token_list;
-	t_token	*tmp_list;
-	t_node	*nodes;
+	t_env	*tmp;
 
-	token_list = ft_tokenize(*input, shell);
-	//print_tokens(token_list);//print test for token list
-	tmp_list = token_list;
-	nodes = parse_expression(&tmp_list);
-	if (!nodes)
+	while (envList)
 	{
-		freeAST(nodes);
-		clean_tokens(&token_list, 0);
-		return (NULL);
+		tmp = envList;
+		envList = envList->next;
+		free(tmp->name);
+		free(tmp->value);
+		free(tmp);
 	}
-	clean_tokens(&token_list, 0);
-	return (nodes);
-	//print_ast(nodes, 1);// print test for ast node
+}
+
+void	cleanShell(t_shell	*shell)
+{
+	freeEnvList(shell->env_list);
+	free(shell);
 }
