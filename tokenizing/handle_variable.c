@@ -3,29 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   handle_variable.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 18:51:42 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/11 16:22:55 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/12 13:10:05 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static char	*ft_getenv(t_shell *shell, char *s)
+static char	*get_env_value(t_shell *shell, char *s)
 {
-	int		i;
-	int		len;
+	int		len1;
+	int		len2;
+	t_env	*tmp;
 
-	if (!shell || !shell->env || !s)
+	if (!shell || !shell->env_list || !s)
 		return (NULL);
-	i = 0;
-	len = ft_strlen(s);
-	while (shell->env[i])
+	tmp = shell->env_list;
+	len1 = ft_strlen(s);
+	while (tmp)
 	{
-		if (!ft_strncmp(s, shell->env[i], len) && shell->env[i][len] == '=')
-			return (&shell->env[i][len + 1]);
-		i++;
+		len2 = ft_strlen_g(tmp->name);
+		if (!len2)
+			return (NULL);
+		if (!ft_strncmp(s, tmp->name, len1) && len1 == len2)
+			return (tmp->value);
+		tmp = tmp->next;
 	}
 	return (NULL);
 }
@@ -40,7 +44,7 @@ static char	*expand_var(char *s, t_shell *shell, t_token **list)
 		value = ft_itoa(shell->exit_code);
 	else
 	{
-		var = ft_getenv(shell, s);
+		var = get_env_value(shell, s);
 		if (!var)
 			value = ft_strdup("");
 		else

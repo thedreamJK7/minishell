@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 13:15:26 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/12 13:19:23 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/12 13:26:43 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ t_env	*newListF(char *name, char *value)
 	new_list->name = name;
 	new_list->value = value;
 	new_list->next = NULL;
+	return (new_list);
 }
 
 t_env	*parseAndCreateEnvList(const char *envp)
@@ -48,7 +49,7 @@ t_env	*parseAndCreateEnvList(const char *envp)
 	equalSign = ft_strchr(envp, '=');
 	if (!equalSign)
 		return (NULL);
-	name = ft_substr(*envp, 0, equalSign - envp);
+	name = ft_substr(envp, 0, equalSign - envp);
 	if (!name)
 		return (NULL);
 	value = ft_strdup(equalSign + 1);
@@ -90,8 +91,8 @@ t_shell	*init_envp(char **envp)
 	if (!shell)
 		return (NULL);
 	shell->env_list = init_envp_list(envp);
-	if (!shell)
-		return (NULL);
+	if (!shell->env_list)
+		return (free(shell), NULL);
 	shell->exit_code = 0;
 	return (shell);
 }

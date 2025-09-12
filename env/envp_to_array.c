@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 10:00:03 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/12 12:08:00 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/12 13:25:03 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ char	*env_string(char *name, char *value)
 	char	*temp;
 	char	*result;
 
-	temp = ft_strjoin_g(name, '=');
+	temp = ft_strjoin_g(name, "=");
 	if (!temp)
 		return (NULL);
-	result = ft_strjoin(temp, value);
+	result = ft_strjoin_g(temp, value);
 	if (!result)
 		return (free(temp), NULL);
 	return (free(temp), result);
