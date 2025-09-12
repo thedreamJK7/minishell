@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 19:50:04 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/11 15:08:00 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/12 10:32:17 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void			print_ast(t_node *nodes, int depth); // Test
 t_node 			*createNode(t_node_type type);
 void			free_token_list(t_token *list);
 void			free_redir_list(t_redir_token *list);
+void			free_commands(char **argv);
 void			freeAST(t_node *node);
 int				add_arg(t_node *cmd, t_token **list);
 int				is_redirection(t_token_type type);
