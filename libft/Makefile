@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+         #
+#    By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/17 14:50:10 by yingzhan          #+#    #+#              #
-#    Updated: 2025/09/05 20:21:05 by jkubaev          ###   ########.fr        #
+#    Updated: 2025/09/12 15:20:55 by yingzhan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME        = libft.a
 CC          = cc
-CFLAGS      = -Wall -Wextra -Werror
+CFLAGS      = -Wall -Wextra -Werror -g
 INCLUDES    = -I includes/
 AR          = ar rcs
 RM          = rm -f

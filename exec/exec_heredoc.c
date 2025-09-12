@@ -1,49 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   exec_heredoc.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/19 17:21:52 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/12 15:54:53 by yingzhan         ###   ########.fr       */
+/*   Created: 2025/09/12 16:30:41 by yingzhan          #+#    #+#             */
+/*   Updated: 2025/09/12 17:58:46 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/minishell.h"
+#include "../includes/minishell.h"
 
-int	main(int argc, char **argv, char **envp)
+int	handle_heredoc(t_redir_token *redir, int *in_fd)
 {
 	char	*input;
-	t_shell	*shell;
-	t_node	*node;
+	int		len_lim;
+	int		pfd[2];
 
-	(void)argc;
-	(void)argv;
-	shell = init_envp(envp);
-	if (!shell)
-		return (printf("Failed to initialize shell"), 1);
-	setup_signals();
+	if (pipe(pfd) == -1)
+		return (perror("Pipe"), GENERAL_ERROR);
+	*in_fd = pfd[0];
 	while (1)
 	{
-		input = readline("minishell$ ");
+		input = readline("> ");
 		if (!input)
-		{
-			printf("exit\n");
 			break ;
-		}
-		if (*input)
-			add_history(input);
-		node = ft_parse(&input, shell);
-		if (!node)
+		len_lim = ft_strlen(redir->file);
+		if (!ft_strncmp(input, redir->file, len_lim) && (!input[len_lim] || input[len_lim] == '\n'))
 		{
 			free(input);
-			continue ;
+			break ;
 		}
-		execute(node, shell);
-		freeAST(node);
+		if (write(pfd[1], input, ft_strlen(input)) == -1 || write(pfd[1], "\n", 1) == -1)
+			return (perror("Write"), GENERAL_ERROR);
 		free(input);
 	}
-	cleanShell(shell);
+	close(pfd[1]);
 	return (0);
 }

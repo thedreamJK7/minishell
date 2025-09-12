@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 17:27:24 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/11 17:57:06 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/12 14:42:42 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,3 @@ int		check_access(char *path)
 	}
 	return (COMMAND_NOT_FOUND);
 }
-
