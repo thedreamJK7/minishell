@@ -6,18 +6,20 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 17:21:52 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/12 08:04:41 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/12 08:11:26 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/minishell.h"
 
 int	main(int argc, char **argv, char **envp)
-int	main(int argc, char **argv, char **envp)
 {
 	char	*input;
 	t_shell	*shell;
+	t_node	*node;
 	
+	(void)argc;
+	(void)argv;
 	shell = init_envp(envp);
 	if (!shell)
 		return (printf("Failed to inishilize shell"), 1);
@@ -38,7 +40,7 @@ int	main(int argc, char **argv, char **envp)
 			free(input);
 			continue ;
 		}
-		execute(node, &shell, envp);
+		execute(node, &shell);
 		freeAST(node);
 		free(input);
 	}
