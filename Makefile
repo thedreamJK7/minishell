@@ -15,8 +15,10 @@ SRCS = main.c \
 	./parsing/isRedirection.c ./parsing/parseCommand.c \
 	./parsing/parseExpression.c ./parsing/parseRedirection.c \
 	./signals/setup_signals.c \
-	./exec/exec.c ./exec/exec_builtin.c ./exec/built_ins/builtin_pwd.c \
-	./exec/exec_pipe.c ./exec/exec_non_builtin.c ./exec/exec_utils.c
+	./env/env_util.c ./env/envp_to_array.c ./env/init_envp.c
+#	./exec/exec.c ./exec/exec_builtin.c ./exec/built_ins/builtin_pwd.c \
+	./exec/exec_pipe.c ./exec/exec_non_builtin.c ./exec/exec_utils.c \
+
 
 OBJ_DIR = ./obj
 
@@ -33,7 +35,7 @@ $(LIBFT):
 
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)/tokenizing $(OBJ_DIR)/parsing $(OBJ_DIR)/expanding \
-	$(OBJ_DIR)/signals $(OBJ_DIR)/exec $(OBJ_DIR)/exec/built_ins
+	$(OBJ_DIR)/signals $(OBJ_DIR)/exec $(OBJ_DIR)/exec/built_ins $(OBJ_DIR)/env
 
 $(OBJ_DIR)/%.o: %.c
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@

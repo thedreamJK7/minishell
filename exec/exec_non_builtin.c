@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_non_builtin.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 11:13:58 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/12 08:11:46 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/12 13:09:16 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	find_cmd_path(char **cmd, char **path)
 			*path = cmd[0];
 		return (ret);
 	}
-	path_env = getenv("PATH");
+	path_env = getenv("PATH");//
 	if (!path_env)
 		return (ft_putstr_fd("Environment not found", STDERR_FILENO), GENERAL_ERROR);
 	dirs = ft_split(path_env, ':');
@@ -113,7 +113,7 @@ int	exec_child(t_node *cmd, int in_fd, int out_fd, t_shell *shell)
 	shell->exit_code = find_cmd_path(cmd->cmd.cmd, &path);
 	if (shell->exit_code)
 		exit(shell->exit_code);
-	if (execve(path, cmd->cmd.cmd, shell->env) == -1)
+	if (execve(path, cmd->cmd.cmd, shell->env) == -1)//
 	{
 		perror("Execve");
 		free(path);

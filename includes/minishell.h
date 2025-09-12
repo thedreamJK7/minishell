@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 17:03:16 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/12 09:59:40 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/12 12:32:51 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,6 @@ void	setup_signals(void);
 void	freeEnvList(t_env *envList);
 void	cleanShell(t_shell	*shell);
 t_shell	*init_envp(char **envp);
+char	**envp_to_array(t_env *env_list);
 
 #endif
