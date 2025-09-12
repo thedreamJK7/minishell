@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 11:13:58 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/12 13:09:16 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/12 18:05:44 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,27 @@
 
 int	open_files(t_redir_token *redir, int *in_fd, int *out_fd)
 {
+	int	ret;
+
+	ret = 0;
 	while (redir)
 	{
-		if (redir->redir_type == IN)
+		if (redir->redir_type == IN || redir->redir_type == HEREDOC)
 		{
 			if (*in_fd != -1)
 				close (*in_fd);
-			*in_fd = open(redir->file, O_RDONLY);
-			if (*in_fd == -1)
-				return (perror(redir->file), GENERAL_ERROR);
+			if (redir->redir_type == HEREDOC)
+			{
+				ret = handle_heredoc(redir, in_fd);
+				if (ret)
+					return (ret);
+			}
+			else
+			{
+				*in_fd = open(redir->file, O_RDONLY);
+				if (*in_fd == -1)
+					return (perror(redir->file), GENERAL_ERROR);
+			}
 		}
 		else if (redir->redir_type == OUT || redir->redir_type == APPEND)
 		{
@@ -69,7 +81,7 @@ int	concat_path(char *cmd_name, char **dirs, char **path)
 	return (COMMAND_NOT_FOUND);
 }
 
-int	find_cmd_path(char **cmd, char **path)
+int	find_cmd_path(char **cmd, char **path, t_shell *shell)
 {
 	char	*path_env;
 	char	**dirs;
@@ -82,9 +94,9 @@ int	find_cmd_path(char **cmd, char **path)
 			*path = cmd[0];
 		return (ret);
 	}
-	path_env = getenv("PATH");//
+	path_env = get_env_value(shell, "PATH");
 	if (!path_env)
-		return (ft_putstr_fd("Environment not found", STDERR_FILENO), GENERAL_ERROR);
+		return (ft_putstr_fd("Path not found", STDERR_FILENO), GENERAL_ERROR);
 	dirs = ft_split(path_env, ':');
 	if (!dirs)
 		return (ft_putstr_fd("Path split failed", STDERR_FILENO), GENERAL_ERROR);
@@ -98,6 +110,7 @@ int	find_cmd_path(char **cmd, char **path)
 int	exec_child(t_node *cmd, int in_fd, int out_fd, t_shell *shell)
 {
 	char	*path;
+	char	**env;
 
 	path = NULL;
 	if (in_fd != -1)
@@ -110,13 +123,21 @@ int	exec_child(t_node *cmd, int in_fd, int out_fd, t_shell *shell)
 		dup2(out_fd, STDOUT_FILENO);
 		close(out_fd);
 	}
-	shell->exit_code = find_cmd_path(cmd->cmd.cmd, &path);
+	shell->exit_code = find_cmd_path(cmd->cmd.cmd, &path, shell);
 	if (shell->exit_code)
 		exit(shell->exit_code);
-	if (execve(path, cmd->cmd.cmd, shell->env) == -1)//
+	env = envp_to_array(shell->env_list);
+	if (!env)
+	{
+		ft_putstr_fd("Environment not found", STDERR_FILENO);
+		free(path);
+		exit(GENERAL_ERROR);
+	}
+	if (execve(path, cmd->cmd.cmd, env) == -1)
 	{
 		perror("Execve");
 		free(path);
+		clean_array(env);
 		exit(GENERAL_ERROR);
 	}
 	return (0);

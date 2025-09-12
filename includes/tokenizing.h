@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizing.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 22:04:04 by javokhir          #+#    #+#             */
-/*   Updated: 2025/09/07 18:11:03 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/12 14:43:19 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,6 @@ void	ft_realloc(int pos, char c, char **value, t_token **list);
 int		specify_tokens(char *s, t_token **list);
 int		handle_words(char *s, int *quote, t_token **list, t_shell *shell);
 void	clean_tokens(t_token **list, int exit_flag);
+char	*get_env_value(t_shell *shell, char *s);
 
 #endif

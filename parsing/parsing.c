@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 14:37:42 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/12 13:08:43 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/12 14:48:40 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_node	*ft_parse(char **input, t_shell *shell)
 	t_node	*nodes;
 
 	token_list = ft_tokenize(*input, shell);
-	print_tokens(token_list);//print test for token list
+//	print_tokens(token_list);//print test for token list
 	tmp_list = token_list;
 	nodes = parse_expression(&tmp_list);
 	if (!nodes)

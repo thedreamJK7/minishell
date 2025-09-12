@@ -6,10 +6,93 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 15:30:01 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/05/16 18:55:52 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/12 15:31:58 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+#include "libft.h"
+
+static size_t	words_counter(char const *s, char c)
+{
+	size_t	words;
+
+	words = 0;
+	while (*s)
+	{
+		while (*s && *s == c)
+			s++;
+		if (*s && *s != c)
+		{
+			words++;
+			while (*s && *s != c)
+				s++;
+		}
+	}
+	return (words);
+}
+
+static char	*mallocw(char const *str, char c)
+{
+	int		i;
+	int		len;
+	char	*ar;
+
+	len = 0;
+	while (str[len] && str[len] != c)
+		len++;
+	ar = malloc(sizeof(char) * (len + 1));
+	if (ar == NULL)
+		return (NULL);
+	i = 0;
+	while (len > i)
+	{
+		ar[i] = str[i];
+		i++;
+	}
+	ar[i] = '\0';
+	return (ar);
+}
+
+static void	freeding(char **arr)
+{
+	char	**p;
+
+	p = arr;
+	while (*p)
+		free(*p++);
+	free(arr);
+}
+
+char	**ft_split(char const *s, char c)
+{
+	char	**arr;
+	char	**temp;
+
+	arr = malloc(sizeof(char *) * (words_counter(s, c) + 1));
+	if (!arr || !s)
+		return (NULL);
+	temp = arr;
+	while (*s)
+	{
+		while (*s && *s == c)
+			s++;
+		if (*s && *s != c)
+		{
+			*temp = mallocw(s, c);
+			if (*temp++ == NULL)
+			{
+				freeding(arr);
+				return (NULL);
+			}
+			while (*s && *s != c)
+				s++;
+		}
+	}
+	*temp = NULL;
+	return (arr);
+}
+*/
 #include "libft.h"
 
 static size_t	ft_count_substr(char const *str, char c)
@@ -70,7 +153,8 @@ static char	**ft_assign_arr(char **array, const char *str, size_t count, char c)
 			i += ft_sub_len(str, i, c);
 			j++;
 		}
-		i++;
+		if (j < count)
+			i++;
 	}
 	return (array);
 }
