@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 20:00:47 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/05 20:20:50 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/13 16:33:22 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 void	*ft_realloc1(void *ptr, size_t old_size, size_t new_size);
+int		ft_strcmp(char *s1, char *s2);
 
 typedef struct s_list
 {

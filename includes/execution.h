@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 11:07:44 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/13 11:23:57 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/13 15:37:15 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,19 @@
 
 int		execute(t_node *node, t_shell *shell);
 int		exec_pipe(t_node *pipe_node, t_shell *shell);
-int		exec_builtin(char **cmd);
+int		exec_builtin(t_shell *shell, char **cmd);
 int		exec_non_builtin(t_node *cmd, t_shell *shell);
 int		handle_heredoc(t_redir_token *redir, int *in_fd);
 void	clean_array(char **arr);
 void	close_fd(int in_fd, int out_fd);
 int		check_access(char *path);
 int		builtin_pwd(char **cmd);
-int		builtin_export(t_shell *shell, char	**cmd);
+int		builtin_export(t_env *list, char **cmd);
+void	print_envp(t_env *envp);
+int		is_valid_identifier(char *name);
+void	parse_export_arg(char *arg, char **name, char **value);
+t_env	*is_env_exist(t_env *list, char *name);
+int		builtin_cd(t_env *envp, char **cmd);
 
 #endif
 

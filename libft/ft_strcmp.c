@@ -1,33 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_util.c                                         :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/11 17:56:42 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/13 15:05:34 by jkubaev          ###   ########.fr       */
+/*   Created: 2025/09/13 16:32:28 by jkubaev           #+#    #+#             */
+/*   Updated: 2025/09/13 16:33:02 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "./includes/libft.h"
 
-void	free_env_list(t_env *envList)
+int	ft_strcmp(char *s1, char *s2)
 {
-	t_env	*tmp;
+	int	i;
 
-	while (envList)
-	{
-		tmp = envList;
-		envList = envList->next;
-		free(tmp->name);
-		free(tmp->value);
-		free(tmp);
-	}
-}
-
-void	clean_shell(t_shell	*shell)
-{
-	free_env_list(shell->env_list);
-	free(shell);
+	i = 0;
+	while (s1[i] != '\0' && s2[i] != '\0' && s1[i] == s2[i])
+		i++;
+	return (s1[i] - s2[i]);
 }

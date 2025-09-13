@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parseCommand.c                                     :+:      :+:    :+:   */
+/*   parse_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 11:34:27 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/08 12:35:13 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/13 15:07:44 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_node	*parse_command(t_token **list)
 	t_redir_token	*redir;
 
 	tmp = *list;
-	node = createNode(COMMAND);
+	node = create_node(COMMAND);
 	if (!node)
 		return (NULL);
 	while (tmp && tmp->type != T_PIPE && tmp->type != T_EOF)
@@ -27,13 +27,13 @@ t_node	*parse_command(t_token **list)
         if (tmp->type == T_WORD)
         {
             if (add_arg(node, &tmp))
-				return (freeAST(node), NULL);
+				return (free_ast(node), NULL);
         }
         else if (is_redirection(tmp->type))
         {
-            redir = parseRedirection(&tmp);
+            redir = parse_redirection(&tmp);
 			if (!redir)
-				return (freeAST(node), NULL);
+				return (free_ast(node), NULL);
             add_redir(node, redir);
         }
     }

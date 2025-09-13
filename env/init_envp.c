@@ -6,13 +6,13 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 13:15:26 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/12 13:26:43 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/13 15:19:56 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	appendEnvList(t_env **head, t_env **tail, t_env *new_node)
+void	append_env_list(t_env **head, t_env **tail, t_env *new_node)
 {
 	if (!*head)
 	{
@@ -26,7 +26,7 @@ void	appendEnvList(t_env **head, t_env **tail, t_env *new_node)
 	}
 }
 
-t_env	*newListF(char *name, char *value)
+t_env	*new_list_f(char *name, char *value)
 {
 	t_env	*new_list;
 
@@ -39,9 +39,9 @@ t_env	*newListF(char *name, char *value)
 	return (new_list);
 }
 
-t_env	*parseAndCreateEnvList(const char *envp)
+t_env	*parse_and_create_env_list(const char *envp)
 {
-	t_env	*newList;
+	t_env	*new_list;
 	char	*name;
 	char	*value;
 	char	*equalSign;
@@ -55,10 +55,10 @@ t_env	*parseAndCreateEnvList(const char *envp)
 	value = ft_strdup(equalSign + 1);
 	if (!value)
 		return (free(name), NULL);
-	newList = newListF(name, value);
-	if (!newList)
+	new_list = new_list_f(name, value);
+	if (!new_list)
 		return (free(name), free(value), NULL);
-	return (newList);
+	return (new_list);
 }
 
 t_env *init_envp_list(char **envp)
@@ -74,10 +74,10 @@ t_env *init_envp_list(char **envp)
 	tail = NULL;
 	while (envp[i])
 	{
-		new_list = parseAndCreateEnvList(envp[i]);
+		new_list = parse_and_create_env_list(envp[i]);
 		if (!new_list)
-			return (freeEnvList(head), NULL);
-		appendEnvList(&head, &tail, new_list);
+			return (free_env_list(head), NULL);
+		append_env_list(&head, &tail, new_list);
 		i++;
 	}
 	return (head);

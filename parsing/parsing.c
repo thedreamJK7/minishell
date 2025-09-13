@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 14:37:42 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/13 11:24:10 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/13 15:03:53 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_node	*ft_parse(char **input, t_shell *shell)
 	nodes = parse_expression(&tmp_list);
 	if (!nodes)
 	{
-		freeAST(nodes);
+		free_ast(nodes);
 		clean_tokens(&token_list, 0);
 		return (NULL);
 	}

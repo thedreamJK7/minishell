@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parseRedirection.c                                 :+:      :+:    :+:   */
+/*   parse_redirection.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 11:30:50 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/04 17:26:08 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/13 15:03:43 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static int assignValue(t_redir_token **redir, t_token **list)
+static int assign_value(t_redir_token **redir, t_token **list)
 {
 	t_token	*tmp;
 
@@ -40,7 +40,7 @@ static int assignValue(t_redir_token **redir, t_token **list)
 	return (0);
 }
 
-t_redir_token	*parseRedirection(t_token **list)
+t_redir_token	*parse_redirection(t_token **list)
 {
 	t_redir_token	*redir;
 	t_token	*tmp;
@@ -49,7 +49,7 @@ t_redir_token	*parseRedirection(t_token **list)
 	redir = malloc(sizeof(t_redir_token));
 	if (!redir)
 		return (printf(ALLOCATION_FAIL), NULL);
-	if (assignValue(&redir, &tmp))
+	if (assign_value(&redir, &tmp))
 		return (NULL);
 	*list = tmp;
 	return (redir);
