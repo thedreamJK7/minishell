@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: javokhir <javokhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 15:56:08 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/13 15:34:27 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/13 22:12:11 by javokhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,6 @@ int	exec_builtin(t_shell *shell, char **cmd)
 	if (!ft_strncmp(cmd[0], "export", ft_strlen("export")))
 		bool = builtin_export(shell->env_list, cmd);
 	if (!ft_strncmp(cmd[0], "cd", ft_strlen("cd")))
-		bool = builtin_export(shell->env_list, cmd);
+		bool = builtin_cd(shell, cmd);
 	return (bool);
 }
