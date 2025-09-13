@@ -3,12 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: javokhir <javokhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 16:58:25 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/13 17:18:07 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/13 22:52:55 by javokhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+int	builtin_echo(t_shell *shell, char **cmd)
+{
+	
+}

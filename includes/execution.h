@@ -6,7 +6,7 @@
 /*   By: javokhir <javokhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 11:07:44 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/13 21:29:25 by javokhir         ###   ########.fr       */
+/*   Updated: 2025/09/13 22:37:38 by javokhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	clean_array(char **arr);
 void	close_fd(int in_fd, int out_fd);
 int		check_access(char *path);
 int		builtin_pwd(char **cmd);
-int		builtin_export(t_env *list, char **cmd);
+int		builtin_export(t_shell *shell, char **cmd);
 void	print_envp(t_env *envp);
 int		is_valid_identifier(char *name);
 void	parse_export_arg(char *arg, char **name, char **value);

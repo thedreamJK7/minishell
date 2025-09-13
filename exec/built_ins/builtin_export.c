@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: javokhir <javokhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 11:37:01 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/13 16:32:14 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/13 22:37:06 by javokhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	update_or_add_env(t_env *list, char	*idf)
 		return (update_env_value(existing, value));
 }
 
-int	builtin_export(t_env *list, char **cmd)
+int	builtin_export(t_shell *shell, char **cmd)
 {
 	int i;
 	int	exit_status;
@@ -86,7 +86,7 @@ int	builtin_export(t_env *list, char **cmd)
 	exit_status = 0;
 	i = 1;
 	if (!cmd[i])
-		return(print_envp(list), 1);
+		return(print_envp(shell->env_list), 1);
 	while (cmd[i])
 	{
 		if (is_valid_identifier(cmd[i]))
@@ -95,7 +95,7 @@ int	builtin_export(t_env *list, char **cmd)
 			exit_status = 1;	
 		}
 		else
-			exit_status = update_or_add_env(list, cmd[i]);
+			exit_status = update_or_add_env(shell->env_list, cmd[i]);
 		i++;
 	}
 	return (exit_status);
