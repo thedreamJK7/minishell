@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 17:27:24 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/12 12:52:59 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/13 11:23:47 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,3 @@ int		check_access(char *path)
 	}
 	return (COMMAND_NOT_FOUND);
 }
-

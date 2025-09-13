@@ -6,13 +6,13 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 18:51:42 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/12 13:10:05 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/12 13:28:17 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static char	*get_env_value(t_shell *shell, char *s)
+char	*get_env_value(t_shell *shell, char *s)
 {
 	int		len1;
 	int		len2;

@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 17:21:52 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/12 13:27:11 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/13 11:24:23 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	shell = init_envp(envp);
 	if (!shell)
-		return (printf("Failed to inishilize shell"), 1);
+		return (printf("Failed to initialize shell"), 1);
 	setup_signals();
 	while (1)
 	{
@@ -30,7 +30,7 @@ int	main(int argc, char **argv, char **envp)
 		if (!input)
 		{
 			printf("exit\n");
-			exit(1);
+			break ;
 		}
 		if (*input)
 			add_history(input);
@@ -40,7 +40,7 @@ int	main(int argc, char **argv, char **envp)
 			free(input);
 			continue ;
 		}
-//		execute(node, &shell);
+		execute(node, shell);
 		freeAST(node);
 		free(input);
 	}
