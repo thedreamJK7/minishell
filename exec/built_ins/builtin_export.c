@@ -6,109 +6,128 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 11:37:01 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/12 17:39:11 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/13 11:20:35 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-/*
-
-MY_VAR=hello	✅ Valid	The variable name uses valid 
-				characters (letters and underscore).
-
-my-var=hello	❌ Invalid	The hyphen - is not a 
-				valid character for a variable name.
-
-1VAR=hello		❌ Invalid	A variable name cannot start with a digit.
-
-_VAR=hello		✅ Valid	A variable name can start with an underscore _.
-
-VAR=hello world	✅ Valid	This is valid if the quotes 
-				were handled correctly during parsing.
-
-export (no arguments)	✅ Valid	When no arguments are 
-						given, export prints all environment variables.
-*/
 
 int	is_first_char_valid(char c)
 {
 	return ('a' >= c && 'z' >= c || 'A' >= c && 'Z' >= c || c == '_');
 }
 
-int	is_valid_identifier(char *idf)
+int	is_valid_identifier(char *name)
 {
 	int	i;
 	int	valid;
 
 	i = 0;
 	valid = 1;
-	if (!is_first_char_valid(idf[i]))
+	if (!is_first_char_valid(name[i]))
 		return (1);
 	i++;
-	while (idf[i])
+	while (name[i])
 	{
-		if (idf[i] == '-')
+		if (name[i] == '-')
 		{
 			valid = 1;
 			break ;
 		}
-		else if (idf[i] == '=')
+		if (name[i] == '=')
 		{
 			valid = 0;
-			break ;	
+			break ;
 		}
 		i++;
 	}
 	return (valid);
 }
 
-int	is_idf_exist(t_env *list, char *idf)
+static void	parse_export_arg(char *arg, char **name, char **value)
+{
+	char	*equal_sign;
+
+	equal_sign = ft_strchr(arg, '=');
+	if (!equal_sign)
+	{
+		*name = ft_strdup(arg);
+		*value = ft_strdup("");
+	}
+	else
+	{
+		*name = ft_substr(arg, 0, equal_sign - arg);
+		*value = ft_strdup(equal_sign + 1);
+	}
+}
+
+t_env	*is_env_exist(t_env *list, char *name)
 {
 	t_env	*tmp;
 
 	tmp = list;
 	while (tmp)
 	{
-		if (ft_strncmp(tmp->name, idf, ft_strlen_g(idf)))
-			return (0);
-		tmp = tmp->next;	
+		if (ft_strcmp(tmp->name, name))
+			return (tmp);
+		tmp = tmp->next;
 	}
-	return (1);
+	return (NULL);
 }
 
-int	add_env(t_env **list, char *idf)
+int	add_env(t_env *list, char *name, char *value)
 {
-	t_env	*newList;
-	t_env	*current;
+	t_env *newList;
+    t_env *current;
 
-    newList = parseAndCreateEnvList(idf);
+    newList = malloc(sizeof(t_env));
     if (!newList)
         return (1);
-    if (*list == NULL) 
+	newList->name = ft_strdup(name);
+	newList->value = ft_strdup(value);
+	newList->next = NULL;
+    if (list == NULL) 
 	{
-        *list = newList; 
+        list = newList; 
         return (0);
     }
-    current = *list;
-    while (current->next != NULL)
+    current = list;
+    while (current->next != NULL) {
         current = current->next;
+    }
     current->next = newList;
-    return (0);
-}
-
-int	change_envp(t_env	*list, char *idf)
-{
-	if (!is_idf_exist(list, idf))
-	{
-		
-	}
-	if (!add_env(&list, idf))
-		return (1);
 	return (0);
 }
 
-int	builtin_export(t_env *list, char	**cmd)
+static int	update_env_value(t_env *node, char *value)
+{
+	char	*new_value;
+
+	new_value = ft_strdup(value);
+	if (!new_value)
+		return (1);
+	free(node->value);
+	node->value = new_value;
+	return (0);
+}
+
+int	update_or_add_env(t_env *list, char	*idf)
+{
+	char *name;
+	char *value;
+	t_env	*existing;
+	
+	parse_export_arg(idf, &name, &value);
+	if (!name || !value)
+		return (1);
+	existing = is_env_exist(list, name);
+	if (!existing)
+		return (add_env(list, name, value));
+	else
+		return (update_env_value(existing, value));
+}
+
+int	builtin_export(t_env *list, char **cmd)
 {
 	int i;
 	int	exit_status;
@@ -122,12 +141,10 @@ int	builtin_export(t_env *list, char	**cmd)
 		if (!is_valid_identifier(cmd[i]))
 		{
 			printf("export: `%s': not a valid identifier", cmd[i]);
-			exit_status = 1;
+			exit_status = 1;	
 		}
 		else
-		{
-			
-		}
+			exit_status = update_or_add_env(list, cmd[i]);
 		i++;
 	}
 	return (exit_status);
