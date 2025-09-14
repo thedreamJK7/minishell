@@ -6,7 +6,7 @@
 /*   By: javokhir <javokhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 11:07:44 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/14 15:09:18 by javokhir         ###   ########.fr       */
+/*   Updated: 2025/09/14 21:32:08 by javokhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int		builtin_cd(t_shell *shell, char **cmd);
 int		builtin_echo(t_shell *shell, char **cmd);
 int		count_arguments(char **cmd);
 int		builtin_exit(t_shell *shell, char **cmd);
+int		builtin_env(t_shell *shell, char **cmd);
 
 #endif
 

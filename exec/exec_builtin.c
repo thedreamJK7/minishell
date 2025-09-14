@@ -6,7 +6,7 @@
 /*   By: javokhir <javokhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 15:56:08 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/14 15:09:32 by javokhir         ###   ########.fr       */
+/*   Updated: 2025/09/14 21:33:02 by javokhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,7 @@ int	exec_builtin(t_shell *shell, char **cmd)
 		bool = builtin_echo(shell, cmd);
 	if (!ft_strcmp(cmd[0], "exit"))
 		bool = builtin_exit(shell, cmd);
+	if (!ft_strcmp(cmd[0], "env"))
+		bool = builtin_env(shell, cmd);
 	return (bool);
 }
