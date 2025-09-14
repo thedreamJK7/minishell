@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javokhir <javokhir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 11:07:44 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/13 22:37:38 by javokhir         ###   ########.fr       */
+/*   Updated: 2025/09/14 12:45:44 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ int		is_valid_identifier(char *name);
 void	parse_export_arg(char *arg, char **name, char **value);
 t_env	*is_env_exist(t_env *list, char *name);
 int		builtin_cd(t_shell *shell, char **cmd);
+int		builtin_echo(t_shell *shell, char **cmd);
+int		count_arguments(char **cmd);
 
 #endif
 

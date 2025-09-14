@@ -3,24 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javokhir <javokhir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 12:50:16 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/13 22:16:06 by javokhir         ###   ########.fr       */
+/*   Updated: 2025/09/14 12:45:13 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-int	count_arguments(char **cmd)
-{
-	int	count;
-
-	count = 0;
-	while (cmd[count])
-		count++;
-	return (count);
-}
 
 int	go_home(t_shell *shell)
 {

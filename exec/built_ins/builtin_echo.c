@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javokhir <javokhir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 16:58:25 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/13 22:52:55 by javokhir         ###   ########.fr       */
+/*   Updated: 2025/09/14 12:05:25 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,28 @@
 
 int	builtin_echo(t_shell *shell, char **cmd)
 {
-	
+	int i;
+
+	i = 1;
+	if (!ft_strcmp(cmd[i], "-n"))
+	{
+		i++;
+		while (cmd[i] && (cmd[i + 1] != NULL))
+		{
+			printf("%s ", cmd[i]);
+			i++;
+		}
+		printf("%s", cmd[i]);
+	}
+	else
+	{
+		while (cmd[i] && (cmd[i + 1] != NULL))
+		{
+			printf("%s ", cmd[i]);
+			i++;
+		}
+		printf("%s\n", cmd[i]);
+	}
+	shell->exit_code = 0;
+	return (0);
 }
