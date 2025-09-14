@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   setup_signals.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: javokhir <javokhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 10:50:14 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/14 11:19:42 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/14 15:08:31 by javokhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	signal_handler()
 {
 	printf("\n");
 	rl_on_new_line();
-	rl_replace_line("", 0);
+	//rl_replace_line("", 0);
 	rl_redisplay();
 }
 

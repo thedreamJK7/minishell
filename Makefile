@@ -18,7 +18,7 @@ SRCS = main.c \
 	./env/env_util.c ./env/envp_to_array.c ./env/init_envp.c \
 	./exec/exec.c ./exec/exec_builtin.c ./exec/built_ins/builtin_pwd.c \
 	./exec/built_ins/builtin_export.c ./exec/built_ins/builtin_utils.c \
-	./exec/built_ins/builtin_echo.c \
+	./exec/built_ins/builtin_echo.c ./exec/built_ins/builtin_exit.c \
 	./exec/exec_pipe.c ./exec/exec_non_builtin.c ./exec/exec_utils.c \
 	./exec/built_ins/builtin_export_utils.c ./exec/built_ins/builtin_cd.c\
 	./exec/exec_heredoc.c 
