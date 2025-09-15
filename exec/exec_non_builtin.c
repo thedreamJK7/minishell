@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_non_builtin.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 11:13:58 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/12 18:05:44 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/13 11:23:33 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

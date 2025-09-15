@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 14:37:42 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/12 14:48:40 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/13 15:03:53 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ t_node	*ft_parse(char **input, t_shell *shell)
 	nodes = parse_expression(&tmp_list);
 	if (!nodes)
 	{
-		freeAST(nodes);
+		free_ast(nodes);
 		clean_tokens(&token_list, 0);
 		return (NULL);
 	}
+	//print_ast(nodes, 1);// print test for ast node
 	clean_tokens(&token_list, 0);
 	return (nodes);
-	//print_ast(nodes, 1);// print test for ast node
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 17:21:52 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/12 15:54:53 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/13 15:05:52 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		}
 		execute(node, shell);
-		freeAST(node);
+		free_ast(node);
 		free(input);
 	}
-	cleanShell(shell);
+	clean_shell(shell);
 	return (0);
 }

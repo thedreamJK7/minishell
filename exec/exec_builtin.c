@@ -3,21 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: javokhir <javokhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 15:56:08 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/08 16:53:22 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/14 21:33:02 by javokhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	exec_builtin(char **cmd)
+int	exec_builtin(t_shell *shell, char **cmd)
 {
 	int	bool;
 
 	bool = 0;
-	if (!ft_strncmp(cmd[0], "pwd", ft_strlen("pwd")))
+	if (!ft_strcmp(cmd[0], "pwd"))
 		bool = builtin_pwd(cmd);
+	if (!ft_strcmp(cmd[0], "export"))
+		bool = builtin_export(shell, cmd);
+	if (!ft_strcmp(cmd[0], "cd"))
+		bool = builtin_cd(shell, cmd);
+	if (!ft_strcmp(cmd[0], "echo"))
+		bool = builtin_echo(shell, cmd);
+	if (!ft_strcmp(cmd[0], "exit"))
+		bool = builtin_exit(shell, cmd);
+	if (!ft_strcmp(cmd[0], "env"))
+		bool = builtin_env(shell, cmd);
 	return (bool);
 }

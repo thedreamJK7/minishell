@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parseExpression.c                                  :+:      :+:    :+:   */
+/*   parse_expression.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: javokhir <javokhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 11:35:27 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/12 08:13:05 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/13 17:30:19 by javokhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,18 @@ t_node *parse_expression(t_token **list)
 		if (!root)
 			return (NULL);
 	}
-	if ((*list) && (*list)->type == PIPE)
+	if ((*list) && (*list)->type == T_PIPE)
 	{
 		if (!root || (*list)->next->type == T_PIPE || (*list)->next->type == T_EOF)
-		if (!root || (*list)->next->type == T_PIPE || (*list)->next->type == T_EOF)
-			return (printf(SYNTAX_ERROR1), freeAST(root), NULL);
-		pipe = createNode(PIPE);
+			return (printf(SYNTAX_ERROR1), free_ast(root), NULL);
+		pipe = create_node(PIPE);
 		if (!pipe)
-			return (freeAST(root), NULL);
+			return (free_ast(root), NULL);
 		pipe->pipe.left = root;
 		(*list) = (*list)->next;
 		pipe->pipe.right = parse_expression(&(*list));
 		if (!(pipe->pipe.right))
-			return (freeAST(pipe->pipe.left), free(pipe), NULL);
+			return (free_ast(pipe->pipe.left), free(pipe), NULL);
 		root = pipe;
 	}
 	return (root);

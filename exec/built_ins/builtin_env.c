@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   setup_signals.c                                    :+:      :+:    :+:   */
+/*   builtin_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: javokhir <javokhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/08 10:50:14 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/14 21:56:05 by javokhir         ###   ########.fr       */
+/*   Created: 2025/09/14 16:11:29 by jkubaev           #+#    #+#             */
+/*   Updated: 2025/09/14 21:31:41 by javokhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
-static void	signal_handler()
+int	builtin_env(t_shell *shell, char **cmd)
 {
-	printf("\n");
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
-}
+	int	count;
 
-void	setup_signals(void)
-{
-	signal(SIGINT, signal_handler);
-	signal(SIGQUIT, SIG_IGN);
+	count = count_arguments(cmd);
+	if (count == 1)
+	{
+		print_envp(shell->env_list);
+		return (0);
+	}
+	printf("env: %s: No such file or directory", cmd[1]);
+	return (1);
 }

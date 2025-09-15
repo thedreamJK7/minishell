@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 17:03:16 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/12 12:32:51 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/13 15:23:41 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ typedef struct	s_shell
 #include "execution.h"
 
 void	setup_signals(void);
-void	freeEnvList(t_env *envList);
-void	cleanShell(t_shell	*shell);
+void	free_env_list(t_env *envList);
+void	clean_shell(t_shell	*shell);
 t_shell	*init_envp(char **envp);
 char	**envp_to_array(t_env *env_list);
 

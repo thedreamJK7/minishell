@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   createNode.c                                       :+:      :+:    :+:   */
+/*   create_node.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 11:23:34 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/05 13:22:11 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/13 15:02:31 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-t_node *createNode(t_node_type type)
+t_node *create_node(t_node_type type)
 {
 	t_node	*node;
 

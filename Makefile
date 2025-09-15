@@ -10,14 +10,18 @@ SRCS = main.c \
 	./tokenizing/print_tokens.c ./tokenizing/tokenizing_utils.c \
 	./tokenizing/handle_pipe_redir.c ./tokenizing/handle_quotes.c \
 	./tokenizing/handle_variable.c ./tokenizing/handle_word.c \
-	./parsing/parsing.c ./parsing/print_ast.c ./parsing/addArg.c \
-	./parsing/addRedir.c ./parsing/cleanAST.c ./parsing/createNode.c \
-	./parsing/isRedirection.c ./parsing/parseCommand.c \
-	./parsing/parseExpression.c ./parsing/parseRedirection.c \
+	./parsing/parsing.c ./parsing/print_ast.c ./parsing/add_arg.c \
+	./parsing/add_redir.c ./parsing/clean_ast.c ./parsing/create_node.c \
+	./parsing/is_redirection.c ./parsing/parse_command.c \
+	./parsing/parse_expression.c ./parsing/parse_redirection.c \
 	./signals/setup_signals.c \
 	./env/env_util.c ./env/envp_to_array.c ./env/init_envp.c \
 	./exec/exec.c ./exec/exec_builtin.c ./exec/built_ins/builtin_pwd.c \
+	./exec/built_ins/builtin_export.c ./exec/built_ins/builtin_utils.c \
+	./exec/built_ins/builtin_echo.c ./exec/built_ins/builtin_exit.c \
+	./exec/built_ins/builtin_env.c \
 	./exec/exec_pipe.c ./exec/exec_non_builtin.c ./exec/exec_utils.c \
+	./exec/built_ins/builtin_export_utils.c ./exec/built_ins/builtin_cd.c\
 	./exec/exec_heredoc.c 
 
 

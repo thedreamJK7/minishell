@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cleanAST.c                                         :+:      :+:    :+:   */
+/*   clean_ast.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 11:24:45 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/08 14:24:24 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/13 15:02:14 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void free_redir_list(t_redir_token *list)
     }
 }
 
-void	freeAST(t_node *node) 
+void	free_ast(t_node *node) 
 {
     if (node == NULL)
 		return ;
@@ -53,8 +53,8 @@ void	freeAST(t_node *node)
 	}
 	else if (node->type == PIPE) 
 	{
-        freeAST(node->pipe.left);
-        freeAST(node->pipe.right);
+        free_ast(node->pipe.left);
+        free_ast(node->pipe.right);
     }
     free(node);
 }

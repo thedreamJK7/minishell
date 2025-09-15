@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: javokhir <javokhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 11:07:44 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/12 17:16:17 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/14 21:32:08 by javokhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,23 @@
 
 int		execute(t_node *node, t_shell *shell);
 int		exec_pipe(t_node *pipe_node, t_shell *shell);
-int		exec_builtin(char **cmd);
+int		exec_builtin(t_shell *shell, char **cmd);
 int		exec_non_builtin(t_node *cmd, t_shell *shell);
 int		handle_heredoc(t_redir_token *redir, int *in_fd);
 void	clean_array(char **arr);
 void	close_fd(int in_fd, int out_fd);
 int		check_access(char *path);
 int		builtin_pwd(char **cmd);
+int		builtin_export(t_shell *shell, char **cmd);
+void	print_envp(t_env *envp);
+int		is_valid_identifier(char *name);
+void	parse_export_arg(char *arg, char **name, char **value);
+t_env	*is_env_exist(t_env *list, char *name);
+int		builtin_cd(t_shell *shell, char **cmd);
+int		builtin_echo(t_shell *shell, char **cmd);
+int		count_arguments(char **cmd);
+int		builtin_exit(t_shell *shell, char **cmd);
+int		builtin_env(t_shell *shell, char **cmd);
 
 #endif
 
