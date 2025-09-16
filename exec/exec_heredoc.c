@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 16:30:41 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/15 12:17:04 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/16 18:19:39 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ int	handle_heredoc(t_redir_token *redir, int *in_fd)
 		if (!input)
 			break ;
 		len_lim = ft_strlen(redir->file);
-		if (!ft_strncmp(input, redir->file, len_lim) && (!input[len_lim] || input[len_lim] == '\n'))
+		if (!ft_strncmp(input, redir->file, len_lim) && (!input[len_lim] 
+			|| input[len_lim] == '\n'))
 		{
 			free(input);
 			break ;
