@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 16:58:25 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/14 12:05:25 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/15 12:58:26 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	builtin_echo(t_shell *shell, char **cmd)
 	int i;
 
 	i = 1;
-	if (!ft_strcmp(cmd[i], "-n"))
+	if (cmd[i] && !ft_strcmp(cmd[i], "-n"))
 	{
 		i++;
 		while (cmd[i] && (cmd[i + 1] != NULL))
