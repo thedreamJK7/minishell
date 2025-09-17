@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 11:13:58 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/13 11:23:33 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/16 15:14:36 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,7 @@ int	exec_non_builtin(t_node *cmd, t_shell *shell)
 	if (shell->exit_code)
 		return (close_fd(in_fd, out_fd), shell->exit_code);
 	pid = fork();
+	
 	if (pid == -1)
 		return (perror("fork"), close_fd(in_fd, out_fd), GENERAL_ERROR);
 	else if (!pid)

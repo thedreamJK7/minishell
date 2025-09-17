@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javokhir <javokhir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 11:07:44 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/14 21:32:08 by javokhir         ###   ########.fr       */
+/*   Updated: 2025/09/15 11:29:40 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int		builtin_echo(t_shell *shell, char **cmd);
 int		count_arguments(char **cmd);
 int		builtin_exit(t_shell *shell, char **cmd);
 int		builtin_env(t_shell *shell, char **cmd);
+int		builtin_unset(t_shell *shell, char **cmd);
 
 #endif
 
