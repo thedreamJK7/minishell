@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 17:21:52 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/13 15:05:52 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/16 14:41:09 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/minishell.h"
+
+sig_atomic_t	g_sig_received = 0;
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -23,7 +25,8 @@ int	main(int argc, char **argv, char **envp)
 	shell = init_envp(envp);
 	if (!shell)
 		return (printf("Failed to initialize shell"), 1);
-	setup_signals();
+	input = NULL;
+	setup_signals(signal_handler_main);
 	while (1)
 	{
 		input = readline("minishell$ ");
@@ -43,6 +46,7 @@ int	main(int argc, char **argv, char **envp)
 		execute(node, shell);
 		free_ast(node);
 		free(input);
+		g_sig_received = 0;
 	}
 	clean_shell(shell);
 	return (0);

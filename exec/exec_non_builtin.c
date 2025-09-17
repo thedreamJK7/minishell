@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_non_builtin.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 11:13:58 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/13 11:23:33 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/17 18:12:19 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,13 @@ int	open_files(t_redir_token *redir, int *in_fd, int *out_fd)
 	ret = 0;
 	while (redir)
 	{
-		if (redir->redir_type == IN || redir->redir_type == HEREDOC)
+		if (redir->redir_type == IN)
 		{
 			if (*in_fd != -1)
 				close (*in_fd);
-			if (redir->redir_type == HEREDOC)
-			{
-				ret = handle_heredoc(redir, in_fd);
-				if (ret)
-					return (ret);
-			}
-			else
-			{
-				*in_fd = open(redir->file, O_RDONLY);
-				if (*in_fd == -1)
-					return (perror(redir->file), GENERAL_ERROR);
-			}
+			*in_fd = open(redir->file, O_RDONLY);
+			if (*in_fd == -1)
+				return (perror(redir->file), GENERAL_ERROR);
 		}
 		else if (redir->redir_type == OUT || redir->redir_type == APPEND)
 		{
@@ -153,6 +144,12 @@ int	exec_non_builtin(t_node *cmd, t_shell *shell)
 	in_fd = -1;
 	out_fd = -1;
 	pid = -1;
+	if (cmd->cmd.redir_token && cmd->cmd.redir_token->redir_type == HEREDOC)
+	{
+		shell->exit_code = exec_heredoc(cmd->cmd.redir_token, &in_fd);
+		if (shell->exit_code)
+			return (close_fd(in_fd, out_fd), shell->exit_code);
+	}
 	shell->exit_code = open_files(cmd->cmd.redir_token, &in_fd, &out_fd);
 	if (shell->exit_code)
 		return (close_fd(in_fd, out_fd), shell->exit_code);
@@ -160,12 +157,24 @@ int	exec_non_builtin(t_node *cmd, t_shell *shell)
 	if (pid == -1)
 		return (perror("fork"), close_fd(in_fd, out_fd), GENERAL_ERROR);
 	else if (!pid)
+	{
+		signal(SIGINT, SIG_DFL);
+//		setup_signals(signal_handler_heredoc);
 		exec_child(cmd, in_fd, out_fd, shell);
+	}
+	signal(SIGINT, SIG_IGN);
 	close_fd(in_fd, out_fd);
 	waitpid(pid, &status, 0);
-	if (WIFEXITED(status))
-		return (WEXITSTATUS(status));
+	if (WIFEXITED(status) && WEXITSTATUS(status))
+	{
+		if (WEXITSTATUS(status) == 130)
+			write(STDOUT_FILENO, "\n", 1);
+		return (setup_signals(signal_handler_main), WEXITSTATUS(status));
+	}
 	else if (WIFSIGNALED(status))
-		return (128 + WTERMSIG(status));
-	return (0);
+	{
+		write(STDOUT_FILENO, "\n", 1);
+		return (setup_signals(signal_handler_main), 128 + WTERMSIG(status));
+	}
+	return (setup_signals(signal_handler_main), 0);
 }

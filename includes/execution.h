@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javokhir <javokhir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 11:07:44 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/14 21:32:08 by javokhir         ###   ########.fr       */
+/*   Updated: 2025/09/15 11:36:20 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		execute(t_node *node, t_shell *shell);
 int		exec_pipe(t_node *pipe_node, t_shell *shell);
 int		exec_builtin(t_shell *shell, char **cmd);
 int		exec_non_builtin(t_node *cmd, t_shell *shell);
-int		handle_heredoc(t_redir_token *redir, int *in_fd);
+int		exec_heredoc(t_redir_token *redir, int *in_fd);
 void	clean_array(char **arr);
 void	close_fd(int in_fd, int out_fd);
 int		check_access(char *path);
