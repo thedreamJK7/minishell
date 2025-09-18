@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 17:21:52 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/16 15:58:43 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/17 18:22:13 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/minishell.h"
+
+sig_atomic_t	g_sig_received = 0;
 
 static void	shell_loop(t_shell **shell)
 {
@@ -18,6 +20,8 @@ static void	shell_loop(t_shell **shell)
 	t_node	*nodes;
 
 	nodes = NULL;
+	input = NULL;
+	setup_signals(signal_handler_main);
 	while (1)
 	{
 		input = readline("minishell$ ");
@@ -37,6 +41,7 @@ static void	shell_loop(t_shell **shell)
 		execute(nodes, *shell);
 		free_ast(nodes);
 		free(input);
+		g_sig_received = 0;
 	}
 }
 
