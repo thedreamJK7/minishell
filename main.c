@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 17:21:52 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/17 18:22:13 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/18 10:47:53 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ int	main(int argc, char **argv, char **envp)
 	shell = init_envp(envp);
 	if (!shell)
 		return (printf("Failed to initialize shell"), 1);
-	setup_signals();
 	shell_loop(&shell);
 	rl_clear_history();
 	clean_shell(shell);

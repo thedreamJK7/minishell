@@ -22,7 +22,7 @@ SRCS = main.c \
 	./exec/built_ins/builtin_env.c ./exec/built_ins/builtin_unset.c \
 	./exec/exec_pipe.c ./exec/exec_non_builtin.c ./exec/exec_utils.c \
 	./exec/built_ins/builtin_export_utils.c ./exec/built_ins/builtin_cd.c\
-	./exec/exec_heredoc.c
+	./exec/exec_heredoc.c ./exec/expansion/exp_heredoc.c
 
 
 OBJ_DIR = ./obj
@@ -40,7 +40,8 @@ $(LIBFT):
 
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)/tokenizing $(OBJ_DIR)/parsing $(OBJ_DIR)/expanding \
-	$(OBJ_DIR)/signals $(OBJ_DIR)/exec $(OBJ_DIR)/exec/built_ins $(OBJ_DIR)/env
+	$(OBJ_DIR)/signals $(OBJ_DIR)/exec $(OBJ_DIR)/exec/built_ins \
+	$(OBJ_DIR)/env $(OBJ_DIR)/exec/expansion
 
 $(OBJ_DIR)/%.o: %.c
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@

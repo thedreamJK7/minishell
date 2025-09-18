@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   exec_heredoc.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 16:30:41 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/17 18:16:31 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/18 11:37:22 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	write_to_pipe(t_redir_token *redir, int pipe_w)
+int	write_to_pipe(t_redir_token *redir, t_shell *shell, int pipe_w)
 {
 	char	*input;
 	int		len_lim;
@@ -33,14 +33,16 @@ int	write_to_pipe(t_redir_token *redir, int pipe_w)
 			free(input);
 			break ;
 		}
-		if (write(pipe_w, input, ft_strlen(input)) == -1 || write(pipe_w, "\n", 1) == -1)
-			return (free(input), close(pipe_w), perror("Write"), GENERAL_ERROR);
+		char *exp_input = exp_heredoc(input, shell);
 		free(input);
+		if (write(pipe_w, exp_input, ft_strlen(exp_input)) == -1 || write(pipe_w, "\n", 1) == -1)
+			return (free(exp_input), close(pipe_w), perror("Write"), GENERAL_ERROR);
+		free(exp_input);
 	}
 	return (close(pipe_w), 0);
 }
 
-int	exec_heredoc(t_redir_token *redir, int *in_fd)
+int	exec_heredoc(t_redir_token *redir, t_shell *shell, int *in_fd)
 {
 	int		pfd[2];
 	int		pid;
@@ -56,7 +58,7 @@ int	exec_heredoc(t_redir_token *redir, int *in_fd)
 		g_sig_received = 0;
 		close(pfd[0]);
 		signal(SIGINT, signal_handler_heredoc);
-		exit(write_to_pipe(redir, pfd[1]));
+		exit(write_to_pipe(redir, shell, pfd[1]));
 	}
 	signal(SIGINT, SIG_IGN);
 	close(pfd[1]);
