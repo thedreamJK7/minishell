@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javokhir <javokhir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 11:37:01 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/13 22:37:06 by javokhir         ###   ########.fr       */
+/*   Updated: 2025/09/18 17:07:52 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,10 +90,7 @@ int	builtin_export(t_shell *shell, char **cmd)
 	while (cmd[i])
 	{
 		if (is_valid_identifier(cmd[i]))
-		{
-			printf("export: `%s': not a valid identifier\n", cmd[i]);
-			exit_status = 1;	
-		}
+			exit_status = 1;
 		else
 			exit_status = update_or_add_env(shell->env_list, cmd[i]);
 		i++;

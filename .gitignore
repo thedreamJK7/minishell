@@ -11,3 +11,6 @@
 *.pdf
 *.png
 *.img
+
+# Ignore tester
+minishell_tester/
