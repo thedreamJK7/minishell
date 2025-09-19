@@ -5,10 +5,11 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/20 20:13:50 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/23 09:30:03 by jkubaev          ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2025/09/23 09:31:05 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../includes/minishell.h"
 
@@ -16,8 +17,7 @@ int	is_builtin(char *arg)
 {
 	if (!arg)
 		return (1);
-	if (!ft_strcmp(arg, "echo")
-		|| !ft_strcmp(arg, "cd")
+	if (!ft_strcmp(arg, "cd")
 		|| !ft_strcmp(arg, "exit")
 		|| !ft_strcmp(arg, "pwd")
 		|| !ft_strcmp(arg, "export")
