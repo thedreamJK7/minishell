@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 16:30:41 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/19 11:46:38 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/19 15:37:31 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	exec_heredoc(t_redir_token *redir, t_shell *shell, int *in_fd)
 		g_sig_received = 0;
 		close(pfd[0]);
 		signal(SIGINT, signal_handler_exit);
-		exit(write_to_pipe(redir, shell,pfd[1]));
+		exit(write_to_pipe(redir, shell, pfd[1]));
 	}
 //	signal(SIGINT, SIG_IGN);
 	signal(SIGINT, signal_handler_wait);
