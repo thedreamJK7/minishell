@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 11:37:01 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/18 17:07:52 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/19 13:05:08 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	add_env(t_env *list, char *name, char *value)
     if (list == NULL) 
 	{
         list = new_list; 
-        return (0);
+        return (-1);
     }
     current = list;
     while (current->next != NULL) {
@@ -70,7 +70,7 @@ int	update_or_add_env(t_env *list, char	*idf)
 	
 	parse_export_arg(idf, &name, &value);
 	if (!name || !value)
-		return (1);
+		return (-1);
 	existing = is_env_exist(list, name);
 	if (!existing)
 		return (add_env(list, name, value));
@@ -90,9 +90,12 @@ int	builtin_export(t_shell *shell, char **cmd)
 	while (cmd[i])
 	{
 		if (is_valid_identifier(cmd[i]))
+		{
+			printf("export: `%s': not a valid identifier\n", cmd[i]);
 			exit_status = 1;
-		else
-			exit_status = update_or_add_env(shell->env_list, cmd[i]);
+		}
+		else if (update_or_add_env(shell->env_list, cmd[i]) == -1)
+			printf("Memory fail\n");
 		i++;
 	}
 	return (exit_status);

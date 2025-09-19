@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/14 16:12:01 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/15 11:36:22 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/19 13:10:10 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,6 @@ int	builtin_unset(t_shell *shell, char **cmd)
 		existing = is_env_exist(shell->env_list, cmd[i]);
 		if (existing)
 			remove_node(&(shell->env_list), existing);
-		else
-			exit_status = 1;
 		i++;
 	}
 	return (exit_status);

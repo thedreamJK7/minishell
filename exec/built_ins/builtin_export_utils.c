@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 15:24:18 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/15 10:48:09 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/19 12:46:49 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	is_valid_identifier(char *name)
 	int	valid;
 
 	i = 0;
-	valid = 1;
+	valid = 0;
 	if (!is_first_char_valid(name[i]))
 		return (1);
 	i++;
