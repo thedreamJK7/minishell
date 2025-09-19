@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 20:13:50 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/18 11:32:53 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/19 11:01:32 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,13 @@ int	execute(t_node *node, t_shell *shell)
 	if (!node)
 		return (0);
 	if (node->type == PIPE)
+	{
 		return (exec_pipe(node, shell));
+		printf("return from pipe");
+	}
 	else
+	{
 		return(exec_simple_command(node, shell));
+		printf("return from simple command");
+	}
 }

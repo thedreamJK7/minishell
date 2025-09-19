@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipe.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 18:47:51 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/12 08:12:30 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/18 19:33:27 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,15 @@ int	exec_pipe(t_node *pipe_node, t_shell *shell)
 		}
 		close(pfd[0]);
 		close(pfd[1]);
+		setup_signals(signal_handler_wait);
 		waitpid(pid[0], NULL, 0);
+		printf("inside pipe\n");
 		waitpid(pid[1], &status, 0);
 		if (WIFEXITED(status))
 			shell->exit_code = WEXITSTATUS(status);
 		else if (WIFSIGNALED(status))
 			shell->exit_code = 128 + WTERMSIG(status);
+		setup_signals(signal_handler_main);
 		return (shell->exit_code);
 	}
 }

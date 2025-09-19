@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 17:03:16 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/17 16:47:19 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/18 18:36:07 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ typedef struct	s_shell
 extern sig_atomic_t	g_sig_received;
 
 void	setup_signals(void(*signal_handler)(int));
-void	setup_signals_child(void);
 void	signal_handler_main(int sig);
-void	signal_handler_heredoc(int sig);
+void	signal_handler_exit(int sig);
+void	signal_handler_wait(int sig);
 void	free_env_list(t_env *envList);
 void	clean_shell(t_shell	*shell);
 t_shell	*init_envp(char **envp);
