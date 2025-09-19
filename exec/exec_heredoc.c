@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 16:30:41 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/17 18:16:31 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/18 18:36:51 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,11 @@ int	write_to_pipe(t_redir_token *redir, int pipe_w)
 		{
 			if (g_sig_received == 1)
 				return (close(pipe_w), 130);
-			printf("Exit heredoc");
+	//		printf("Exit heredoc");
 			break ;
 		}
+		if (*input)
+			add_history(input);
 		len_lim = ft_strlen(redir->file);
 		if (!ft_strncmp(input, redir->file, len_lim) && (!input[len_lim] || input[len_lim] == '\n'))
 		{
@@ -55,10 +57,11 @@ int	exec_heredoc(t_redir_token *redir, int *in_fd)
 	{
 		g_sig_received = 0;
 		close(pfd[0]);
-		signal(SIGINT, signal_handler_heredoc);
+		signal(SIGINT, signal_handler_exit);
 		exit(write_to_pipe(redir, pfd[1]));
 	}
-	signal(SIGINT, SIG_IGN);
+//	signal(SIGINT, SIG_IGN);
+	signal(SIGINT, signal_handler_wait);
 	close(pfd[1]);
 	waitpid(pid, &status, 0);
 	signal(SIGINT, signal_handler_main);

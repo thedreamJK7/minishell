@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 18:52:46 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/11 17:01:06 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/18 16:21:12 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,15 @@ static int	break_condition(int quote, char c)
 	return (0);
 }
 
+static int	get_in_quote(int quote, char c)
+{
+	if (quote == q_dopen && c == '"' )
+		return (0);
+	else if (quote == q_sopen && c == '\'')
+		return (0);
+	return (1);
+}
+
 static char	*add_word(char **s, int *quote, t_token **list, t_shell *shell)
 {
 	int		pos;
@@ -62,7 +71,7 @@ static char	*add_word(char **s, int *quote, t_token **list, t_shell *shell)
 	{
 		if (*(*s) == '\'' || *(*s) == '"')
 			(*s) += change_quote(*(*s), quote);
-		if (*quote || (!*quote && *(*s) != '\'' && *(*s) != '"'))
+		if ((*quote && get_in_quote(*quote, *(*s)))|| (!*quote && *(*s) != '\'' && *(*s) != '"'))
 		{
 			if (break_condition(*quote, *(*s)))
 				break ;

@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 20:13:50 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/15 17:37:19 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/18 13:17:36 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,13 @@ int	execute(t_node *node, t_shell *shell)
 	if (!node)
 		return (0);
 	if (node->type == PIPE)
+	{
 		return (exec_pipe(node, shell));
+		printf("return from pipe");
+	}
 	else
+	{
 		return(exec_simple_command(node, shell));
+		printf("return from simple command");
+	}
 }
