@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 11:13:58 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/23 09:24:44 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/23 09:27:41 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,7 @@ int	exec_non_builtin(t_node *cmd, t_shell *shell)
 		if (shell->exit_code)
 			return (close_fd(in_fd, out_fd), shell->exit_code);
 	}
+	
 	shell->exit_code = open_files(cmd->cmd.redir_token, &in_fd, &out_fd);
 	if (shell->exit_code)
 		return (close_fd(in_fd, out_fd), shell->exit_code);
