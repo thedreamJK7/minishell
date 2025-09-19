@@ -6,10 +6,11 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 18:47:51 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/19 13:28:44 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/19 20:27:04 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <signal.h>
 #include "../includes/minishell.h"
 
 int	exec_pipe(t_node *pipe_node, t_shell *shell)
@@ -37,6 +38,7 @@ int	exec_pipe(t_node *pipe_node, t_shell *shell)
 		close(pfd[0]);
 		dup2(pfd[1], STDOUT_FILENO);
 		close(pfd[1]);
+//		printf("left\n");
 		execute(pipe_node->pipe.left, shell);
 		exit(shell->exit_code);
 	}
@@ -56,14 +58,15 @@ int	exec_pipe(t_node *pipe_node, t_shell *shell)
 			close(pfd[1]);
 			dup2(pfd[0], STDIN_FILENO);
 			close(pfd[0]);
+//			printf("right\n");
 			execute(pipe_node->pipe.right, shell);
 			exit(shell->exit_code);
 		}
 		close(pfd[0]);
 		close(pfd[1]);
 		setup_signals(signal_handler_wait);
-		waitpid(pid[0], &status1, 0);
 		waitpid(pid[1], &status2, 0);
+		waitpid(pid[0], &status1, 0);
 		if (WIFEXITED(status2))
 		{
 //			printf("pipe: %d\n", WTERMSIG(status1));

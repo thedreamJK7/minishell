@@ -6,13 +6,13 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 17:21:52 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/23 09:25:33 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/23 09:30:18 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/minishell.h"
 
-//sig_atomic_t	g_sig_received = 0;
+sig_atomic_t	g_sig_received = 0;
 
 static void	shell_loop(t_shell **shell)
 {
@@ -25,6 +25,11 @@ static void	shell_loop(t_shell **shell)
 	while (1)
 	{
 		input = readline("minishell$ ");
+		if (g_sig_received == 1)
+		{
+			(*shell)->exit_code = 130;
+			g_sig_received = 0;
+		}
 		if (!input)
 		{
 			ft_putstr_fd("exit\n", STDOUT_FILENO);
@@ -42,7 +47,6 @@ static void	shell_loop(t_shell **shell)
 		(*shell)->exit_code = execute(nodes, *shell);
 		free_ast(nodes);
 		free(input);
-//		g_sig_received = 0;
 	}
 }
 

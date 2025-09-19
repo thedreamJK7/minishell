@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 20:13:50 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/23 09:29:02 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/23 09:30:03 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ int	is_builtin(char *arg)
 {
 	if (!arg)
 		return (1);
-	if (!ft_strcmp(arg, "cd")
+	if (!ft_strcmp(arg, "echo")
+		|| !ft_strcmp(arg, "cd")
 		|| !ft_strcmp(arg, "exit")
 		|| !ft_strcmp(arg, "pwd")
 		|| !ft_strcmp(arg, "export")
@@ -46,7 +47,7 @@ int	execute(t_node *node, t_shell *shell)
 	}
 	else
 	{
+//		printf("simple command");
 		return(exec_simple_command(node, shell));
-		printf("return from simple command");
 	}
 }
