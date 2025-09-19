@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 20:13:50 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/19 20:21:45 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/20 12:42:46 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@ int	is_builtin(char *arg)
 {
 	if (!arg)
 		return (1);
-	if (!ft_strcmp(arg, "echo")
-		|| !ft_strcmp(arg, "cd")
+	if (!ft_strcmp(arg, "cd")
 		|| !ft_strcmp(arg, "exit")
 		|| !ft_strcmp(arg, "pwd")
 		|| !ft_strcmp(arg, "export")
