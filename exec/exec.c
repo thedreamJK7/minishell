@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 20:13:50 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/18 13:17:36 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/19 11:01:32 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	is_builtin(char *arg)
 
 int	exec_simple_command(t_node *cmd, t_shell *shell)
 {
-	if (!is_builtin(cmd->cmd.cmd[0]))
+	if (cmd->cmd.cmd && !is_builtin(cmd->cmd.cmd[0]))
 		return (exec_builtin(shell, cmd->cmd.cmd));
 	return (exec_non_builtin(cmd, shell));
 }
