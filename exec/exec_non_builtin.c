@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 11:13:58 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/19 15:09:12 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/19 15:39:24 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,11 +146,11 @@ int	exec_non_builtin(t_node *cmd, t_shell *shell)
 	pid = -1;
 	if (cmd->cmd.redir_token && cmd->cmd.redir_token->redir_type == HEREDOC)
 	{
-		shell->exit_code = exec_heredoc(cmd->cmd.redir_token, &in_fd);
+		shell->exit_code = exec_heredoc(cmd->cmd.redir_token, shell, &in_fd);
 		if (shell->exit_code)
 			return (close_fd(in_fd, out_fd), shell->exit_code);
 	}
-	
+
 	shell->exit_code = open_files(cmd->cmd.redir_token, &in_fd, &out_fd);
 	if (shell->exit_code)
 		return (close_fd(in_fd, out_fd), shell->exit_code);

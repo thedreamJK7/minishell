@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 17:21:52 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/19 14:34:48 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/19 15:32:46 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ static void	shell_loop(t_shell **shell)
 	setup_signals(signal_handler_main);
 	while (1)
 	{
-//		printf("print readline\n");
 		input = readline("minishell$ ");
 		if (!input)
 		{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2025/09/17 18:18:05 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/18 10:42:12 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		execute(t_node *node, t_shell *shell);
 int		exec_pipe(t_node *pipe_node, t_shell *shell);
 int		exec_builtin(t_shell *shell, char **cmd);
 int		exec_non_builtin(t_node *cmd, t_shell *shell);
-int		exec_heredoc(t_redir_token *redir, int *in_fd);
+int		exec_heredoc(t_redir_token *redir, t_shell *shell, int *in_fd);
 void	clean_array(char **arr);
 void	close_fd(int in_fd, int out_fd);
 int		check_access(char *path);
@@ -39,6 +39,7 @@ int		count_arguments(char **cmd);
 int		builtin_exit(t_shell *shell, char **cmd);
 int		builtin_env(t_shell *shell, char **cmd);
 int		builtin_unset(t_shell *shell, char **cmd);
+char	*exp_heredoc(char *input, t_shell *shell);
 
 #endif
 

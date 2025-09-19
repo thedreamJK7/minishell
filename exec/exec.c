@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 20:13:50 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/19 15:26:26 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/19 15:33:43 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	is_builtin(char *arg)
 
 int	exec_simple_command(t_node *cmd, t_shell *shell)
 {
-	if (!is_builtin(cmd->cmd.cmd[0]))
+	if (cmd->cmd.cmd && !is_builtin(cmd->cmd.cmd[0]))
 		return (exec_builtin(shell, cmd->cmd.cmd));
 	return (exec_non_builtin(cmd, shell));
 }
