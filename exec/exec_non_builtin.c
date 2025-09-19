@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 11:13:58 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/17 18:17:26 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/18 19:33:17 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,23 +158,28 @@ int	exec_non_builtin(t_node *cmd, t_shell *shell)
 		return (perror("fork"), close_fd(in_fd, out_fd), GENERAL_ERROR);
 	else if (!pid)
 	{
-		signal(SIGINT, SIG_DFL);
-//		setup_signals(signal_handler_heredoc);
+//		signal(SIGINT, SIG_DFL);
+		setup_signals(signal_handler_exit);
 		exec_child(cmd, in_fd, out_fd, shell);
 	}
-	signal(SIGINT, SIG_IGN);
+	setup_signals(signal_handler_wait);
+	printf("nonbuildtin");
+//	signal(SIGINT, SIG_IGN);
 	close_fd(in_fd, out_fd);
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status) && WEXITSTATUS(status))
 	{
 		if (WEXITSTATUS(status) == 130)
 			write(STDOUT_FILENO, "\n", 1);
+		shell->exit_code = WEXITSTATUS(status);
 		return (setup_signals(signal_handler_main), WEXITSTATUS(status));
 	}
 	else if (WIFSIGNALED(status))
 	{
-		write(STDOUT_FILENO, "\n", 1);
+//		write(STDOUT_FILENO, "\n", 1);
+		shell->exit_code =  128 + WTERMSIG(status);
+//		printf("COMMAND interrupted by signal");
 		return (setup_signals(signal_handler_main), 128 + WTERMSIG(status));
 	}
-	return (setup_signals(signal_handler_main), 0);
+	return (0);
 }
