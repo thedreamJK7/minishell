@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 16:30:41 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/18 18:36:51 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/19 14:47:33 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ int	write_to_pipe(t_redir_token *redir, int pipe_w)
 	char	*input;
 	int		len_lim;
 
-	while (!g_sig_received)
+	while (1)
 	{
 		input = readline("> ");
 		if (!input)
 		{
-			if (g_sig_received == 1)
-				return (close(pipe_w), 130);
+//			if (g_sig_received == 1)
+//				return (close(pipe_w), 130);
 	//		printf("Exit heredoc");
 			break ;
 		}
@@ -55,7 +55,7 @@ int	exec_heredoc(t_redir_token *redir, int *in_fd)
 		return (perror("Fork"), GENERAL_ERROR);
 	else if (!pid)
 	{
-		g_sig_received = 0;
+//		g_sig_received = 0;
 		close(pfd[0]);
 		signal(SIGINT, signal_handler_exit);
 		exit(write_to_pipe(redir, pfd[1]));
@@ -67,8 +67,8 @@ int	exec_heredoc(t_redir_token *redir, int *in_fd)
 	signal(SIGINT, signal_handler_main);
 	if (WIFEXITED(status) && WEXITSTATUS(status))
 	{
-		if (WEXITSTATUS(status) == 130)
-			g_sig_received = 1;
+//		if (WEXITSTATUS(status) == 130)
+//			g_sig_received = 1;
 		return (close(pfd[0]), WEXITSTATUS(status));
 	}
 	*in_fd = pfd[0];

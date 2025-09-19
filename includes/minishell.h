@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 17:03:16 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/18 18:36:07 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/19 14:46:59 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ typedef struct	s_shell
 #include "tokenizing.h"
 #include "execution.h"
 
-extern sig_atomic_t	g_sig_received;
+//extern sig_atomic_t	g_sig_received;
 
 void	setup_signals(void(*signal_handler)(int));
 void	signal_handler_main(int sig);

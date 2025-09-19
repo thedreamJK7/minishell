@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 18:47:51 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/18 19:33:27 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/19 13:28:44 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ int	exec_pipe(t_node *pipe_node, t_shell *shell)
 {
 	int	pfd[2];
 	int	pid[2];
-	int	status;
+	int	status1;
+	int	status2;
 
 	if (pipe(pfd) == -1)
 	{
@@ -61,13 +62,19 @@ int	exec_pipe(t_node *pipe_node, t_shell *shell)
 		close(pfd[0]);
 		close(pfd[1]);
 		setup_signals(signal_handler_wait);
-		waitpid(pid[0], NULL, 0);
-		printf("inside pipe\n");
-		waitpid(pid[1], &status, 0);
-		if (WIFEXITED(status))
-			shell->exit_code = WEXITSTATUS(status);
-		else if (WIFSIGNALED(status))
-			shell->exit_code = 128 + WTERMSIG(status);
+		waitpid(pid[0], &status1, 0);
+		waitpid(pid[1], &status2, 0);
+		if (WIFEXITED(status2))
+		{
+//			printf("pipe: %d\n", WTERMSIG(status1));
+			if (WEXITSTATUS(status2) == 0 && WTERMSIG(status1))
+				write(STDOUT_FILENO, "\n", 1);
+			shell->exit_code = WEXITSTATUS(status2);
+		}
+		else if (WIFSIGNALED(status2))
+		{
+			shell->exit_code = 128 + WTERMSIG(status2);
+		}
 		setup_signals(signal_handler_main);
 		return (shell->exit_code);
 	}
