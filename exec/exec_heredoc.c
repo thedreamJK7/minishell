@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 16:30:41 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/19 15:37:32 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/19 20:17:26 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,10 @@ int	write_to_pipe(t_redir_token *redir, t_shell *shell, int pipe_w)
 		char *exp_input = exp_heredoc(input, shell);
 		free(input);
 		if (write(pipe_w, exp_input, ft_strlen(exp_input)) == -1 || write(pipe_w, "\n", 1) == -1)
-			return (free(exp_input), close(pipe_w), perror("Write"), GENERAL_ERROR);
+		{
+			printf("write fail\n");
+			return (free(exp_input), close(pipe_w), perror("Write"), 1);
+		}
 		free(exp_input);
 	}
 	return (close(pipe_w), 0);

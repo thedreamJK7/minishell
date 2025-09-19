@@ -6,20 +6,28 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 11:13:58 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/19 15:39:24 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/19 19:07:06 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	open_files(t_redir_token *redir, int *in_fd, int *out_fd)
+int	open_files(t_redir_token *redir, int *in_fd, int *out_fd, t_shell *shell)
 {
 	int	ret;
 
 	ret = 0;
 	while (redir)
 	{
-		if (redir->redir_type == IN)
+		if (redir->redir_type == HEREDOC)
+		{
+			if (*in_fd != -1)
+				close (*in_fd);
+			ret = exec_heredoc(redir, shell, in_fd);
+			if (ret)
+				return (close_fd(*in_fd, *out_fd), ret);
+		}
+		else if (redir->redir_type == IN)
 		{
 			if (*in_fd != -1)
 				close (*in_fd);
@@ -69,7 +77,7 @@ int	concat_path(char *cmd_name, char **dirs, char **path)
 	free(*path);
 	if (flag)
 		return (COMMAND_NOT_EXECUTABLE);
-	return (COMMAND_NOT_FOUND);
+	return (printf("%s: command not found\n", cmd_name), COMMAND_NOT_FOUND);
 }
 
 int	find_cmd_path(char **cmd, char **path, t_shell *shell)
@@ -134,26 +142,12 @@ int	exec_child(t_node *cmd, int in_fd, int out_fd, t_shell *shell)
 	return (0);
 }
 
-int	exec_non_builtin(t_node *cmd, t_shell *shell)
+int	exec_cmd(t_node *cmd, t_shell *shell, int in_fd, int out_fd)
 {
 	int	pid;
 	int	status;
-	int	in_fd;
-	int	out_fd;
 
-	in_fd = -1;
-	out_fd = -1;
 	pid = -1;
-	if (cmd->cmd.redir_token && cmd->cmd.redir_token->redir_type == HEREDOC)
-	{
-		shell->exit_code = exec_heredoc(cmd->cmd.redir_token, shell, &in_fd);
-		if (shell->exit_code)
-			return (close_fd(in_fd, out_fd), shell->exit_code);
-	}
-
-	shell->exit_code = open_files(cmd->cmd.redir_token, &in_fd, &out_fd);
-	if (shell->exit_code)
-		return (close_fd(in_fd, out_fd), shell->exit_code);
 	pid = fork();
 	if (pid == -1)
 		return (perror("fork"), close_fd(in_fd, out_fd), GENERAL_ERROR);
@@ -167,9 +161,10 @@ int	exec_non_builtin(t_node *cmd, t_shell *shell)
 //	signal(SIGINT, SIG_IGN);
 	close_fd(in_fd, out_fd);
 	waitpid(pid, &status, 0);
-	if (WIFEXITED(status) && WEXITSTATUS(status))
+	if (WIFEXITED(status))
 	{
 		shell->exit_code = WEXITSTATUS(status);
+//		write(STDOUT_FILENO, "\n", 1);
 		return (setup_signals(signal_handler_main), WEXITSTATUS(status));
 	}
 	else if (WIFSIGNALED(status))
@@ -184,4 +179,25 @@ int	exec_non_builtin(t_node *cmd, t_shell *shell)
 		return (setup_signals(signal_handler_main), shell->exit_code);
 	}
 	return (0);
+}
+
+int	exec_non_builtin(t_node *cmd, t_shell *shell)
+{
+	int	in_fd;
+	int	out_fd;
+
+	in_fd = -1;
+	out_fd = -1;
+	if (cmd->cmd.redir_token)
+	{
+		shell->exit_code = open_files(cmd->cmd.redir_token, &in_fd, &out_fd, shell);
+		if (shell->exit_code)
+			return (close_fd(in_fd, out_fd), shell->exit_code);
+	}
+	if (!cmd->cmd.cmd)
+	{
+		shell->exit_code = 0;
+		return (shell->exit_code);
+	}
+	return (exec_cmd(cmd, shell, in_fd, out_fd));
 }
