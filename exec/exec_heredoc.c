@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_heredoc.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 16:30:41 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/19 11:46:38 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/19 20:17:26 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ int	write_to_pipe(t_redir_token *redir, t_shell *shell, int pipe_w)
 	char	*input;
 	int		len_lim;
 
-	while (!g_sig_received)
+	while (1)
 	{
 		input = readline("> ");
 		if (!input)
 		{
-			if (g_sig_received == 1)
-				return (close(pipe_w), 130);
+//			if (g_sig_received == 1)
+//				return (close(pipe_w), 130);
 	//		printf("Exit heredoc");
 			break ;
 		}
@@ -38,7 +38,10 @@ int	write_to_pipe(t_redir_token *redir, t_shell *shell, int pipe_w)
 		char *exp_input = exp_heredoc(input, shell);
 		free(input);
 		if (write(pipe_w, exp_input, ft_strlen(exp_input)) == -1 || write(pipe_w, "\n", 1) == -1)
-			return (free(exp_input), close(pipe_w), perror("Write"), GENERAL_ERROR);
+		{
+			printf("write fail\n");
+			return (free(exp_input), close(pipe_w), perror("Write"), 1);
+		}
 		free(exp_input);
 	}
 	return (close(pipe_w), 0);
@@ -57,10 +60,10 @@ int	exec_heredoc(t_redir_token *redir, t_shell *shell, int *in_fd)
 		return (perror("Fork"), GENERAL_ERROR);
 	else if (!pid)
 	{
-		g_sig_received = 0;
+//		g_sig_received = 0;
 		close(pfd[0]);
 		signal(SIGINT, signal_handler_exit);
-		exit(write_to_pipe(redir, shell,pfd[1]));
+		exit(write_to_pipe(redir, shell, pfd[1]));
 	}
 //	signal(SIGINT, SIG_IGN);
 	signal(SIGINT, signal_handler_wait);
@@ -69,8 +72,8 @@ int	exec_heredoc(t_redir_token *redir, t_shell *shell, int *in_fd)
 	signal(SIGINT, signal_handler_main);
 	if (WIFEXITED(status) && WEXITSTATUS(status))
 	{
-		if (WEXITSTATUS(status) == 130)
-			g_sig_received = 1;
+//		if (WEXITSTATUS(status) == 130)
+//			g_sig_received = 1;
 		return (close(pfd[0]), WEXITSTATUS(status));
 	}
 	*in_fd = pfd[0];
