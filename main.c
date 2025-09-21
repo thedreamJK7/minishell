@@ -44,6 +44,7 @@ static void	shell_loop(t_shell **shell)
 			(*shell)->exit_code = 1;
 			continue ;
 		}
+		find_heredoc(nodes, *shell);
 		(*shell)->exit_code = execute(nodes, *shell);
 		free_ast(nodes);
 		free(input);
@@ -60,7 +61,7 @@ int	main(int argc, char **argv, char **envp)
 	if (!shell)
 		return (printf("Failed to initialize shell"), 1);
 	shell_loop(&shell);
-	rl_clear_history();
+//	rl_clear_history();
 	clean_shell(shell);
 	return (0);
 }

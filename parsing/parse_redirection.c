@@ -16,6 +16,7 @@ static int assign_value(t_redir_token **redir, t_token **list)
 {
 	t_token	*tmp;
 
+	(*redir)->heredoc_fd = -1;
 	tmp = *list;
 	if (tmp->type == T_LESS)
 		(*redir)->redir_type = IN;
