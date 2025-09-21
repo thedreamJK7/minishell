@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+#include <readline/readline.h>
+#include <readline/history.h>
 
 void	signal_handler_exit(int sig)
 {
@@ -36,7 +38,7 @@ void	signal_handler_main(int sig)
 	g_sig_received = 1;
 	write(STDOUT_FILENO, "\n", 1);
 	rl_on_new_line();
-	rl_replace_line("", 0);
+//	rl_replace_line("", 0);
 	rl_redisplay();
 }
 

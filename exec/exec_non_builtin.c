@@ -12,20 +12,16 @@
 
 #include "../includes/minishell.h"
 
-int	open_files(t_redir_token *redir, int *in_fd, int *out_fd, t_shell *shell)
+int	open_files(t_redir_token *redir, int *in_fd, int *out_fd)
 {
-	int	ret;
 
-	ret = 0;
 	while (redir)
 	{
 		if (redir->redir_type == HEREDOC)
 		{
 			if (*in_fd != -1)
 				close (*in_fd);
-			ret = exec_heredoc(redir, shell, in_fd);
-			if (ret)
-				return (close_fd(*in_fd, *out_fd), ret);
+			*in_fd = redir->heredoc_fd;
 		}
 		else if (redir->redir_type == IN)
 		{
@@ -190,7 +186,7 @@ int	exec_non_builtin(t_node *cmd, t_shell *shell)
 	out_fd = -1;
 	if (cmd->cmd.redir_token)
 	{
-		shell->exit_code = open_files(cmd->cmd.redir_token, &in_fd, &out_fd, shell);
+		shell->exit_code = open_files(cmd->cmd.redir_token, &in_fd, &out_fd);
 		if (shell->exit_code)
 			return (close_fd(in_fd, out_fd), shell->exit_code);
 	}
