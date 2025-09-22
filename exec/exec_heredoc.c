@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 16:30:41 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/19 20:17:26 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/22 11:03:41 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	exec_heredoc(t_redir_token *redir, t_shell *shell, int *in_fd)
 	else if (!pid)
 	{
 //		g_sig_received = 0;
-		signal(SIGPIPE, SIG_IGN);
+//		signal(SIGPIPE, SIG_IGN);
 		close(pfd[0]);
 		signal(SIGINT, signal_handler_exit);
 		exit(write_to_pipe(redir, shell, pfd[1]));
@@ -83,14 +83,20 @@ int	exec_heredoc(t_redir_token *redir, t_shell *shell, int *in_fd)
 
 void	check_heredoc(t_redir_token *redir, t_shell *shell)
 {
-	if (redir->heredoc_fd != -1)
-		close(redir->heredoc_fd);
-	shell->exit_code = exec_heredoc(redir, shell, &redir->heredoc_fd);
-	if (redir->heredoc_fd == -1 && shell->exit_code)
-	{
-		printf("heredoc invalid");
-	}
+	t_redir_token	*tmp;
 
+	tmp = redir;
+	while (redir)
+	{
+		if(redir->redir_type == HEREDOC)
+		{
+			shell->exit_code = exec_heredoc(redir, shell, &redir->heredoc_fd);
+			if (redir->heredoc_fd == -1 && shell->exit_code)
+				printf("heredoc invalid");
+		}
+		redir = redir->next;
+	}
+	redir = tmp;
 }
 
 void	find_heredoc(t_node *node, t_shell *shell)
@@ -104,7 +110,7 @@ void	find_heredoc(t_node *node, t_shell *shell)
 	}
 	else
 	{
-		if (node->cmd.redir_token && node->cmd.redir_token->redir_type == HEREDOC)
+		if (node->cmd.redir_token)
 			check_heredoc(node->cmd.redir_token, shell);
 	}
 }
