@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 17:21:52 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/23 09:30:18 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/23 09:38:46 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	main(int argc, char **argv, char **envp)
 	if (!shell)
 		return (printf("Failed to initialize shell"), 1);
 	shell_loop(&shell);
-//	rl_clear_history();
+	rl_clear_history();
 	clean_shell(shell);
 	return (0);
 }
