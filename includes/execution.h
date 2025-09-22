@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2025/09/18 10:42:12 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/22 11:41:11 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int		builtin_exit(t_shell *shell, char **cmd);
 int		builtin_env(t_shell *shell, char **cmd);
 int		builtin_unset(t_shell *shell, char **cmd);
 char	*exp_heredoc(char *input, t_shell *shell);
+int		builtin_echo(t_shell *shell, char **cmd);
 
 #endif
 
