@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 11:13:58 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/23 09:29:38 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/23 09:39:13 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,6 @@ int	exec_cmd(t_node *cmd, t_shell *shell, int in_fd, int out_fd)
 	{
 		if (WTERMSIG(status))
 		{
-//			printf("cmd: %d\n", g_sig_received);
 			write(STDOUT_FILENO, "\n", 1);
 //			g_sig_received = 0;
 		}
@@ -193,7 +192,7 @@ int	exec_non_builtin(t_node *cmd, t_shell *shell)
 	if (!cmd->cmd.cmd)
 	{
 		shell->exit_code = 0;
-		return (shell->exit_code);
+		return (close_fd(in_fd, out_fd), shell->exit_code);
 	}
 	return (exec_cmd(cmd, shell, in_fd, out_fd));
 }
