@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 19:00:56 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/05 20:19:25 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/22 17:33:29 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@ void	*ft_realloc1(void *ptr, size_t old_size, size_t new_size)
 	size_t	copy_size;
 
 	if (ptr == NULL)
-		return malloc(new_size);
+		return (malloc(new_size));
 	if (new_size == 0) {
 		free(ptr);
 		return (NULL);
 	}
 	new_ptr = malloc(new_size);
 	if (!new_ptr)
-		return NULL;
+		return (NULL);
 	if (old_size < new_size)
 		copy_size = old_size;
 	else

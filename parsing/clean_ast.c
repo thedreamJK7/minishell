@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 11:24:45 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/19 17:36:49 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/23 09:44:00 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void free_commands(char **argv)
 	i = 0;
     while (argv[i])
 	{
+		free(argv[i]);
 		free(argv[i]);
 		i++;
     }
