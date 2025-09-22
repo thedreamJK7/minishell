@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_heredoc.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 16:30:41 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/22 11:03:41 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/22 11:29:47 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
