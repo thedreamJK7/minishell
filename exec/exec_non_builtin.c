@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 11:13:58 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/23 09:39:13 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/23 09:41:30 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,35 +14,36 @@
 
 int	open_files(t_redir_token *redir, int *in_fd, int *out_fd)
 {
-
-	while (redir)
+	t_redir_token	*tmp;
+	tmp = redir;
+	while (tmp)
 	{
-		if (redir->redir_type == HEREDOC)
+		if (tmp->redir_type == HEREDOC)
 		{
 			if (*in_fd != -1)
 				close (*in_fd);
-			*in_fd = redir->heredoc_fd;
+			*in_fd = tmp->heredoc_fd;
 		}
-		else if (redir->redir_type == IN)
+		else if (tmp->redir_type == IN)
 		{
 			if (*in_fd != -1)
 				close (*in_fd);
-			*in_fd = open(redir->file, O_RDONLY);
+			*in_fd = open(tmp->file, O_RDONLY);
 			if (*in_fd == -1)
-				return (perror(redir->file), GENERAL_ERROR);
+				return (perror(tmp->file), GENERAL_ERROR);
 		}
-		else if (redir->redir_type == OUT || redir->redir_type == APPEND)
+		else if (tmp->redir_type == OUT || tmp->redir_type == APPEND)
 		{
 			if (*out_fd != -1)
 				close (*out_fd);
-			if (redir->redir_type == OUT)
-				*out_fd = open(redir->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-			else if (redir->redir_type == APPEND)
-				*out_fd = open(redir->file, O_WRONLY | O_CREAT | O_APPEND, 0644);
+			if (tmp->redir_type == OUT)
+				*out_fd = open(tmp->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+			else if (tmp->redir_type == APPEND)
+				*out_fd = open(tmp->file, O_WRONLY | O_CREAT | O_APPEND, 0644);
 			if (*out_fd == -1)
-				return (perror(redir->file), GENERAL_ERROR);
+				return (perror(tmp->file), GENERAL_ERROR);
 		}
-		redir = redir->next;
+		tmp = tmp->next;
 	}
 	return (0);
 }
@@ -72,8 +73,8 @@ int	concat_path(char *cmd_name, char **dirs, char **path)
 	}
 	free(*path);
 	if (flag)
-		return (COMMAND_NOT_EXECUTABLE);
-	return (printf("%s: command not found\n", cmd_name), COMMAND_NOT_FOUND);
+		return (printf("%s: Command not executable\n", cmd_name), COMMAND_NOT_EXECUTABLE);
+	return (printf("%s: Command not found\n", cmd_name), COMMAND_NOT_FOUND);
 }
 
 int	find_cmd_path(char **cmd, char **path, t_shell *shell)
@@ -91,7 +92,7 @@ int	find_cmd_path(char **cmd, char **path, t_shell *shell)
 	}
 	path_env = get_env_value(shell, "PATH");
 	if (!path_env)
-		return (ft_putstr_fd("Path not found", STDERR_FILENO), GENERAL_ERROR);
+		return (printf("%s: No such file or directory\n", cmd[0]), COMMAND_NOT_FOUND);
 	dirs = ft_split(path_env, ':');
 	if (!dirs)
 		return (ft_putstr_fd("Path split failed", STDERR_FILENO), GENERAL_ERROR);
