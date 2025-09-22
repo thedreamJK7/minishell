@@ -41,6 +41,7 @@ typedef enum	e_redir_type
 typedef struct	s_redir_token{
 	t_redir_type	redir_type;// IN, OUT..
 	char			*file;// Filename or limiter
+	int 			heredoc_fd;
 	struct s_redir_token	*next;// token for redirection
 }				t_redir_token;
 

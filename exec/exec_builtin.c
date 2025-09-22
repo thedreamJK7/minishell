@@ -23,8 +23,8 @@ int	exec_builtin(t_shell *shell, char **cmd)
 		bool = builtin_export(shell, cmd);
 	if (!ft_strcmp(cmd[0], "cd"))
 		bool = builtin_cd(shell, cmd);
-	if (!ft_strcmp(cmd[0], "echo"))
-		bool = builtin_echo(shell, cmd);
+//	if (!ft_strcmp(cmd[0], "echo"))
+//		bool = builtin_echo(shell, cmd);
 	if (!ft_strcmp(cmd[0], "exit"))
 		bool = builtin_exit(shell, cmd);
 	if (!ft_strcmp(cmd[0], "env"))
