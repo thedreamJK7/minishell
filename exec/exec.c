@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 20:13:50 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/23 09:43:50 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/23 09:47:24 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int	execute(t_node *node, t_shell *shell)
 	}
 	else
 	{
+//		printf("simple command");
 //		printf("simple command");
 		return(exec_simple_command(node, shell));
 	}

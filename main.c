@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 17:21:52 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/23 09:38:46 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/23 09:47:36 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,11 @@ static void	shell_loop(t_shell **shell)
 			(*shell)->exit_code = 130;
 			g_sig_received = 0;
 		}
+		if (g_sig_received == 1)
+		{
+			(*shell)->exit_code = 130;
+			g_sig_received = 0;
+		}
 		if (!input)
 		{
 			ft_putstr_fd("exit\n", STDOUT_FILENO);
@@ -42,8 +47,10 @@ static void	shell_loop(t_shell **shell)
 		{
 			free(input);
 			(*shell)->exit_code = 1;
+			(*shell)->exit_code = 1;
 			continue ;
 		}
+		find_heredoc(nodes, *shell);
 		find_heredoc(nodes, *shell);
 		(*shell)->exit_code = execute(nodes, *shell);
 		free_ast(nodes);
