@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_heredoc.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 16:30:41 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/22 11:29:47 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/22 16:16:24 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int	exec_heredoc(t_redir_token *redir, t_shell *shell, int *in_fd)
 	signal(SIGINT, signal_handler_main);
 	if (WIFEXITED(status) && WEXITSTATUS(status))
 	{
+//		printf("%d\n", WEXITSTATUS(status));
 //		if (WEXITSTATUS(status) == 130)
 //			g_sig_received = 1;
 		return (close(pfd[0]), WEXITSTATUS(status));
@@ -91,8 +92,12 @@ void	check_heredoc(t_redir_token *redir, t_shell *shell)
 		if(redir->redir_type == HEREDOC)
 		{
 			shell->exit_code = exec_heredoc(redir, shell, &redir->heredoc_fd);
-			if (redir->heredoc_fd == -1 && shell->exit_code)
-				printf("heredoc invalid");
+			if (redir->heredoc_fd == -1)
+			{
+				shell->exit_code = 130;
+				g_sig_received = 1;
+				return ;
+			}
 		}
 		redir = redir->next;
 	}
@@ -101,7 +106,7 @@ void	check_heredoc(t_redir_token *redir, t_shell *shell)
 
 void	find_heredoc(t_node *node, t_shell *shell)
 {
-	if (!node)
+	if (!node | (g_sig_received == 1))
 		return ;
 	if (node->type == PIPE)
 	{

@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 17:21:52 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/22 10:27:23 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/22 16:46:16 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,16 @@ static void	shell_loop(t_shell **shell)
 		if (!nodes)
 		{
 			free(input);
-			(*shell)->exit_code = 1;
+			(*shell)->exit_code = 0;
 			continue ;
 		}
 		find_heredoc(nodes, *shell);
+		if (g_sig_received == 1)
+		{
+			free_ast(nodes);
+			free(input);
+			continue ;
+		}
 		(*shell)->exit_code = execute(nodes, *shell);
 		free_ast(nodes);
 		free(input);

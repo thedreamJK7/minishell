@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 20:13:50 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/20 14:35:35 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/23 17:05:39 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,9 @@ int	execute(t_node *node, t_shell *shell)
 	if (node->type == PIPE)
 	{
 		return (exec_pipe(node, shell));
-		printf("return from pipe");
 	}
 	else
 	{
-//		printf("simple command");
 		return(exec_simple_command(node, shell));
 	}
 }

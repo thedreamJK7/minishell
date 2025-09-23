@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2025/09/22 11:41:11 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/23 16:59:30 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,11 @@
 # define EXECUTION_H
 
 # include "parsing.h"
+# include <sys/stat.h>
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <fcntl.h>
+# include <errno.h>
 
 int		execute(t_node *node, t_shell *shell);
 int		exec_pipe(t_node *pipe_node, t_shell *shell);
@@ -28,6 +30,10 @@ void	find_heredoc(t_node *node, t_shell *shell);
 void	clean_array(char **arr);
 void	close_fd(int in_fd, int out_fd);
 int		check_access(char *path);
+int		check_dir(char *path, int *flag);
+int		print_error_cmd(int flag, char *cmd_name);
+int		print_error_path(int flag, char *cmd_name);
+int		count_cmd(t_node *cmd);
 int		builtin_pwd(char **cmd);
 int		builtin_export(t_shell *shell, char **cmd);
 void	print_envp(t_env *envp);
