@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 19:50:04 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/13 15:04:36 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/23 14:40:03 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,49 +23,7 @@
 # include "minishell.h"
 # include "tokenizing.h"
 
-typedef enum	e_node_type
-{
-	COMMAND,   // command (ls, grep, etc.)
-	PIPE,       // pipe (|)
-	REDIR      // redirection(<, >, <<, >>)
-}				t_node_type;
-
-typedef enum	e_redir_type
-{
-	IN,        // <
-	OUT,       // >
-	APPEND,    // >>
-	HEREDOC    // <<
-}	t_redir_type;
-
-typedef struct	s_redir_token{
-	t_redir_type	redir_type;// IN, OUT..
-	char			*file;// Filename or limiter
-	int 			heredoc_fd;
-	struct s_redir_token	*next;// token for redirection
-}				t_redir_token;
-
-typedef struct	s_command {
-	char			**cmd;        // ["-l"], ["txt"], etc.
-	t_redir_token	*redir_token;            // Redirection node if exists
-}				t_command;
-
-typedef struct	s_pipe {
-	struct s_node	*left;   // left child (Command or Pipe)
-	struct s_node	*right;  // right child (Command or Pipe)
-}				t_pipe;
-
-typedef struct	s_node {
-	t_node_type	type;     // COMMAND, PIPE, REDIR
-	union
-	{
-		struct	s_command cmd;  // Command Node uchun
-		struct	s_pipe pipe;    // Pipe Node uchun
-	};
-}				t_node;
-
-
-t_node			*ft_parse(char **input, t_shell *shell);
+t_node			*ft_parse(t_token *token_list);
 void			print_ast(t_node *nodes, int depth); // Test
 t_node 			*create_node(t_node_type type);
 void			free_token_list(t_token *list);

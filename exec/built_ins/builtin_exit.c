@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 16:58:36 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/23 09:43:39 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/23 14:56:02 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,17 @@ int	builtin_exit(t_shell *shell, char **cmd)
 	{
 		exit_code = handle_exit_args(*(cmd + 1));
 		if (exit_code == -1)
+		{
 			exit_code = 2;
+			return (exit_code);
+		}
 	}
 	if (exit_code > 256)
 		exit_code = exit_code % 256;
-	rl_clear_history();
+	free_ast(shell->nodes);
+	free(shell->input);
 	clean_shell(shell);
+	rl_clear_history();
 	exit(exit_code);
 	return (1);
 }

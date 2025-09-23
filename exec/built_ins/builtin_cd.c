@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 12:50:16 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/15 13:25:51 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/23 15:04:59 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	builtin_cd(t_shell *shell, char **cmd)
 
 	argc = count_arguments(cmd + 1);
 	if (argc > 1)
-		return (perror("minishell: cd: too many arguments"), 1);
+		return (printf("cd: too many arguments\n"), 1);
 	oldpwd = getcwd(NULL, 0);
 	if (!oldpwd)
 		return (perror("getcwd() error"), 1);
