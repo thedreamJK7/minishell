@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_non_builtin.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 11:13:58 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/23 09:46:56 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/23 17:11:58 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,29 @@ int	concat_path(char *cmd_name, char **dirs, char **path)
 		*path = tmp;
 		if (!check_access(*path))
 			return (0);
-		else if (check_access(*path) == COMMAND_NOT_EXECUTABLE)
-			flag = 1;
+		if (!check_dir(*path, &flag))
+		{
+			flag = 2;
+			break ;
+		}
 	}
+	return (print_error_cmd(flag, cmd_name));
 	free(*path);
-	if (flag)
-		return (printf("%s: Command not executable\n", cmd_name), COMMAND_NOT_EXECUTABLE);
-	return (printf("%s: Command not found\n", cmd_name), COMMAND_NOT_FOUND);
+}
+
+int	check_full_path(char *cmd_path, char **path)
+{
+	int	flag;
+
+	flag = 0;
+	if (!check_access(cmd_path))
+	{
+		*path = cmd_path;
+		return (0);
+	}
+	if (!check_dir(cmd_path, &flag))
+		flag = 2;
+	return (print_error_path(flag, cmd_path));
 }
 
 int	find_cmd_path(char **cmd, char **path, t_shell *shell)
@@ -84,12 +100,7 @@ int	find_cmd_path(char **cmd, char **path, t_shell *shell)
 	int		ret;
 
 	if (ft_strchr(cmd[0], '/'))
-	{
-		ret = check_access(cmd[0]);
-		if (!ret)
-			*path = cmd[0];
-		return (ret);
-	}
+		return (check_full_path(cmd[0], path));
 	path_env = get_env_value(shell, "PATH");
 	if (!path_env)
 		return (printf("%s: No such file or directory\n", cmd[0]), COMMAND_NOT_FOUND);
@@ -97,6 +108,7 @@ int	find_cmd_path(char **cmd, char **path, t_shell *shell)
 	if (!dirs)
 		return (ft_putstr_fd("Path split failed", STDERR_FILENO), GENERAL_ERROR);
 	ret = concat_path(cmd[0], dirs, path);
+//	printf("%s\n", *path);
 	if (ret)
 		return (ret);
 	clean_array(dirs);
@@ -119,6 +131,8 @@ int	exec_child(t_node *cmd, int in_fd, int out_fd, t_shell *shell)
 		dup2(out_fd, STDOUT_FILENO);
 		close(out_fd);
 	}
+	while (!cmd->cmd.cmd[0][0])
+		cmd->cmd.cmd++;
 	shell->exit_code = find_cmd_path(cmd->cmd.cmd, &path, shell);
 	if (shell->exit_code)
 		exit(shell->exit_code);
@@ -190,7 +204,7 @@ int	exec_non_builtin(t_node *cmd, t_shell *shell)
 		if (shell->exit_code)
 			return (close_fd(in_fd, out_fd), shell->exit_code);
 	}
-	if (!cmd->cmd.cmd)
+	if (!cmd->cmd.cmd || (count_cmd(cmd) == 1 && !cmd->cmd.cmd[0][0]))
 	{
 		shell->exit_code = 0;
 		return (close_fd(in_fd, out_fd), shell->exit_code);

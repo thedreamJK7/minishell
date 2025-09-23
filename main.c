@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 17:21:52 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/23 15:16:49 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/23 17:18:35 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,12 @@ static void	shell_loop(t_shell **shell)
 		}
 		clean_tokens(&token_list, 0);
 		find_heredoc((*shell)->nodes, *shell);
+		if (g_sig_received == 1)
+		{
+			free_ast((*shell)->nodes);
+			free(input);
+			continue ;
+		}
 		(*shell)->exit_code = execute((*shell)->nodes, *shell);
 		free_ast((*shell)->nodes);
 		free(input);
