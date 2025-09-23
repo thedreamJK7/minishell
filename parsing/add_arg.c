@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 11:27:49 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/22 17:36:22 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/23 12:48:55 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,12 @@ int	add_arg(t_node *cmd, t_token **list)
 	i = 0;
 	if (!cmd->cmd.cmd)
 	{
-		cmd->cmd.cmd = (char **)malloc(sizeof(char *) * (i + 2));
+		cmd->cmd.cmd = (char **)malloc(sizeof(char *) * 2);
 		if (!cmd->cmd.cmd)
 			return (printf(ALLOCATION_FAIL), 1);
 		if (!(*list)->value)
 		{
 			cmd->cmd.cmd[0] = NULL;
-			if (!(cmd->cmd.cmd[0]))
-				return (printf(ALLOCATION_FAIL), 1);
 		}
 		else
 		{
@@ -46,8 +44,6 @@ int	add_arg(t_node *cmd, t_token **list)
 		if (!(*list)->value)
 		{
 			cmd->cmd.cmd[i] = NULL;
-			if (!cmd->cmd.cmd[i])
-				return (printf(ALLOCATION_FAIL), 1);
 		}
 		else
 		{
