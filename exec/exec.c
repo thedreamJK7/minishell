@@ -6,9 +6,10 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 20:13:50 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/20 14:35:35 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/23 09:47:24 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../includes/minishell.h"
 
@@ -29,6 +30,8 @@ int	is_builtin(char *arg)
 
 int	exec_simple_command(t_node *cmd, t_shell *shell)
 {
+	if (cmd->cmd.redir_token)
+		return (exec_non_builtin(cmd, shell));
 	if (cmd->cmd.cmd && !is_builtin(cmd->cmd.cmd[0]))
 		return (exec_builtin(shell, cmd->cmd.cmd));
 	return (exec_non_builtin(cmd, shell));
@@ -45,6 +48,7 @@ int	execute(t_node *node, t_shell *shell)
 	}
 	else
 	{
+//		printf("simple command");
 //		printf("simple command");
 		return(exec_simple_command(node, shell));
 	}
