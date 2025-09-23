@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/20 12:51:30 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/20 12:51:34 by jkubaev          ###   ########.fr       */
+/*   Created: 2025/09/13 16:58:25 by jkubaev           #+#    #+#             */
+/*   Updated: 2025/09/23 13:15:29 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,10 @@ int	builtin_echo(t_shell *shell, char **cmd)
 			printf("%s ", cmd[i]);
 			i++;
 		}
-		printf("%s", cmd[i]);
+		if (cmd[i])
+			printf("%s", cmd[i]);
+		else
+			write(1, "", 1);
 	}
 	else
 	{

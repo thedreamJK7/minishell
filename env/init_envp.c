@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 13:15:26 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/13 15:19:56 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/23 13:32:47 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,5 +94,7 @@ t_shell	*init_envp(char **envp)
 	if (!shell->env_list)
 		return (free(shell), NULL);
 	shell->exit_code = 0;
+	shell->input = NULL;
+	shell->nodes = NULL;
 	return (shell);
 }

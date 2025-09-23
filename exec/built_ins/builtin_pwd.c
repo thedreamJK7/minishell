@@ -6,34 +6,17 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 15:35:37 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/18 18:11:05 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/23 15:30:21 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	is_arguments_valid(char **cmd)
-{
-	int	arg;
-
-	arg = 0;
-	while (*cmd)
-	{
-		cmd++;
-		arg++;
-	}
-	if (arg == 1)
-		return (0);
-	else
-		return (1);
-}
-
 int	builtin_pwd(char **cmd)
 {
 	char *cwd;
 
-	if (is_arguments_valid(cmd))
-		return(printf("pwd: too many arguments\n"), 1);
+	(void)cmd;
 	cwd = getcwd(NULL, 0);
 	if ( cwd != NULL)
 		return (printf("%s\n", cwd), free(cwd), 0);

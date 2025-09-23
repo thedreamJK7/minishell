@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 17:21:52 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/22 16:46:16 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/23 17:18:35 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,8 @@ sig_atomic_t	g_sig_received = 0;
 static void	shell_loop(t_shell **shell)
 {
 	char	*input;
-	t_node	*nodes;
+	t_token	*token_list;
 
-	nodes = NULL;
-	input = NULL;
 	setup_signals(signal_handler_main);
 	while (1)
 	{
@@ -37,22 +35,27 @@ static void	shell_loop(t_shell **shell)
 		}
 		if (*input)
 			add_history(input);
-		nodes = ft_parse(&input, *shell);
-		if (!nodes)
+		token_list = ft_tokenize(input, (*shell));
+		if (!token_list)
+			return ;
+		(*shell)->nodes = ft_parse(token_list);
+		if (!(*shell)->nodes)
 		{
 			free(input);
+			clean_tokens(&token_list, 0);
 			(*shell)->exit_code = 0;
 			continue ;
 		}
-		find_heredoc(nodes, *shell);
+		clean_tokens(&token_list, 0);
+		find_heredoc((*shell)->nodes, *shell);
 		if (g_sig_received == 1)
 		{
-			free_ast(nodes);
+			free_ast((*shell)->nodes);
 			free(input);
 			continue ;
 		}
-		(*shell)->exit_code = execute(nodes, *shell);
-		free_ast(nodes);
+		(*shell)->exit_code = execute((*shell)->nodes, *shell);
+		free_ast((*shell)->nodes);
 		free(input);
 	}
 }
@@ -67,7 +70,7 @@ int	main(int argc, char **argv, char **envp)
 	if (!shell)
 		return (printf("Failed to initialize shell"), 1);
 	shell_loop(&shell);
-	rl_clear_history();
 	clean_shell(shell);
+	rl_clear_history();
 	return (0);
 }
