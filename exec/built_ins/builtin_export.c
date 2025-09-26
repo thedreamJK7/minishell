@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 11:37:01 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/19 13:05:08 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/25 10:02:33 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,9 @@ int	builtin_export(t_shell *shell, char **cmd)
 	{
 		if (is_valid_identifier(cmd[i]))
 		{
-			printf("export: `%s': not a valid identifier\n", cmd[i]);
+			ft_putstr_fd("export: `", STDERR_FILENO);
+			ft_putstr_fd(cmd[i], STDERR_FILENO);
+			ft_putstr_fd("`: not a valid identifier\n", STDERR_FILENO);
 			exit_status = 1;
 		}
 		else if (update_or_add_env(shell->env_list, cmd[i]) == -1)

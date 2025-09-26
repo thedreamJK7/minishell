@@ -14,3 +14,4 @@
 
 # Ignore tester
 minishell_tester/
+test_files/

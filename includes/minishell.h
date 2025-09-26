@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 17:03:16 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/23 14:39:59 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/24 10:25:54 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,6 @@ typedef struct	s_shell
 	char	*input;
 	int		exit_code;
 }				t_shell;
-
-
 
 #include <stdio.h>
 #include <signal.h>

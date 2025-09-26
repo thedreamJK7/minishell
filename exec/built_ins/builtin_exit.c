@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 16:58:36 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/23 14:56:02 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/25 10:15:50 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,12 @@ int	validate_exit_arg(char *arg)
 	while (arg[i])
 	{
 		if (!ft_isdigit(arg[i]))
-			return (printf("exit: %s: numeric argument required\n", arg), -1);
+		{
+			ft_putstr_fd("exit: `", STDERR_FILENO);
+			ft_putstr_fd(arg, STDERR_FILENO);
+			ft_putstr_fd("`: numeric argument required\n", STDERR_FILENO);
+			return (-1);
+		}
 		i++;
 	}
 	return (0);
@@ -52,7 +57,7 @@ int	builtin_exit(t_shell *shell, char **cmd)
 	exit_code = shell->exit_code;
 	printf("exit\n");
 	if (count >= 3)
-		return(printf("exit: too many arguments\n"), 1);
+		return(ft_putstr_fd("exit: too many arguments\n", STDERR_FILENO), 1);
 	if (count == 2)
 	{
 		exit_code = handle_exit_args(*(cmd + 1));
