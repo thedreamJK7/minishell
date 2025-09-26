@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 11:27:49 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/23 12:48:55 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/26 13:05:39 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,16 @@ int	add_arg(t_node *cmd, t_token **list)
 	i = 0;
 	if (!cmd->cmd.cmd)
 	{
+		while ((*list)->type == T_WORD && ((*list)->value[0] == 0))
+			*list = (*list)->next;
+		if ((*list)->type == T_EOF)
+			return (1);
 		cmd->cmd.cmd = (char **)malloc(sizeof(char *) * 2);
 		if (!cmd->cmd.cmd)
 			return (printf(ALLOCATION_FAIL), 1);
-		if (!(*list)->value)
-		{
-			cmd->cmd.cmd[0] = NULL;
-		}
-		else
-		{
-			cmd->cmd.cmd[0] = ft_strdup((*list)->value);
-			if (!cmd->cmd.cmd[i])
-				return (printf(ALLOCATION_FAIL), 1);
-		}
+		cmd->cmd.cmd[0] = ft_strdup((*list)->value);
+		if (!cmd->cmd.cmd[i])
+			return (printf(ALLOCATION_FAIL), 1);
 		cmd->cmd.cmd[++i] = NULL;
 	}
 	else
@@ -42,9 +39,7 @@ int	add_arg(t_node *cmd, t_token **list)
 		cmd->cmd.cmd = ft_realloc1(cmd->cmd.cmd, (i + 1) * sizeof(char *), 
 			(i + 2) * sizeof(char *));
 		if (!(*list)->value)
-		{
 			cmd->cmd.cmd[i] = NULL;
-		}
 		else
 		{
 			cmd->cmd.cmd[i] = ft_strdup((*list)->value);

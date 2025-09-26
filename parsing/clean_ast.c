@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_ast.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 11:24:45 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/24 17:13:55 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/26 12:09:45 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void free_commands(char **argv)
 	i = 0;
     while (argv[i])
 	{
-		free(argv[i]);
+		if (argv[i])
+			free(argv[i]);
 		i++;
     }
 	free(argv);
@@ -51,7 +52,7 @@ void	free_ast(t_node *node)
 			free_commands(node->cmd.cmd);
 		if (node->cmd.redir_token)
 			free_redir_list(node->cmd.redir_token);
-		if (node->cmd.heredoc_fd)
+		if (node->cmd.heredoc_fd != -1)
 			close_heredoc_fd(&node->cmd);
 	}
 	else if (node->type == PIPE)
