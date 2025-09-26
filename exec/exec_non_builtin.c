@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_non_builtin.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 11:13:58 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/26 09:17:54 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/26 14:13:44 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,8 +127,6 @@ int	exec_child(t_node *cmd, int in_fd, int out_fd, t_shell *shell)
 		dup2(out_fd, STDOUT_FILENO);
 		close(out_fd);
 	}
-	while (!cmd->cmd.cmd[0][0])
-		cmd->cmd.cmd++;
 	shell->exit_code = find_cmd_path(cmd->cmd.cmd, &path, shell);
 	if (shell->exit_code)
 		exit(shell->exit_code);
@@ -200,7 +198,7 @@ int	exec_non_builtin(t_node *cmd, t_shell *shell)
 		if (shell->exit_code)
 			return (close_heredoc_fd(&(cmd->cmd)), close_fd(in_fd, out_fd), shell->exit_code);
 	}
-	if (!cmd->cmd.cmd || (count_cmd(cmd) == 1 && !cmd->cmd.cmd[0][0]))
+	if (!cmd->cmd.cmd)
 	{
 		shell->exit_code = 0;
 		return (close_fd(in_fd, out_fd), shell->exit_code);

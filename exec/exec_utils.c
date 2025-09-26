@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 17:27:24 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/26 09:31:42 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/26 10:42:51 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,12 @@ int		check_dir(char *path, int *flag)
 {
 	struct stat	statbuf;
 
+	errno = 0;
 	if (lstat(path, &statbuf) == -1)
 	{
 		if (errno == EACCES)
 			*flag = 1;
+		return (1);
 	}
 	if (S_ISDIR(statbuf.st_mode))
 		return (0);
@@ -74,7 +76,7 @@ int	print_error_cmd(int flag, char *cmd_name)
 	else if (flag == 2)
 		return (ft_putstr_fd(cmd_name, STDERR_FILENO), ft_putstr_fd(": Is a directory\n", STDERR_FILENO), COMMAND_NOT_EXECUTABLE);
 	else
-		return (ft_putstr_fd(cmd_name, STDERR_FILENO), ft_putstr_fd(": Command not found\n", STDERR_FILENO), COMMAND_NOT_FOUND);
+		return (ft_putstr_fd(cmd_name, STDERR_FILENO), ft_putstr_fd(": command not found\n", STDERR_FILENO), COMMAND_NOT_FOUND);
 }
 
 int	print_error_path(int flag, char *cmd_name)
