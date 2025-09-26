@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 11:27:49 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/26 13:05:39 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/26 14:41:28 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,6 @@ int	add_arg(t_node *cmd, t_token **list)
 	i = 0;
 	if (!cmd->cmd.cmd)
 	{
-		while ((*list)->type == T_WORD && ((*list)->value[0] == 0))
-			*list = (*list)->next;
-		if ((*list)->type == T_EOF)
-			return (1);
 		cmd->cmd.cmd = (char **)malloc(sizeof(char *) * 2);
 		if (!cmd->cmd.cmd)
 			return (printf(ALLOCATION_FAIL), 1);

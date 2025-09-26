@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 11:34:27 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/16 16:48:17 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/26 15:12:41 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ t_node	*parse_command(t_token **list)
 		return (NULL);
 	while (tmp && tmp->type != T_PIPE && tmp->type != T_EOF)
     {
+		while (tmp->type == T_WORD && tmp->value && (tmp->value[0] == 0))
+			tmp = tmp->next;
         if (tmp->type == T_WORD)
         {
             if (add_arg(node, &tmp))
@@ -40,3 +42,4 @@ t_node	*parse_command(t_token **list)
 	*list = tmp;
 	return (node);
 }
+
