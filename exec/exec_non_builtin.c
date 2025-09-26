@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 11:13:58 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/26 14:35:23 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/26 17:07:00 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	concat_path(char *cmd_name, char **dirs, char **path)
 		*path = tmp;
 		if (!check_access(*path))
 			return (0);
-		if (!check_dir(*path, &flag))
+		if (!check_dir_cmd(*path, &flag))
 		{
 			flag = 2;
 			free(*path);
@@ -86,7 +86,7 @@ int	check_full_path(char *cmd_path, char **path)
 		*path = cmd_path;
 		return (0);
 	}
-	if (!check_dir(cmd_path, &flag))
+	if (!check_dir_path(cmd_path, &flag))
 		flag = 2;
 	return (print_error_path(flag, cmd_path));
 }
