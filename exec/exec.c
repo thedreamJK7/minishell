@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 20:13:50 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/26 10:02:21 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/26 11:12:25 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,3 +151,9 @@ int	execute(t_node *node, t_shell *shell)
 		return(exec_simple_command(node, shell));
 	}
 }
+
+// $EMPTY $EMPTY $EMPTY $EMPTY echo hello NULL
+
+// $EMPTY $EMPTY $EMPTY $EMPTY NULL
+
+// echo hello NULL

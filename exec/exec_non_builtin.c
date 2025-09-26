@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 11:13:58 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/26 14:13:32 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/26 14:35:23 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ int	find_cmd_path(char **cmd, char **path, t_shell *shell)
 	dirs = ft_split(path_env, ':');
 	if (!dirs)
 		return (ft_putstr_fd("Path split failed", STDERR_FILENO), free(path_env), GENERAL_ERROR);
+//	printf("%s\n", cmd[0]);
 	ret = concat_path(cmd[0], dirs, path);
 	if (ret)
 		return (clean_array(dirs), ret);

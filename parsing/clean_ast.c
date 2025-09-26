@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 11:24:45 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/26 12:09:27 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/26 14:24:29 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void free_commands(char **argv)
 	i = 0;
     while (argv[i])
 	{
-		free(argv[i]);
+		if (argv[i])
+			free(argv[i]);
 		i++;
     }
 	free(argv);

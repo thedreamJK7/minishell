@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2025/09/26 10:57:46 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/26 14:22:41 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ int		check_access(char *path);
 int		check_dir(char *path, int *flag);
 int		print_error_cmd(int flag, char *cmd_name);
 int		print_error_path(int flag, char *cmd_name);
-int		count_cmd(t_node *cmd);
 int		builtin_pwd(char **cmd);
 int		builtin_export(t_shell *shell, char **cmd);
 void	print_envp(t_env *envp);

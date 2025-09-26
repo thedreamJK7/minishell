@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 11:34:27 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/16 16:48:17 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/26 15:10:53 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@ t_node	*parse_command(t_token **list)
 		return (NULL);
 	while (tmp && tmp->type != T_PIPE && tmp->type != T_EOF)
     {
-        if (tmp->type == T_WORD)
+		while (tmp->type == T_WORD && tmp->value && (tmp->value[0] == 0))
+			tmp = tmp->next;
+		if (tmp->type == T_WORD)
         {
             if (add_arg(node, &tmp))
 				return (free_ast(node), NULL);
