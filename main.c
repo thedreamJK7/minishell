@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 17:21:52 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/23 17:18:35 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/24 17:23:29 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ static void	shell_loop(t_shell **shell)
 		if (g_sig_received == 1)
 		{
 			free_ast((*shell)->nodes);
+//			printf("clean\n");
 			free(input);
 			continue ;
 		}

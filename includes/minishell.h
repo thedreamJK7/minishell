@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 17:03:16 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/23 14:39:59 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/24 12:26:09 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,13 @@ typedef enum	e_redir_type
 typedef struct	s_redir_token{
 	t_redir_type	redir_type;// IN, OUT..
 	char			*file;// Filename or limiter
-	int 			heredoc_fd;
 	struct s_redir_token	*next;// token for redirection
 }				t_redir_token;
 
 typedef struct	s_command {
 	char			**cmd;        // ["-l"], ["txt"], etc.
-	t_redir_token	*redir_token;            // Redirection node if exists
+	t_redir_token	*redir_token;
+	int 			heredoc_fd;            // Redirection node if exists
 }				t_command;
 
 typedef struct	s_pipe {
