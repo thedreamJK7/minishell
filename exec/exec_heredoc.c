@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 16:30:41 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/23 17:11:06 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/24 16:53:31 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,26 +83,27 @@ int	exec_heredoc(t_redir_token *redir, t_shell *shell, int *in_fd)
 	return (0);
 }
 
-void	check_heredoc(t_redir_token *redir, t_shell *shell)
+void	check_heredoc(t_command *cmd, t_shell *shell)
 {
 	t_redir_token	*tmp;
 
-	tmp = redir;
-	while (redir)
+	tmp = cmd->redir_token;
+	while (tmp)
 	{
-		if(redir->redir_type == HEREDOC)
+		if(tmp->redir_type == HEREDOC)
 		{
-			shell->exit_code = exec_heredoc(redir, shell, &redir->heredoc_fd);
-			if (redir->heredoc_fd == -1)
+			if (cmd->heredoc_fd != -1)
+				close(cmd->heredoc_fd);
+			shell->exit_code = exec_heredoc(tmp, shell, &(cmd->heredoc_fd));
+			if (cmd->heredoc_fd == -1)
 			{
 				shell->exit_code = 130;
 				g_sig_received = 1;
 				return ;
 			}
 		}
-		redir = redir->next;
+		tmp = tmp->next;
 	}
-	redir = tmp;
 }
 
 void	find_heredoc(t_node *node, t_shell *shell)
@@ -117,7 +118,7 @@ void	find_heredoc(t_node *node, t_shell *shell)
 	else
 	{
 		if (node->cmd.redir_token)
-			check_heredoc(node->cmd.redir_token, shell);
+			check_heredoc(&node->cmd, shell);
 	}
 }
 

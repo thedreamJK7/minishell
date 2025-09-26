@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_redirection.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 11:30:50 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/13 15:03:43 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/24 12:26:29 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ static int assign_value(t_redir_token **redir, t_token **list)
 {
 	t_token	*tmp;
 
-	(*redir)->heredoc_fd = -1;
 	tmp = *list;
 	if (tmp->type == T_LESS)
 		(*redir)->redir_type = IN;

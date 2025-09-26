@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_ast.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 11:24:45 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/23 09:55:45 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/24 17:13:55 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void free_redir_list(t_redir_token *list)
     }
 }
 
-void	free_ast(t_node *node) 
+void	free_ast(t_node *node)
 {
     if (node == NULL)
 		return ;
@@ -51,8 +51,10 @@ void	free_ast(t_node *node)
 			free_commands(node->cmd.cmd);
 		if (node->cmd.redir_token)
 			free_redir_list(node->cmd.redir_token);
+		if (node->cmd.heredoc_fd)
+			close_heredoc_fd(&node->cmd);
 	}
-	else if (node->type == PIPE) 
+	else if (node->type == PIPE)
 	{
         free_ast(node->pipe.left);
         free_ast(node->pipe.right);

@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 18:47:51 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/22 16:21:28 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/26 09:42:47 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ int	exec_pipe(t_node *pipe_node, t_shell *shell)
 		close(pfd[0]);
 		dup2(pfd[1], STDOUT_FILENO);
 		close(pfd[1]);
-//		printf("left\n");
 		execute(pipe_node->pipe.left, shell);
 		exit(shell->exit_code);
 	}
@@ -59,7 +58,6 @@ int	exec_pipe(t_node *pipe_node, t_shell *shell)
 			close(pfd[1]);
 			dup2(pfd[0], STDIN_FILENO);
 			close(pfd[0]);
-//			printf("right\n");
 			execute(pipe_node->pipe.right, shell);
 			exit(shell->exit_code);
 		}
@@ -70,10 +68,9 @@ int	exec_pipe(t_node *pipe_node, t_shell *shell)
 		waitpid(pid[0], &status1, 0);
 		if (WIFEXITED(status2))
 		{
-//			printf("pipe: %d\n", WTERMSIG(status1));
 			if (WEXITSTATUS(status2) == 0 && WTERMSIG(status1) == 13 && g_sig_received == 2)
 			{
-//				printf("%d\n", WTERMSIG(status1));
+				close_heredoc_fd(&pipe_node->pipe.left->cmd);
 				write(STDOUT_FILENO, "\n", 1);
 				g_sig_received = 0;
 			}

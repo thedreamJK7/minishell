@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_node.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 11:23:34 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/23 10:06:37 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/24 12:27:19 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,6 @@ t_node *create_node(t_node_type type)
 	node->pipe.right = NULL;
 	node->cmd.redir_token = NULL;
 	node->cmd.cmd = NULL;
+	node->cmd.heredoc_fd = -1;
 	return (node);
 }

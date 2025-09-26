@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 20:13:50 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/25 09:38:58 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/26 10:02:21 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../includes/minishell.h"
 
-int setup_redirections(t_redir_token *redirs)
+int setup_redirections(t_node *nodes)
 {
 	t_redir_token	*tmp;
 	int				fd;
 
-	tmp = redirs;
+	tmp = nodes->cmd.redir_token;
 	while (tmp)
 	{
 		if (tmp->redir_type == IN)
@@ -47,7 +47,7 @@ int setup_redirections(t_redir_token *redirs)
 		}
 		if (tmp->redir_type == HEREDOC)
 		{
-			fd = tmp->heredoc_fd;
+			fd = nodes->cmd.heredoc_fd;
 			if (fd == -1)
 				return (perror(tmp->file), GENERAL_ERROR);
 			dup2(fd, STDIN_FILENO);
@@ -75,7 +75,7 @@ int	is_builtin(char *arg)
 
 int	is_child_builtin(char *arg)
 {
-	if (!ft_strcmp(arg, "env") || !ft_strcmp(arg, "pwd") 
+	if (!ft_strcmp(arg, "env") || !ft_strcmp(arg, "pwd")
 		|| !ft_strcmp(arg, "echo"))
 		return (0);
 	return (1);
@@ -106,7 +106,7 @@ int	exec_simple_command(t_node *cmd, t_shell *shell)
 			}
 			if (!pid)
 			{
-				if (setup_redirections(cmd->cmd.redir_token))
+				if (setup_redirections(cmd))
 					exit (1);
 				exit(exec_builtin(shell, cmd->cmd.cmd));
 			}
@@ -123,7 +123,7 @@ int	exec_simple_command(t_node *cmd, t_shell *shell)
 			int saved_out = dup(STDOUT_FILENO);
 			int saved_err = dup(STDERR_FILENO);
 
-			if (cmd->cmd.redir_token && setup_redirections(cmd->cmd.redir_token))
+			if (cmd->cmd.redir_token && setup_redirections(cmd))
 			{
 				restore_fds(saved_in, saved_out, saved_err);
 				return (1);

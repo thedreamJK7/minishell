@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 17:27:24 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/23 17:07:39 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/26 09:31:42 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,12 @@ void	clean_array(char **arr)
 		i++;
 	}
 	free(arr);
+}
+
+void	close_heredoc_fd(t_command *cmd)
+{
+	if (cmd->heredoc_fd)
+		close(cmd->heredoc_fd);
 }
 
 void	close_fd(int in_fd, int out_fd)
@@ -64,21 +70,21 @@ int		check_dir(char *path, int *flag)
 int	print_error_cmd(int flag, char *cmd_name)
 {
 	if (flag == 1)
-		return (printf("%s: Permission denied\n", cmd_name), COMMAND_NOT_EXECUTABLE);
+		return (ft_putstr_fd(cmd_name, STDERR_FILENO), ft_putstr_fd(": Permission denied\n", STDERR_FILENO),  COMMAND_NOT_EXECUTABLE);
 	else if (flag == 2)
-		return (printf("%s: Is a directory\n", cmd_name), COMMAND_NOT_EXECUTABLE);
+		return (ft_putstr_fd(cmd_name, STDERR_FILENO), ft_putstr_fd(": Is a directory\n", STDERR_FILENO), COMMAND_NOT_EXECUTABLE);
 	else
-		return (printf("%s: Command not found\n", cmd_name), COMMAND_NOT_FOUND);
+		return (ft_putstr_fd(cmd_name, STDERR_FILENO), ft_putstr_fd(": Command not found\n", STDERR_FILENO), COMMAND_NOT_FOUND);
 }
 
 int	print_error_path(int flag, char *cmd_name)
 {
 	if (flag == 1)
-		return (printf("%s: Permission denied\n", cmd_name), COMMAND_NOT_EXECUTABLE);
+		return (ft_putstr_fd(cmd_name, STDERR_FILENO), ft_putstr_fd(": Permission denied\n", STDERR_FILENO),  COMMAND_NOT_EXECUTABLE);
 	else if (flag == 2)
-		return (printf("%s: Is a directory\n", cmd_name), COMMAND_NOT_EXECUTABLE);
+		return (ft_putstr_fd(cmd_name, STDERR_FILENO), ft_putstr_fd(": Is a directory\n", STDERR_FILENO), COMMAND_NOT_EXECUTABLE);
 	else
-		return (printf("%s: No such file or directory\n", cmd_name), COMMAND_NOT_FOUND);
+		return (ft_putstr_fd(cmd_name, STDERR_FILENO), ft_putstr_fd(": No such file or directory\n", STDERR_FILENO), COMMAND_NOT_FOUND);
 }
 
 int	count_cmd(t_node *cmd)

@@ -6,24 +6,20 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 11:13:58 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/23 17:11:58 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/26 09:17:54 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	open_files(t_redir_token *redir, int *in_fd, int *out_fd)
+int	open_files(struct s_command *cmd, int *in_fd, int *out_fd)
 {
 	t_redir_token	*tmp;
-	tmp = redir;
+	tmp = cmd->redir_token;
 	while (tmp)
 	{
 		if (tmp->redir_type == HEREDOC)
-		{
-			if (*in_fd != -1)
-				close (*in_fd);
-			*in_fd = tmp->heredoc_fd;
-		}
+			*in_fd = cmd->heredoc_fd;
 		else if (tmp->redir_type == IN)
 		{
 			if (*in_fd != -1)
@@ -103,7 +99,7 @@ int	find_cmd_path(char **cmd, char **path, t_shell *shell)
 		return (check_full_path(cmd[0], path));
 	path_env = get_env_value(shell, "PATH");
 	if (!path_env)
-		return (printf("%s: No such file or directory\n", cmd[0]), COMMAND_NOT_FOUND);
+		return (ft_putstr_fd(cmd[0], STDERR_FILENO), ft_putstr_fd(": No such file or directory\n", STDERR_FILENO), COMMAND_NOT_FOUND);
 	dirs = ft_split(path_env, ':');
 	if (!dirs)
 		return (ft_putstr_fd("Path split failed", STDERR_FILENO), GENERAL_ERROR);
@@ -200,9 +196,9 @@ int	exec_non_builtin(t_node *cmd, t_shell *shell)
 	out_fd = -1;
 	if (cmd->cmd.redir_token)
 	{
-		shell->exit_code = open_files(cmd->cmd.redir_token, &in_fd, &out_fd);
+		shell->exit_code = open_files(&(cmd->cmd), &in_fd, &out_fd);
 		if (shell->exit_code)
-			return (close_fd(in_fd, out_fd), shell->exit_code);
+			return (close_heredoc_fd(&(cmd->cmd)), close_fd(in_fd, out_fd), shell->exit_code);
 	}
 	if (!cmd->cmd.cmd || (count_cmd(cmd) == 1 && !cmd->cmd.cmd[0][0]))
 	{
