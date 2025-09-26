@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizing.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 22:19:04 by javokhir          #+#    #+#             */
-/*   Updated: 2025/09/23 09:47:10 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/26 11:17:31 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,10 @@ t_token	*ft_tokenize(char *s, t_shell *shell)
 			i += handle_words(s + i, &quote, &list, shell);
 	}
 	if (quote)
-		return (clean_tokens(&list, 0), printf("Error: Unclosed quote\n"), NULL);
+	{
+		shell->exit_code = GENERAL_ERROR;
+		return (clean_tokens(&list, 0), ft_putstr_fd("Error: Unclosed quote\n", STDERR_FILENO), NULL);
+	}
 	add_tokens(&list, T_EOF, NULL);
 	return (list);
 }

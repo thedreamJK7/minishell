@@ -6,17 +6,17 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 11:19:08 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/05/15 12:10:21 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/26 16:17:25 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char *nptr)
+long	ft_atoi(const char *nptr)
 {
-	int	nb;
-	int	i;
-	int	sign;
+	long	nb;
+	int		i;
+	int		sign;
 
 	nb = 0;
 	i = 0;

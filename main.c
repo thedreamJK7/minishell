@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 17:21:52 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/26 09:48:33 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/26 11:18:51 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	shell_loop(t_shell **shell)
 			add_history(input);
 		token_list = ft_tokenize(input, (*shell));
 		if (!token_list)
-			return ;
+			continue ;
 		(*shell)->nodes = ft_parse(token_list);
 		if (!(*shell)->nodes)
 		{
