@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 16:30:41 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/24 16:53:31 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/26 11:54:24 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ int	write_to_pipe(t_redir_token *redir, t_shell *shell, int pipe_w)
 		input = readline("> ");
 		if (!input)
 		{
-//			if (g_sig_received == 1)
-//				return (close(pipe_w), 130);
-	//		printf("Exit heredoc");
+			ft_putstr_fd("warning: here-document delimited by end-of-file (wanted `", STDOUT_FILENO);
+			ft_putstr_fd(redir->file, STDOUT_FILENO);
+			ft_putstr_fd("')\n", STDOUT_FILENO);
 			break ;
 		}
 		if (*input)
@@ -40,7 +40,7 @@ int	write_to_pipe(t_redir_token *redir, t_shell *shell, int pipe_w)
 		free(input);
 		if (write(pipe_w, exp_input, ft_strlen(exp_input)) == -1 || write(pipe_w, "\n", 1) == -1)
 		{
-			printf("write fail\n");
+//			printf("write fail\n");
 			return (free(exp_input), close(pipe_w), perror("Write"), 0);
 		}
 		free(exp_input);
@@ -83,19 +83,19 @@ int	exec_heredoc(t_redir_token *redir, t_shell *shell, int *in_fd)
 	return (0);
 }
 
-void	check_heredoc(t_command *cmd, t_shell *shell)
+void	check_heredoc(t_node *node, t_shell *shell)
 {
 	t_redir_token	*tmp;
 
-	tmp = cmd->redir_token;
+	tmp = node->cmd.redir_token;
 	while (tmp)
 	{
 		if(tmp->redir_type == HEREDOC)
 		{
-			if (cmd->heredoc_fd != -1)
-				close(cmd->heredoc_fd);
-			shell->exit_code = exec_heredoc(tmp, shell, &(cmd->heredoc_fd));
-			if (cmd->heredoc_fd == -1)
+			if (node->cmd.heredoc_fd != -1)
+				close(node->cmd.heredoc_fd);
+			shell->exit_code = exec_heredoc(tmp, shell, &node->cmd.heredoc_fd);
+			if (node->cmd.heredoc_fd == -1)
 			{
 				shell->exit_code = 130;
 				g_sig_received = 1;
@@ -118,7 +118,7 @@ void	find_heredoc(t_node *node, t_shell *shell)
 	else
 	{
 		if (node->cmd.redir_token)
-			check_heredoc(&node->cmd, shell);
+			check_heredoc(node, shell);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 16:58:36 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/26 16:21:13 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/26 16:56:15 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,19 @@ int	validate_exit_arg(char *arg)
 
 static long	handle_exit_args(char *arg)
 {
-	long		exit_code;
+	long	exit_code;
 
 	exit_code = validate_exit_arg(arg);
 	if (exit_code == -1)
 		return (exit_code);
 	exit_code = ft_atoi(arg);
+	if (exit_code > 2147483647 || exit_code < -2147483648)
+	{
+		ft_putstr_fd("exit: `", STDERR_FILENO);
+		ft_putstr_fd(arg, STDERR_FILENO);
+		ft_putstr_fd("`: numeric argument required\n", STDERR_FILENO);
+		return (-1);
+	}
 	return (exit_code);
 }
 

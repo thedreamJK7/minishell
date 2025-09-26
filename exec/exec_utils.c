@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 17:27:24 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/26 10:42:51 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/26 16:39:21 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,12 @@ void	clean_array(char **arr)
 	free(arr);
 }
 
-void	close_heredoc_fd(t_command *cmd)
+void	close_heredoc_fd(t_node *node)
 {
-	if (cmd->heredoc_fd)
-		close(cmd->heredoc_fd);
+	if (node->cmd.heredoc_fd == -1)
+		return ;
+	if (node->cmd.heredoc_fd)
+		close(node->cmd.heredoc_fd);
 }
 
 void	close_fd(int in_fd, int out_fd)
@@ -55,7 +57,6 @@ int		check_dir(char *path, int *flag)
 {
 	struct stat	statbuf;
 
-	errno = 0;
 	if (lstat(path, &statbuf) == -1)
 	{
 		if (errno == EACCES)
@@ -87,14 +88,4 @@ int	print_error_path(int flag, char *cmd_name)
 		return (ft_putstr_fd(cmd_name, STDERR_FILENO), ft_putstr_fd(": Is a directory\n", STDERR_FILENO), COMMAND_NOT_EXECUTABLE);
 	else
 		return (ft_putstr_fd(cmd_name, STDERR_FILENO), ft_putstr_fd(": No such file or directory\n", STDERR_FILENO), COMMAND_NOT_FOUND);
-}
-
-int	count_cmd(t_node *cmd)
-{
-	int	i;
-
-	i = 0;
-	while (cmd->cmd.cmd[i])
-		i++;
-	return (i);
 }

@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 18:47:51 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/26 09:42:47 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/26 11:00:12 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ int	exec_pipe(t_node *pipe_node, t_shell *shell)
 		{
 			if (WEXITSTATUS(status2) == 0 && WTERMSIG(status1) == 13 && g_sig_received == 2)
 			{
-				close_heredoc_fd(&pipe_node->pipe.left->cmd);
 				write(STDOUT_FILENO, "\n", 1);
 				g_sig_received = 0;
 			}
