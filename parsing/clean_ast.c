@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 11:24:45 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/24 17:13:55 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/26 12:09:27 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ void	free_ast(t_node *node)
 			free_commands(node->cmd.cmd);
 		if (node->cmd.redir_token)
 			free_redir_list(node->cmd.redir_token);
-		if (node->cmd.heredoc_fd)
-			close_heredoc_fd(&node->cmd);
+		if (node->cmd.heredoc_fd != -1)
+			close_heredoc_fd(node);
 	}
 	else if (node->type == PIPE)
 	{

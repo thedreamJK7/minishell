@@ -6,20 +6,21 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 11:13:58 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/26 09:17:54 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/26 14:13:32 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	open_files(struct s_command *cmd, int *in_fd, int *out_fd)
+int	open_files(t_node *node, int *in_fd, int *out_fd)
 {
 	t_redir_token	*tmp;
-	tmp = cmd->redir_token;
+
+	tmp = node->cmd.redir_token;
 	while (tmp)
 	{
 		if (tmp->redir_type == HEREDOC)
-			*in_fd = cmd->heredoc_fd;
+			*in_fd = node->cmd.heredoc_fd;
 		else if (tmp->redir_type == IN)
 		{
 			if (*in_fd != -1)
@@ -67,11 +68,12 @@ int	concat_path(char *cmd_name, char **dirs, char **path)
 		if (!check_dir(*path, &flag))
 		{
 			flag = 2;
+			free(*path);
 			break ;
 		}
+		free(*path);
 	}
 	return (print_error_cmd(flag, cmd_name));
-	free(*path);
 }
 
 int	check_full_path(char *cmd_path, char **path)
@@ -102,11 +104,10 @@ int	find_cmd_path(char **cmd, char **path, t_shell *shell)
 		return (ft_putstr_fd(cmd[0], STDERR_FILENO), ft_putstr_fd(": No such file or directory\n", STDERR_FILENO), COMMAND_NOT_FOUND);
 	dirs = ft_split(path_env, ':');
 	if (!dirs)
-		return (ft_putstr_fd("Path split failed", STDERR_FILENO), GENERAL_ERROR);
+		return (ft_putstr_fd("Path split failed", STDERR_FILENO), free(path_env), GENERAL_ERROR);
 	ret = concat_path(cmd[0], dirs, path);
-//	printf("%s\n", *path);
 	if (ret)
-		return (ret);
+		return (clean_array(dirs), ret);
 	clean_array(dirs);
 	return (0);
 }
@@ -127,8 +128,6 @@ int	exec_child(t_node *cmd, int in_fd, int out_fd, t_shell *shell)
 		dup2(out_fd, STDOUT_FILENO);
 		close(out_fd);
 	}
-	while (!cmd->cmd.cmd[0][0])
-		cmd->cmd.cmd++;
 	shell->exit_code = find_cmd_path(cmd->cmd.cmd, &path, shell);
 	if (shell->exit_code)
 		exit(shell->exit_code);
@@ -160,27 +159,21 @@ int	exec_cmd(t_node *cmd, t_shell *shell, int in_fd, int out_fd)
 		return (perror("fork"), close_fd(in_fd, out_fd), GENERAL_ERROR);
 	else if (!pid)
 	{
-//		signal(SIGINT, SIG_DFL);
 		setup_signals(signal_handler_exit);
 		exec_child(cmd, in_fd, out_fd, shell);
 	}
 	setup_signals(signal_handler_wait);
-//	signal(SIGINT, SIG_IGN);
 	close_fd(in_fd, out_fd);
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 	{
 		shell->exit_code = WEXITSTATUS(status);
-//		write(STDOUT_FILENO, "\n", 1);
-		return (setup_signals(signal_handler_main), WEXITSTATUS(status));
+		return (setup_signals(signal_handler_main), shell->exit_code);
 	}
 	else if (WIFSIGNALED(status))
 	{
 		if (WTERMSIG(status))
-		{
 			write(STDOUT_FILENO, "\n", 1);
-//			g_sig_received = 0;
-		}
 		shell->exit_code =  128 + WTERMSIG(status);
 		return (setup_signals(signal_handler_main), shell->exit_code);
 	}
@@ -196,11 +189,11 @@ int	exec_non_builtin(t_node *cmd, t_shell *shell)
 	out_fd = -1;
 	if (cmd->cmd.redir_token)
 	{
-		shell->exit_code = open_files(&(cmd->cmd), &in_fd, &out_fd);
+		shell->exit_code = open_files(cmd, &in_fd, &out_fd);
 		if (shell->exit_code)
-			return (close_heredoc_fd(&(cmd->cmd)), close_fd(in_fd, out_fd), shell->exit_code);
+			return (close_heredoc_fd(cmd), close_fd(in_fd, out_fd), shell->exit_code);
 	}
-	if (!cmd->cmd.cmd || (count_cmd(cmd) == 1 && !cmd->cmd.cmd[0][0]))
+	if (!cmd->cmd.cmd)
 	{
 		shell->exit_code = 0;
 		return (close_fd(in_fd, out_fd), shell->exit_code);

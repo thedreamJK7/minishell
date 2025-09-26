@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2025/09/24 16:31:36 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/26 10:57:46 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int		exec_heredoc(t_redir_token *redir, t_shell *shell, int *in_fd);
 void	find_heredoc(t_node *node, t_shell *shell);
 void	clean_array(char **arr);
 void	close_fd(int in_fd, int out_fd);
-void	close_heredoc_fd(struct s_command *cmd);
+void	close_heredoc_fd(t_node *node);
 int		check_access(char *path);
 int		check_dir(char *path, int *flag);
 int		print_error_cmd(int flag, char *cmd_name);
