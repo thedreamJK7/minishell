@@ -12,7 +12,7 @@ SRCS = main.c \
 	./tokenizing/handle_variable.c ./tokenizing/handle_word.c \
 	./parsing/parsing.c ./parsing/print_ast.c ./parsing/add_arg.c \
 	./parsing/add_redir.c ./parsing/clean_ast.c ./parsing/create_node.c \
-	./parsing/is_redirection.c ./parsing/parse_command.c \
+	./parsing/parse_command.c \
 	./parsing/parse_expression.c ./parsing/parse_redirection.c \
 	./signals/setup_signals.c \
 	./env/env_util.c ./env/envp_to_array.c ./env/init_envp.c \

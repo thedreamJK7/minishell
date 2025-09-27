@@ -6,11 +6,17 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 11:34:27 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/27 19:35:13 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/27 20:52:15 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+static int	is_redirection(t_token_type type)
+{
+	return (type == T_LESS || type == T_GREAT || type == T_DLESS 
+		|| type == T_DGREAT);
+}
 
 t_node	*parse_command(t_token **list, int *exit_code)
 {
