@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 11:13:58 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/26 17:07:00 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/27 12:56:08 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,7 @@ int	concat_path(char *cmd_name, char **dirs, char **path)
 		*path = tmp;
 		if (!check_access(*path))
 			return (0);
-		if (!check_dir_cmd(*path, &flag))
-		{
-			flag = 2;
-			free(*path);
-			break ;
-		}
+		check_dir_cmd(*path, &flag);
 		free(*path);
 	}
 	return (print_error_cmd(flag, cmd_name));
@@ -113,12 +108,8 @@ int	find_cmd_path(char **cmd, char **path, t_shell *shell)
 	return (0);
 }
 
-int	exec_child(t_node *cmd, int in_fd, int out_fd, t_shell *shell)
+void	redir_child(int in_fd, int out_fd)
 {
-	char	*path;
-	char	**env;
-
-	path = NULL;
 	if (in_fd != -1)
 	{
 		dup2(in_fd, STDIN_FILENO);
@@ -129,6 +120,15 @@ int	exec_child(t_node *cmd, int in_fd, int out_fd, t_shell *shell)
 		dup2(out_fd, STDOUT_FILENO);
 		close(out_fd);
 	}
+}
+
+int	exec_child(t_node *cmd, int in_fd, int out_fd, t_shell *shell)
+{
+	char	*path;
+	char	**env;
+
+	path = NULL;
+	redir_child(in_fd, out_fd);
 	shell->exit_code = find_cmd_path(cmd->cmd.cmd, &path, shell);
 	if (shell->exit_code)
 		exit(shell->exit_code);
