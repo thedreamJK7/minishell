@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 18:51:42 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/12 13:28:17 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/27 10:08:37 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static char	*expand_var(char *s, t_shell *shell, t_token **list)
 	else
 	{
 		var = get_env_value(shell, s);
-		if (!var)
+		if (!var || !ft_strcmp(s, "EMPTY"))
 			value = ft_strdup("");
 		else
 			value = ft_strdup(var);

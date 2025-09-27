@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 17:21:52 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/26 11:18:51 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/27 10:54:01 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	shell_loop(t_shell **shell)
 		{
 			free(input);
 			clean_tokens(&token_list, 0);
-			(*shell)->exit_code = 0;
+//			(*shell)->exit_code = 0;
 			continue ;
 		}
 		clean_tokens(&token_list, 0);
