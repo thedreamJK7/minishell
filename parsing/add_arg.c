@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 11:27:49 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/27 10:42:18 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/27 12:54:21 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,14 @@ int	add_arg(t_node *cmd, t_token **list)
 		cmd->cmd.cmd = (char **)malloc(sizeof(char *) * 2);
 		if (!cmd->cmd.cmd)
 			return (printf(ALLOCATION_FAIL), 1);
-		cmd->cmd.cmd[0] = ft_strdup((*list)->value);
-		if (!cmd->cmd.cmd[i])
-			return (printf(ALLOCATION_FAIL), 1);
+		if (!(*list)->value)
+			cmd->cmd.cmd[i] = ft_strdup("");
+		else
+		{
+			cmd->cmd.cmd[i] = ft_strdup((*list)->value);
+			if (!cmd->cmd.cmd[i])
+				return (printf(ALLOCATION_FAIL), 1);
+		}
 		cmd->cmd.cmd[++i] = NULL;
 	}
 	else

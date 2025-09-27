@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2025/09/26 17:06:26 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/27 12:59:36 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	clean_array(char **arr);
 void	close_fd(int in_fd, int out_fd);
 void	close_heredoc_fd(t_node *node);
 int		check_access(char *path);
-int		check_dir_cmd(char *path, int *flag);
+void	check_dir_cmd(char *path, int *flag);
 int		check_dir_path(char *path, int *flag);
 int		print_error_cmd(int flag, char *cmd_name);
 int		print_error_path(int flag, char *cmd_name);
