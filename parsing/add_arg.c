@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_arg.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 11:27:49 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/27 12:54:21 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/27 16:07:46 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ int	add_arg(t_node *cmd, t_token **list)
 {
 	int 	i;
 
-	i = 0;
 	if (!cmd->cmd.cmd)
 	{
+		i = 0;
 		cmd->cmd.cmd = (char **)malloc(sizeof(char *) * 2);
 		if (!cmd->cmd.cmd)
 			return (printf(ALLOCATION_FAIL), 1);
@@ -30,7 +30,7 @@ int	add_arg(t_node *cmd, t_token **list)
 			if (!cmd->cmd.cmd[i])
 				return (printf(ALLOCATION_FAIL), 1);
 		}
-		cmd->cmd.cmd[++i] = NULL;
+		cmd->cmd.cmd[i + 1] = NULL;
 	}
 	else
 	{

@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 20:13:50 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/26 11:12:25 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/27 13:48:35 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,8 +128,8 @@ int	exec_simple_command(t_node *cmd, t_shell *shell)
 				restore_fds(saved_in, saved_out, saved_err);
 				return (1);
 			}
-			int exit_code = exec_builtin(shell, cmd->cmd.cmd);
 			restore_fds(saved_in, saved_out, saved_err);
+			int exit_code = exec_builtin(shell, cmd->cmd.cmd);
 			return (exit_code);
 		}
 	}

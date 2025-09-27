@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 17:21:52 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/27 10:54:01 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/27 11:54:47 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	shell_loop(t_shell **shell)
 		token_list = ft_tokenize(input, (*shell));
 		if (!token_list)
 			continue ;
-		(*shell)->nodes = ft_parse(token_list);
+		(*shell)->nodes = ft_parse(token_list, &(*shell)->exit_code);
 		if (!(*shell)->nodes)
 		{
 			free(input);

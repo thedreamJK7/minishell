@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parse_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 11:34:27 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/26 15:10:53 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/27 12:04:59 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-t_node	*parse_command(t_token **list)
+t_node	*parse_command(t_token **list, int *exit_code)
 {
 	t_node	*node;
 	t_token	*tmp;
@@ -33,7 +33,7 @@ t_node	*parse_command(t_token **list)
         }
         else if (is_redirection(tmp->type))
         {
-            redir = parse_redirection(&tmp);
+            redir = parse_redirection(&tmp, &(*exit_code));
 			if (!redir)
 				return (free_ast(node), NULL);
             add_redir(node, redir);
@@ -42,3 +42,4 @@ t_node	*parse_command(t_token **list)
 	*list = tmp;
 	return (node);
 }
+
