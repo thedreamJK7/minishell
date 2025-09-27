@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 17:27:24 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/26 16:39:21 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/26 17:06:08 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int		check_access(char *path)
 	return (1);
 }
 
-int		check_dir(char *path, int *flag)
+int		check_dir_cmd(char *path, int *flag)
 {
 	struct stat	statbuf;
 
@@ -61,6 +61,27 @@ int		check_dir(char *path, int *flag)
 	{
 		if (errno == EACCES)
 			*flag = 1;
+		return (1);
+	}
+	if (S_ISDIR(statbuf.st_mode))
+		return (0);
+	if (errno == EACCES)
+		*flag = 1;
+	return (1);
+}
+
+int		check_dir_path(char *path, int *flag)
+{
+	struct stat	statbuf;
+
+	if (lstat(path, &statbuf) == -1)
+	{
+		if (errno == EACCES)
+			*flag = 1;
+		else if (errno == ENOENT)
+			*flag = 0;
+		else if (errno == ENOTDIR)
+			*flag = 3;
 		return (1);
 	}
 	if (S_ISDIR(statbuf.st_mode))
@@ -86,6 +107,8 @@ int	print_error_path(int flag, char *cmd_name)
 		return (ft_putstr_fd(cmd_name, STDERR_FILENO), ft_putstr_fd(": Permission denied\n", STDERR_FILENO),  COMMAND_NOT_EXECUTABLE);
 	else if (flag == 2)
 		return (ft_putstr_fd(cmd_name, STDERR_FILENO), ft_putstr_fd(": Is a directory\n", STDERR_FILENO), COMMAND_NOT_EXECUTABLE);
+	else if (flag == 3)
+		return (ft_putstr_fd(cmd_name, STDERR_FILENO), ft_putstr_fd(": Not a directory\n", STDERR_FILENO), COMMAND_NOT_EXECUTABLE);
 	else
 		return (ft_putstr_fd(cmd_name, STDERR_FILENO), ft_putstr_fd(": No such file or directory\n", STDERR_FILENO), COMMAND_NOT_FOUND);
 }
