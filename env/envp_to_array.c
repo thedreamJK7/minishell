@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 10:00:03 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/28 18:28:29 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/28 19:09:45 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,6 @@ char	**envp_to_array(t_env *env_list)
 	if (!arr)
 		return (NULL);
 	if (fill_array(arr, env_list))
-		return (free_commands(arr), NULL);
+		return (clean_array(arr), NULL);
 	return (arr);
 }

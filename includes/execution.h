@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 10:46:10 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/28 17:29:06 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/28 19:05:53 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <sys/wait.h>
 # include <fcntl.h>
 # include <errno.h>
-/*Non_builtin*/
+/* =========================== Non-Builtin ===================================*/
 void	execute(t_node *node, t_shell *shell);
 int		exec_pipe(t_node *pipe_node, t_shell *shell);
 int		exec_builtin(t_shell *shell, char **cmd);
@@ -34,7 +34,7 @@ void	check_dir_cmd(char *path, int *flag);
 int		check_dir_path(char *path, int *flag);
 int		print_error_cmd(int flag, char *cmd_name);
 int		print_error_path(int flag, char *cmd_name);
-/*Non_builtin*/
+/* =========================== Builtin =======================================*/
 int		builtin_pwd(char **cmd);
 int		builtin_export(t_shell *shell, char **cmd);
 void	print_envp(t_env *envp);
@@ -46,7 +46,6 @@ int		count_arguments(char **cmd);
 int		builtin_exit(t_shell *shell, char **cmd);
 int		builtin_env(t_shell *shell, char **cmd);
 int		builtin_unset(t_shell *shell, char **cmd);
-char	*exp_heredoc(char *input, t_shell *shell);
 int		builtin_echo(t_shell *shell, char **cmd);
 int		exec_child_builtin(t_node *cmd, t_shell *shell);
 int		exec_normal_builtin(t_node *cmd, t_shell *shell);

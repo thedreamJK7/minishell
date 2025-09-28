@@ -6,27 +6,11 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 11:24:45 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/28 18:23:36 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/28 19:09:16 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-void	free_commands(char **argv)
-{
-	int	i;
-
-	if (!argv)
-		return ;
-	i = 0;
-	while (argv[i])
-	{
-		if (argv[i])
-			free(argv[i]);
-		i++;
-	}
-	free(argv);
-}
 
 void	free_redir_list(t_redir_token *list)
 {
@@ -49,7 +33,7 @@ void	free_ast(t_node *node)
 	if (node->type == COMMAND)
 	{
 		if (node->cmd.cmd)
-			free_commands(node->cmd.cmd);
+			clean_array(node->cmd.cmd);
 		if (node->cmd.redir_token)
 			free_redir_list(node->cmd.redir_token);
 		if (node->cmd.heredoc_fd != -1)

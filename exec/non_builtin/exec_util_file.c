@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_util_file.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 10:33:16 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/28 18:40:00 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/28 19:36:26 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	open_files(t_node *node, int *in_fd, int *out_fd)
 	t_redir_token	*tmp;
 	int				ret;
 
+	ret = 0;
 	tmp = node->cmd.redir_token;
 	while (tmp)
 	{
