@@ -10,7 +10,7 @@ SRCS = main.c \
 	./tokenizing/tokenizing_utils.c ./tokenizing/handle_pipe_redir.c \
 	./tokenizing/handle_quotes.c ./tokenizing/handle_variable.c \
 	./tokenizing/handle_word.c \
-	./parsing/parsing.c ./parsing/print_ast.c ./parsing/add_arg.c \
+	./parsing/parsing.c ./parsing/add_arg.c \
 	./parsing/add_redir.c ./parsing/clean_ast.c ./parsing/create_node.c \
 	./parsing/parse_command.c ./exec/exec_builtin_utils.c \
 	./parsing/parse_expression.c ./parsing/parse_redirection.c \

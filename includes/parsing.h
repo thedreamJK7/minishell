@@ -6,26 +6,22 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 19:50:04 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/28 11:43:26 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/28 18:42:24 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef PARSING_H
 # define PARSING_H
 
-// Errors
+# include "minishell.h"
+# include "tokenizing.h"
+
 # define SYNTAX_ERROR1 "Syntax error: Invalid pipeline\n"
 # define SYNTAX_ERROR2 "Syntax error: Invalid filename/limiter of redirection\n"
 # define ALLOCATION_FAIL "Malloc error: Memory allocation fails\n"
 
-# include "minishell.h"
-# include "tokenizing.h"
-
-t_node			*ft_parse(t_token *token_list, int *exit_code);
-void			print_ast(t_node *nodes, int depth); // Test
-t_node 			*create_node(t_node_type type);
-void			free_token_list(t_token *list);
+t_node			*ft_parse(t_shell *shell, char *input);
+t_node			*create_node(t_node_type type);
 void			free_redir_list(t_redir_token *list);
 void			free_commands(char **argv);
 void			free_ast(t_node *node);
