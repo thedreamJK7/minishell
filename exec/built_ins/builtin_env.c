@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/14 16:11:29 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/15 13:37:27 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/28 10:53:16 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,6 @@ int	builtin_env(t_shell *shell, char **cmd)
 		print_envp(shell->env_list);
 		return (0);
 	}
-	printf("env: %s: No such file or directory\n", cmd[1]);
-	return (1);
+	fprintf(stderr, "env: %s: No such file or directory\n", cmd[1]);
+	return (127);
 }

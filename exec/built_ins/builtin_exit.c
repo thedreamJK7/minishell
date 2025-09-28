@@ -6,13 +6,13 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 16:58:36 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/26 16:56:15 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/28 11:02:37 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	validate_exit_arg(char *arg)
+static int	validate_exit_arg(char *arg)
 {
 	int	i;
 
@@ -78,5 +78,5 @@ int	builtin_exit(t_shell *shell, char **cmd)
 	clean_shell(shell);
 	rl_clear_history();
 	exit(exit_code);
-	return (1);
+	return (0);
 }

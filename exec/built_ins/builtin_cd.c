@@ -6,13 +6,13 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 12:50:16 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/26 17:00:59 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/28 10:28:51 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	go_home(t_shell *shell)
+static int	go_home(t_shell *shell)
 {
 	char	*home;
 
@@ -24,14 +24,14 @@ int	go_home(t_shell *shell)
 	return (0);
 }
 
-int change_directory(char *arg)
+static int change_directory(char *arg)
 {
 	if (chdir(arg) == -1)
 		return (perror("cd"), 1);
 	return (0);
 }
 
-void update_env_value(t_shell *shell, char *oldpwd, char *pwd)
+static void update_env_value(t_shell *shell, char *oldpwd, char *pwd)
 {
 	t_env	*current;
 

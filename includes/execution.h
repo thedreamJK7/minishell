@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 10:46:10 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/28 14:35:06 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/28 14:53:24 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,8 @@ int		builtin_env(t_shell *shell, char **cmd);
 int		builtin_unset(t_shell *shell, char **cmd);
 char	*exp_heredoc(char *input, t_shell *shell);
 int		builtin_echo(t_shell *shell, char **cmd);
+int		exec_child_builtin(t_node *cmd, t_shell *shell);
+int		exec_normal_builtin(t_node *cmd, t_shell *shell);
+int		setup_redirections(t_node *nodes);
 
 #endif

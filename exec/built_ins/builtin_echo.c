@@ -6,11 +6,20 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 16:58:25 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/23 13:15:29 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/28 10:42:41 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+static void	ft_print_cmd(char **cmd, int *i)
+{
+	while (cmd[*i] && (cmd[*i + 1] != NULL))
+	{
+		printf("%s ", cmd[*i]);
+		(*i)++;
+	}
+}
 
 int	builtin_echo(t_shell *shell, char **cmd)
 {
@@ -20,11 +29,7 @@ int	builtin_echo(t_shell *shell, char **cmd)
 	if (cmd[i] && !ft_strcmp(cmd[i], "-n"))
 	{
 		i++;
-		while (cmd[i] && (cmd[i + 1] != NULL))
-		{
-			printf("%s ", cmd[i]);
-			i++;
-		}
+		ft_print_cmd(cmd, &i);
 		if (cmd[i])
 			printf("%s", cmd[i]);
 		else
@@ -32,11 +37,7 @@ int	builtin_echo(t_shell *shell, char **cmd)
 	}
 	else
 	{
-		while (cmd[i] && (cmd[i + 1] != NULL))
-		{
-			printf("%s ", cmd[i]);
-			i++;
-		}
+		ft_print_cmd(cmd, &i);
 		if (cmd[i])
 			printf("%s\n", cmd[i]);
 		else

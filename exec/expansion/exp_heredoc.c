@@ -6,13 +6,11 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 09:49:49 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/27 18:48:44 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/28 14:49:48 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-#include "minishell.h"
 
 char	*str_before_dollar_s(char **result, char **next_dollar, char **input)
 {
