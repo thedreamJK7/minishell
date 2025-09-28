@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 18:47:51 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/27 19:18:57 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/28 10:26:46 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	failed_fork(int	*pid, int *pfd, int i, t_shell *shell)
 	return (shell->exit_code);
 }
 
-void	exec_child(int *pfd, t_node *pipe_node, t_shell *shell, int left)
+void	exec_pipe_child(int *pfd, t_node *pipe_node, t_shell *shell, int left)
 {
 	if (left)
 	{
@@ -78,12 +78,12 @@ int	exec_pipe(t_node *pipe_node, t_shell *shell)
 	if (pid[0] == -1)
 		return (failed_fork(pid, pfd, 0, shell));
 	else if (!pid[0])
-		exec_child(pfd, pipe_node, shell, 1);
+		exec_pipe_child(pfd, pipe_node, shell, 1);
 	pid[1] = fork();
 	if (pid[1] == -1)
 		return (failed_fork(pid, pfd, 1, shell));
 	else if (!pid[1])
-		exec_child(pfd, pipe_node, shell, 0);
+		exec_pipe_child(pfd, pipe_node, shell, 0);
 	close(pfd[0]);
 	close(pfd[1]);
 	setup_signals(signal_handler_wait);

@@ -5,11 +5,10 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2025/09/27 17:24:45 by yingzhan         ###   ########.fr       */
+/*   Created: 2025/09/28 10:46:10 by yingzhan          #+#    #+#             */
+/*   Updated: 2025/09/28 14:35:06 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef EXECUTION_H
 # define EXECUTION_H
@@ -21,10 +20,12 @@
 # include <fcntl.h>
 # include <errno.h>
 
-int		execute(t_node *node, t_shell *shell);
+void	execute(t_node *node, t_shell *shell);
 int		exec_pipe(t_node *pipe_node, t_shell *shell);
 int		exec_builtin(t_shell *shell, char **cmd);
 int		exec_non_builtin(t_node *cmd, t_shell *shell);
+int		open_files(t_node *node, int *in_fd, int *out_fd);
+int		find_cmd_path(char **cmd, char **path, t_shell *shell);
 void	clean_array(char **arr);
 void	close_fd(int in_fd, int out_fd);
 void	close_heredoc_fd(t_node *node);
@@ -48,4 +49,3 @@ char	*exp_heredoc(char *input, t_shell *shell);
 int		builtin_echo(t_shell *shell, char **cmd);
 
 #endif
-

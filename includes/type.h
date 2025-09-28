@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   type.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/13 16:32:28 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/28 14:46:21 by yingzhan         ###   ########.fr       */
+/*   Created: 2025/09/28 11:19:51 by yingzhan          #+#    #+#             */
+/*   Updated: 2025/09/28 11:39:06 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/libft.h"
+#ifndef TYPE_H
+# define TYPE_H
 
-int	ft_strcmp(char *s1, char *s2)
-{
-	int	i;
+typedef enum e_node_type		t_node_type;
+typedef enum e_redir_type		t_redir_type;
+typedef struct s_redir_token	t_redir_token;
+typedef struct s_command		t_command;
+typedef struct s_pipe			t_pipe;
+typedef struct s_node			t_node;
+typedef struct s_env			t_env;
+typedef struct s_shell			t_shell;
 
-	i = 0;
-	while (s1[i] != '\0' && s2[i] != '\0' && s1[i] == s2[i])
-		i++;
-	return (s1[i] - s2[i]);
-}
+#endif

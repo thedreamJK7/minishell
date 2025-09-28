@@ -20,7 +20,9 @@ SRCS = main.c \
 	./exec/built_ins/builtin_export.c ./exec/built_ins/builtin_utils.c \
 	./exec/built_ins/builtin_exit.c ./exec/built_ins/builtin_env.c \
 	./exec/built_ins/builtin_unset.c ./exec/expansion/exp_heredoc.c \
-	./exec/exec_pipe.c ./exec/exec_non_builtin.c ./exec/exec_utils.c \
+	./exec/exec_pipe.c ./exec/non_builtin/exec_non_builtin.c \
+	./exec//non_builtin/exec_util_access.c ./exec//non_builtin/exec_util_clean.c \
+	./exec//non_builtin/exec_util_file.c ./exec//non_builtin/exec_util_path.c \
 	./exec/built_ins/builtin_export_utils.c ./exec/built_ins/builtin_cd.c\
 	./exec/built_ins/builtin_echo.c
 
@@ -47,7 +49,8 @@ $(LIBFT):
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)/tokenizing $(OBJ_DIR)/parsing $(OBJ_DIR)/expanding \
 	$(OBJ_DIR)/signals $(OBJ_DIR)/exec $(OBJ_DIR)/exec/built_ins \
-	$(OBJ_DIR)/env $(OBJ_DIR)/exec/expansion $(OBJ_DIR)/heredoc
+	$(OBJ_DIR)/env $(OBJ_DIR)/exec/expansion $(OBJ_DIR)/heredoc \
+	$(OBJ_DIR)/exec/non_builtin \
 
 $(OBJ_DIR)/%.o: %.c
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@

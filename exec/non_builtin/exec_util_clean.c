@@ -1,23 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   exec_util_clean.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/13 16:32:28 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/28 14:46:21 by yingzhan         ###   ########.fr       */
+/*   Created: 2025/09/11 17:27:24 by yingzhan          #+#    #+#             */
+/*   Updated: 2025/09/28 10:38:33 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/libft.h"
+#include "../includes/minishell.h"
 
-int	ft_strcmp(char *s1, char *s2)
+void	clean_array(char **arr)
 {
 	int	i;
 
 	i = 0;
-	while (s1[i] != '\0' && s2[i] != '\0' && s1[i] == s2[i])
+	while (arr[i])
+	{
+		free(arr[i]);
 		i++;
-	return (s1[i] - s2[i]);
+	}
+	free(arr);
+}
+
+void	close_heredoc_fd(t_node *node)
+{
+	if (node->cmd.heredoc_fd == -1)
+		return ;
+	if (node->cmd.heredoc_fd)
+		close(node->cmd.heredoc_fd);
+}
+
+void	close_fd(int in_fd, int out_fd)
+{
+	if (in_fd > 2)
+		close(in_fd);
+	if (out_fd > 2)
+		close(out_fd);
 }
