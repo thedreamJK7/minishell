@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 16:14:06 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/08 14:04:02 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/27 16:56:28 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,3 @@ int	change_quote(char c, int *quote)
 	}
 	return (1);
 }
-
-

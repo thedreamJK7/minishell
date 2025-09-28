@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 17:03:16 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/26 09:47:36 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/27 17:25:05 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ void	setup_signals(void(*signal_handler)(int));
 void	signal_handler_main(int sig);
 void	signal_handler_exit(int sig);
 void	signal_handler_wait(int sig);
+void	find_heredoc(t_node *node, t_shell *shell);
 void	free_env_list(t_env *envList);
 void	clean_shell(t_shell	*shell);
 t_shell	*init_envp(char **envp);

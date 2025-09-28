@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 22:19:04 by javokhir          #+#    #+#             */
-/*   Updated: 2025/09/26 11:17:31 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/27 17:05:25 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,14 @@ t_token	*ft_tokenize(char *s, t_shell *shell)
 			i += change_quote(s[i], &quote);
 		if (s[i] && !quote && ft_strchr("|><", s[i]))
 			i += specify_tokens(s + i, &list);
-		if (s[i] && s[i] != ' ' && !(s[i] >= '\t' && s[i] <= '\r') && !(ft_strchr("|><", s[i]) && !quote))
+		if (s[i] && s[i] != ' ' && !(s[i] >= '\t' && s[i] <= '\r') \
+			&& !(ft_strchr("|><", s[i]) && !quote))
 			i += handle_words(s + i, &quote, &list, shell);
 	}
 	if (quote)
 	{
-		shell->exit_code = GENERAL_ERROR;
-		return (clean_tokens(&list, 0), ft_putstr_fd("Error: Unclosed quote\n", STDERR_FILENO), NULL);
+		shell->exit_code = SYNTAX_ERROR;
+		return (clean_tokens(&list, 0), ft_putstr_fd(ERROR, 2), NULL);
 	}
-	add_tokens(&list, T_EOF, NULL);
-	return (list);
+	return (add_tokens(&list, T_EOF, NULL), list);
 }

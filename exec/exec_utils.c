@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 17:27:24 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/27 13:07:21 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/27 19:53:20 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int	print_error_cmd(int flag, char *cmd_name)
 int	print_error_path(int flag, char *cmd_name)
 {
 	if (flag == 1)
-		return (ft_putstr_fd(cmd_name, STDERR_FILENO), ft_putstr_fd(": Permission denied\n", STDERR_FILENO),  COMMAND_NOT_EXECUTABLE);
+		return (ft_putstr_fd(cmd_name, STDERR_FILENO), ft_putstr_fd(": Permission denied\n", STDERR_FILENO), COMMAND_NOT_EXECUTABLE);
 	else if (flag == 2)
 		return (ft_putstr_fd(cmd_name, STDERR_FILENO), ft_putstr_fd(": Is a directory\n", STDERR_FILENO), COMMAND_NOT_EXECUTABLE);
 	else if (flag == 3)

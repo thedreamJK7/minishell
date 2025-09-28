@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 12:53:25 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/08 14:35:08 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/27 16:59:24 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,35 @@ void	ft_realloc(int pos, char c, char **value, t_token **list)
 	tmp[pos] = c;
 	tmp[pos + 1] = 0;
 	*value = tmp;
+}
+
+int	break_condition(int quote, char c)
+{
+	if (!quote)
+	{
+		if ((!c || c == ' ' || (c >= '\t' && c <= '\r')) || ft_strchr("|><", c))
+			return (1);
+	}
+	return (0);
+}
+
+int	get_in_quote(int quote, char c)
+{
+	if (quote == q_dopen && c == '"' )
+		return (0);
+	else if (quote == q_sopen && c == '\'')
+		return (0);
+	return (1);
+}
+
+int	is_variable(int quote, char *s)
+{
+	if (quote == q_dopen && s[0] == '$' && (s[1] == '_' \
+		|| s[1] == '?' || ft_isalpha(s[1])))
+		return (1);
+	else if (quote == q_close && s[0] == '$' \
+		&& (s[1] == '_' || s[1] == '?' || ft_isalpha(s[1])))
+		return (1);
+	else
+		return (0);
 }

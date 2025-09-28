@@ -3,26 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   handle_word.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 18:52:46 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/19 11:04:27 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/27 16:59:13 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-static int	is_variable(int quote, char *s)
-{
-	if (quote == q_dopen && s[0] == '$' && (s[1] == '_' \
-		|| s[1] == '?' || ft_isalpha(s[1])))
-		return (1);
-	else if (quote == q_close && s[0] == '$' \
-		&& (s[1] == '_' || s[1] == '?' || ft_isalpha(s[1])))
-		return (1);
-	else
-		return (0);
-}
 
 static int	add_var(char **s, char **value, t_shell *shell, t_token **list)
 {
@@ -41,25 +29,6 @@ static int	add_var(char **s, char **value, t_shell *shell, t_token **list)
 	return ((int)ft_strlen(*value));
 }
 
-static int	break_condition(int quote, char c)
-{
-	if (!quote)
-	{
-		if ((!c || c == ' ' || (c >= '\t' && c <= '\r')) || ft_strchr("|><", c))
-			return (1);
-	}
-	return (0);
-}
-
-static int	get_in_quote(int quote, char c)
-{
-	if (quote == q_dopen && c == '"' )
-		return (0);
-	else if (quote == q_sopen && c == '\'')
-		return (0);
-	return (1);
-}
-
 static char	*add_word(char **s, int *quote, t_token **list, t_shell *shell)
 {
 	int		pos;
@@ -71,7 +40,8 @@ static char	*add_word(char **s, int *quote, t_token **list, t_shell *shell)
 	{
 		if (*(*s) == '\'' || *(*s) == '"')
 			(*s) += change_quote(*(*s), quote);
-		if ((*quote && get_in_quote(*quote, *(*s)))|| (!*quote && *(*s) != '\'' && *(*s) != '"'))
+		if ((*quote && get_in_quote(*quote, *(*s))) || \
+			(!*quote && *(*s) != '\'' && *(*s) != '"'))
 		{
 			if (break_condition(*quote, *(*s)))
 				break ;
