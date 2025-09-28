@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 20:13:50 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/28 14:39:53 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/28 14:57:07 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../includes/minishell.h"
 
@@ -51,18 +50,9 @@ int	exec_simple_command(t_node *cmd, t_shell *shell)
 }
 
 void	execute(t_node *node, t_shell *shell)
-{ 
-	if (!node)
-	{
-		shell->exit_code = 0;
-		return ;
-	}
+{
 	if (node->type == PIPE)
-	{
 		shell->exit_code = exec_pipe(node, shell);
-	}
 	else
-	{
 	 	shell->exit_code = exec_simple_command(node, shell);
-	}
 }

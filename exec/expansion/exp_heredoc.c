@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exp_heredoc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 09:49:49 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/28 14:39:19 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/28 14:49:48 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,3 +58,4 @@ char *exp_heredoc(char *input, t_shell *shell)
 	result = temp_result;
 	return (result);
 }
+

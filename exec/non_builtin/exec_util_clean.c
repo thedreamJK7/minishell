@@ -1,42 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   setup_signals.c                                    :+:      :+:    :+:   */
+/*   exec_util_clean.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/08 10:50:14 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/27 17:09:48 by yingzhan         ###   ########.fr       */
+/*   Created: 2025/09/11 17:27:24 by yingzhan          #+#    #+#             */
+/*   Updated: 2025/09/28 10:38:33 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	signal_handler_exit(int sig)
+void	clean_array(char **arr)
 {
-	(void)sig;
-	write(STDOUT_FILENO, "\n", 1);
-	exit(130);
+	int	i;
+
+	i = 0;
+	while (arr[i])
+	{
+		free(arr[i]);
+		i++;
+	}
+	free(arr);
 }
 
-void	signal_handler_wait(int sig)
+void	close_heredoc_fd(t_node *node)
 {
-	(void)sig;
-	g_sig_received = 2;
+	if (node->cmd.heredoc_fd == -1)
+		return ;
+	if (node->cmd.heredoc_fd)
+		close(node->cmd.heredoc_fd);
 }
 
-void	signal_handler_main(int sig)
+void	close_fd(int in_fd, int out_fd)
 {
-	(void)sig;
-	g_sig_received = 1;
-	write(STDOUT_FILENO, "\n", 1);
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
-}
-
-void	setup_signals(void (*signal_handler)(int))
-{
-	signal(SIGINT, signal_handler);
-	signal(SIGQUIT, SIG_IGN);
+	if (in_fd > 2)
+		close(in_fd);
+	if (out_fd > 2)
+		close(out_fd);
 }

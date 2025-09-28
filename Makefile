@@ -7,22 +7,24 @@ INCLUDES = -I./includes/ -I./libft/includes/
 
 SRCS = main.c \
 	./tokenizing/tokenizing.c ./tokenizing/clean_tokens.c \
-	./tokenizing/print_tokens.c ./tokenizing/tokenizing_utils.c \
-	./tokenizing/handle_pipe_redir.c ./tokenizing/handle_quotes.c \
-	./tokenizing/handle_variable.c ./tokenizing/handle_word.c \
+	./tokenizing/tokenizing_utils.c ./tokenizing/handle_pipe_redir.c \
+	./tokenizing/handle_quotes.c ./tokenizing/handle_variable.c \
+	./tokenizing/handle_word.c \
 	./parsing/parsing.c ./parsing/print_ast.c ./parsing/add_arg.c \
 	./parsing/add_redir.c ./parsing/clean_ast.c ./parsing/create_node.c \
 	./parsing/parse_command.c ./exec/exec_builtin_utils.c \
 	./parsing/parse_expression.c ./parsing/parse_redirection.c \
-	./signals/setup_signals.c \
+	./signals/setup_signals.c ./heredoc/handle_heredoc.c \
 	./env/env_util.c ./env/envp_to_array.c ./env/init_envp.c \
 	./exec/exec.c ./exec/exec_builtin.c ./exec/built_ins/builtin_pwd.c \
 	./exec/built_ins/builtin_export.c ./exec/built_ins/builtin_utils.c \
 	./exec/built_ins/builtin_exit.c ./exec/built_ins/builtin_env.c \
 	./exec/built_ins/builtin_unset.c ./exec/expansion/exp_heredoc.c \
-	./exec/exec_pipe.c ./exec/exec_non_builtin.c ./exec/exec_utils.c \
+	./exec/exec_pipe.c ./exec/non_builtin/exec_non_builtin.c \
+	./exec//non_builtin/exec_util_access.c ./exec//non_builtin/exec_util_clean.c \
+	./exec//non_builtin/exec_util_file.c ./exec//non_builtin/exec_util_path.c \
 	./exec/built_ins/builtin_export_utils.c ./exec/built_ins/builtin_cd.c\
-	./exec/exec_heredoc.c ./exec/built_ins/builtin_echo.c
+	./exec/built_ins/builtin_echo.c
 
 
 OBJ_DIR = ./obj
@@ -47,7 +49,8 @@ $(LIBFT):
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)/tokenizing $(OBJ_DIR)/parsing $(OBJ_DIR)/expanding \
 	$(OBJ_DIR)/signals $(OBJ_DIR)/exec $(OBJ_DIR)/exec/built_ins \
-	$(OBJ_DIR)/env $(OBJ_DIR)/exec/expansion
+	$(OBJ_DIR)/env $(OBJ_DIR)/exec/expansion $(OBJ_DIR)/heredoc \
+	$(OBJ_DIR)/exec/non_builtin \
 
 $(OBJ_DIR)/%.o: %.c
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@

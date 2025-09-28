@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_expression.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 11:35:27 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/27 20:43:35 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/28 12:59:40 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

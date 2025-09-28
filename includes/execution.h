@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2025/09/28 14:35:56 by jkubaev          ###   ########.fr       */
+/*   Created: 2025/09/28 10:46:10 by yingzhan          #+#    #+#             */
+/*   Updated: 2025/09/28 14:53:24 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef EXECUTION_H
 # define EXECUTION_H
@@ -21,12 +20,12 @@
 # include <fcntl.h>
 # include <errno.h>
 
-void		execute(t_node *node, t_shell *shell);
+void	execute(t_node *node, t_shell *shell);
 int		exec_pipe(t_node *pipe_node, t_shell *shell);
 int		exec_builtin(t_shell *shell, char **cmd);
 int		exec_non_builtin(t_node *cmd, t_shell *shell);
-int		exec_heredoc(t_redir_token *redir, t_shell *shell, int *in_fd);
-void	find_heredoc(t_node *node, t_shell *shell);
+int		open_files(t_node *node, int *in_fd, int *out_fd);
+int		find_cmd_path(char **cmd, char **path, t_shell *shell);
 void	clean_array(char **arr);
 void	close_fd(int in_fd, int out_fd);
 void	close_heredoc_fd(t_node *node);
@@ -53,4 +52,3 @@ int		exec_normal_builtin(t_node *cmd, t_shell *shell);
 int		setup_redirections(t_node *nodes);
 
 #endif
-
