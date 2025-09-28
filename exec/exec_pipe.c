@@ -6,12 +6,15 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 18:47:51 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/28 10:26:46 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/28 18:16:24 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+/*Global set to 2 during waiting if SIGINT;
+write a newline when broken pipe and SIGINT happen together;
+e.g. cat | ls*/
 void	wait_process(int *pid, t_shell *shell)
 {
 	int	status1;
@@ -33,6 +36,7 @@ void	wait_process(int *pid, t_shell *shell)
 		shell->exit_code = 128 + WTERMSIG(status2);
 }
 
+/*If 1st child failed, 2nd child has to wait before exit, to avoid zombie*/
 int	failed_fork(int	*pid, int *pfd, int i, t_shell *shell)
 {
 	close(pfd[0]);
@@ -64,6 +68,9 @@ void	exec_pipe_child(int *pfd, t_node *pipe_node, t_shell *shell, int left)
 	}
 }
 
+/*Execute left node first, and then right node;
+return when the right node is not pipe anymore;
+always take the rightest command for exit code*/
 int	exec_pipe(t_node *pipe_node, t_shell *shell)
 {
 	int	pfd[2];

@@ -6,12 +6,16 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 10:35:16 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/28 14:34:44 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/28 18:48:53 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+/*Only cmd_name: need concat all dirs in path with the name;
+check as many times as loop;
+once found break immediately;
+if not found, print error msg at end*/
 static int	concat_path(char *cmd_name, char **dirs, char **path)
 {
 	int		i;
@@ -38,6 +42,7 @@ static int	concat_path(char *cmd_name, char **dirs, char **path)
 	return (print_error_cmd(flag, cmd_name));
 }
 
+/*Full path cmd: check only once*/
 static int	check_full_path(char *cmd_path, char **path)
 {
 	int	flag;
@@ -53,6 +58,8 @@ static int	check_full_path(char *cmd_path, char **path)
 	return (print_error_path(flag, cmd_path));
 }
 
+/*Check cmd with full path or only cmd_name;
+check path_env, esp. PATH can be unset*/
 int	find_cmd_path(char **cmd, char **path, t_shell *shell)
 {
 	char	*path_env;

@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 11:13:58 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/28 14:33:55 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/28 18:38:37 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void	redir_child(int in_fd, int out_fd)
 	}
 }
 
+/*If execve succeeds, exit and clean up automatically;
+if error occurs, clean up and exit manually*/
 int	exec_child(t_node *cmd, int in_fd, int out_fd, t_shell *shell)
 {
 	char	*path;
@@ -54,6 +56,7 @@ int	exec_child(t_node *cmd, int in_fd, int out_fd, t_shell *shell)
 	return (0);
 }
 
+/*Print a newline when child process got SIGINT, e.g. cat*/
 int	exec_cmd(t_node *cmd, t_shell *shell, int in_fd, int out_fd)
 {
 	int	pid;
@@ -83,6 +86,8 @@ int	exec_cmd(t_node *cmd, t_shell *shell, int in_fd, int out_fd)
 	return (0);
 }
 
+/*Check redirection first, if no cmd, exit with 0,
+e.g. "", '', <<1, $EMPTY*/
 int	exec_non_builtin(t_node *cmd, t_shell *shell)
 {
 	int	in_fd;

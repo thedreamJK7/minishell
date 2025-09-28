@@ -6,33 +6,13 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 16:30:41 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/27 18:01:07 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/28 18:50:41 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	expand_write(char *input, t_shell *shell, int pipe_w)
-{
-	char	*exp_input;
-
-	exp_input = exp_heredoc(input, shell);
-	free(input);
-	if (write(pipe_w, exp_input, ft_strlen(exp_input)) == -1 || \
-		write(pipe_w, "\n", 1) == -1)
-		return (free(exp_input), close(pipe_w), perror("Write"), GENERAL_ERROR);
-	free(exp_input);
-	return (0);
-}
-
-void	print_warning(char *s)
-{
-	ft_putstr_fd("warning: here-document delimited by end-of-file (wanted `", \
-				STDOUT_FILENO);
-	ft_putstr_fd(s, STDOUT_FILENO);
-	ft_putstr_fd("')\n", STDOUT_FILENO);
-}
-
+/*Readline for heredoc*/
 int	process_input(t_redir_token *redir, t_shell *shell, int pipe_w)
 {
 	char	*input;
@@ -60,6 +40,7 @@ int	process_input(t_redir_token *redir, t_shell *shell, int pipe_w)
 	return (close(pipe_w), 0);
 }
 
+/*Child process for heredoc, because SIGINT*/
 int	exec_heredoc(t_redir_token *redir, t_shell *shell, int *in_fd)
 {
 	int		pfd[2];
@@ -87,6 +68,9 @@ int	exec_heredoc(t_redir_token *redir, t_shell *shell, int *in_fd)
 	return (0);
 }
 
+/*Heredoc always before execution;
+Set up global variable and $? when SIGINT;
+Close fd immediately when more than 1 <<*/
 void	check_heredoc(t_node *node, t_shell *shell)
 {
 	t_redir_token	*tmp;
@@ -110,6 +94,8 @@ void	check_heredoc(t_node *node, t_shell *shell)
 	}
 }
 
+/*Go through AST nodes to find heredoc;
+if SIGINT, return immediately*/
 void	find_heredoc(t_node *node, t_shell *shell)
 {
 	if (!node | (g_sig_received == 1))

@@ -6,12 +6,13 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 18:51:42 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/27 10:08:37 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/28 17:27:10 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+/*Get var_value according to var_name*/
 char	*get_env_value(t_shell *shell, char *s)
 {
 	int		len1;
@@ -34,6 +35,7 @@ char	*get_env_value(t_shell *shell, char *s)
 	return (NULL);
 }
 
+/*Treat $EMPTY as $INVALID*/
 static char	*expand_var(char *s, t_shell *shell, t_token **list)
 {
 	char	*var;
@@ -55,9 +57,9 @@ static char	*expand_var(char *s, t_shell *shell, t_token **list)
 	return (value);
 }
 
-//Interpret $ and expand
-//Only [a-zA-Z_][a-zA-Z0-9_] is treated as valid t_var without $ sign
-//Otherwise taken as t_word
+/**Interpret $ and expand
+ * Only [a-zA-Z_][a-zA-Z0-9_] is treated as valid t_var without $ sign
+ * Otherwise taken as t_word*/
 char	*handle_dollar(char **s, t_shell *shell, t_token **list)
 {
 	char	*value;

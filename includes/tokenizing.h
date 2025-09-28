@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 22:04:04 by javokhir          #+#    #+#             */
-/*   Updated: 2025/09/27 17:07:00 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/28 17:55:24 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,25 @@
 # define ERROR "Syntax error: Unclosed quote\n"
 
 # include "minishell.h"
-
+/**
+ * T_WORD,    :	normal word
+	T_PIPE,   :	|
+	T_GREAT,  :	>
+	T_LESS,   :	<
+	T_DGREAT, :	>>
+	T_DLESS,  :	<<
+	T_EOF,    :	end of file
+	T_VAR,    : $
+ */
 typedef enum e_token_type
 {
-	T_WORD,//	normal word
-	T_PIPE,//	|
-	T_GREAT,//	>
-	T_LESS, //	<
-	T_DGREAT,//	>>
-	T_DLESS,//	<<
-	T_EOF,//	end of file
+	T_WORD,
+	T_PIPE,
+	T_GREAT,
+	T_LESS,
+	T_DGREAT,
+	T_DLESS,
+	T_EOF,
 	T_VAR,
 }		t_token_type;
 
@@ -36,11 +45,16 @@ typedef enum e_quote_type
 	q_dopen,
 }	t_quote_type;
 
+/**
+ * t_token_type	type;      :   enum
+ * char			*value;    :   command
+ * struct s_token	*next; :  next node
+ */
 typedef struct s_token
 {
 	t_token_type	type;
-	char			*value; //command
-	struct s_token	*next; // next node
+	char			*value;
+	struct s_token	*next;
 }		t_token;
 
 //	Functions

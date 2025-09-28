@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 10:46:10 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/28 14:53:24 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/28 17:29:06 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <sys/wait.h>
 # include <fcntl.h>
 # include <errno.h>
-
+/*Non_builtin*/
 void	execute(t_node *node, t_shell *shell);
 int		exec_pipe(t_node *pipe_node, t_shell *shell);
 int		exec_builtin(t_shell *shell, char **cmd);
@@ -34,6 +34,7 @@ void	check_dir_cmd(char *path, int *flag);
 int		check_dir_path(char *path, int *flag);
 int		print_error_cmd(int flag, char *cmd_name);
 int		print_error_path(int flag, char *cmd_name);
+/*Non_builtin*/
 int		builtin_pwd(char **cmd);
 int		builtin_export(t_shell *shell, char **cmd);
 void	print_envp(t_env *envp);
