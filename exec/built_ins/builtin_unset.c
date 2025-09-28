@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/14 16:12:01 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/19 13:10:10 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/28 18:13:29 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,18 @@
 
 void	remove_node(t_env **head, t_env *node_for_remove)
 {
-	t_env *tmp;
-	t_env *previous;
+	t_env	*tmp;
+	t_env	*previous;
 
 	tmp = *head;
 	if (tmp != NULL && tmp == node_for_remove)
-    {
-        *head = tmp->next;
+	{
+		*head = tmp->next;
 		free(tmp->name);
 		free(tmp->value);
-        free(tmp);
-        return ;
-    }
+		free(tmp);
+		return ;
+	}
 	while (tmp != NULL && tmp != node_for_remove)
 	{
 		previous = tmp;

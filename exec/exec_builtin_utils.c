@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 11:17:35 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/28 14:36:27 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/28 18:18:37 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static int	setup_heredoc_redir(int heredoc_fd, t_redir_token *redir)
 	return (0);
 }
 
-int setup_redirections(t_node *nodes)
+int	setup_redirections(t_node *nodes)
 {
 	t_redir_token	*tmp;
 	int				ret;

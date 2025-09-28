@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 16:58:36 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/28 11:02:37 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/28 18:12:21 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	builtin_exit(t_shell *shell, char **cmd)
 	exit_code = shell->exit_code;
 	printf("exit\n");
 	if (count >= 3)
-		return(ft_putstr_fd("exit: too many arguments\n", STDERR_FILENO), 1);
+		return (ft_putstr_fd("exit: too many arguments\n", STDERR_FILENO), 1);
 	if (count == 2)
 	{
 		exit_code = handle_exit_args(*(cmd + 1));

@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 16:58:25 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/28 10:42:41 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/28 18:12:46 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	ft_print_cmd(char **cmd, int *i)
 
 int	builtin_echo(t_shell *shell, char **cmd)
 {
-	int i;
+	int	i;
 
 	i = 1;
 	if (cmd[i] && !ft_strcmp(cmd[i], "-n"))

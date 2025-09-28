@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 10:00:03 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/12 13:25:03 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/28 18:28:29 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	fill_array(char **arr, t_env *env_list)
 		i++;
 	}
 	arr[i] = NULL;
-	return(0);
+	return (0);
 }
 
 char	**envp_to_array(t_env *env_list)
