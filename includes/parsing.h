@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 19:50:04 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/27 20:52:36 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/28 11:43:26 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 // Errors
 # define SYNTAX_ERROR1 "Syntax error: Invalid pipeline\n"
 # define SYNTAX_ERROR2 "Syntax error: Invalid filename/limiter of redirection\n"
-
 # define ALLOCATION_FAIL "Malloc error: Memory allocation fails\n"
 
 # include "minishell.h"

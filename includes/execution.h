@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2025/09/27 12:59:36 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/28 14:35:56 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <fcntl.h>
 # include <errno.h>
 
-int		execute(t_node *node, t_shell *shell);
+void		execute(t_node *node, t_shell *shell);
 int		exec_pipe(t_node *pipe_node, t_shell *shell);
 int		exec_builtin(t_shell *shell, char **cmd);
 int		exec_non_builtin(t_node *cmd, t_shell *shell);
@@ -48,6 +48,9 @@ int		builtin_env(t_shell *shell, char **cmd);
 int		builtin_unset(t_shell *shell, char **cmd);
 char	*exp_heredoc(char *input, t_shell *shell);
 int		builtin_echo(t_shell *shell, char **cmd);
+int		exec_child_builtin(t_node *cmd, t_shell *shell);
+int		exec_normal_builtin(t_node *cmd, t_shell *shell);
+int		setup_redirections(t_node *nodes);
 
 #endif
 

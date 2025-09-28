@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 15:01:55 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/14 13:04:32 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/28 10:49:26 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,11 @@ void	print_envp(t_env *shell)
 	current = shell;
 	while (current)
 	{
-		printf("%s=%s\n", current->name, current->value);
-		current = current->next;	
+		ft_putstr_fd(current->name, STDOUT_FILENO);
+		ft_putstr_fd("=", STDOUT_FILENO);
+		ft_putstr_fd(current->value, STDOUT_FILENO);
+		ft_putstr_fd("\n", STDOUT_FILENO);
+		current = current->next;
 	}
 }
 

@@ -6,13 +6,11 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 09:49:49 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/18 13:13:52 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/28 14:39:19 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-#include "minishell.h"
 
 char	*str_before_dollar_s(char **result, char **next_dollar, char **input)
 {
