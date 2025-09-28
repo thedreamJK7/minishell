@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 11:37:01 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/25 10:02:33 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/28 11:11:00 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_env	*create_env(char *name1, char *value)
     if (!new_ist)
 	{
         return (NULL);
-	}
+	} 
 	new_ist->name = ft_strdup(name1);
 	if (!new_ist->name)
 		return (free(new_ist), NULL);
@@ -43,9 +43,8 @@ int	add_env(t_env *list, char *name, char *value)
         return (-1);
     }
     current = list;
-    while (current->next != NULL) {
+    while (current->next != NULL)
         current = current->next;
-    }
     current->next = new_list;
 	return (0);
 }
@@ -97,7 +96,7 @@ int	builtin_export(t_shell *shell, char **cmd)
 			exit_status = 1;
 		}
 		else if (update_or_add_env(shell->env_list, cmd[i]) == -1)
-			printf("Memory fail\n");
+			return (printf("Memory fail\n"), 1);
 		i++;
 	}
 	return (exit_status);
