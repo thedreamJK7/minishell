@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 20:13:50 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/28 14:57:07 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/28 18:18:03 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,5 @@ void	execute(t_node *node, t_shell *shell)
 	if (node->type == PIPE)
 		shell->exit_code = exec_pipe(node, shell);
 	else
-	 	shell->exit_code = exec_simple_command(node, shell);
+		shell->exit_code = exec_simple_command(node, shell);
 }

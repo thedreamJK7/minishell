@@ -6,20 +6,20 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 15:56:08 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/28 14:34:46 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/28 18:20:33 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static void restore_fds(int in, int out, int err)
+static void	restore_fds(int in, int out, int err)
 {
 	dup2(in, STDIN_FILENO);
-    dup2(out, STDOUT_FILENO);
-    dup2(err, STDERR_FILENO);
-    close(in);
-    close(out);
-    close(err);
+	dup2(out, STDOUT_FILENO);
+	dup2(err, STDERR_FILENO);
+	close(in);
+	close(out);
+	close(err);
 }
 
 int	exec_builtin(t_shell *shell, char **cmd)
@@ -44,10 +44,10 @@ int	exec_builtin(t_shell *shell, char **cmd)
 	return (bool);
 }
 
-int exec_child_builtin(t_node *node, t_shell *shell)
+int	exec_child_builtin(t_node *node, t_shell *shell)
 {
 	int	status;
-	int pid;
+	int	pid;
 
 	pid = fork();
 	if (pid == -1)
@@ -69,10 +69,10 @@ int exec_child_builtin(t_node *node, t_shell *shell)
 
 int	exec_normal_builtin(t_node *cmd, t_shell *shell)
 {
-	int saved_in;
-	int saved_out;
-	int saved_err;
-	int exit_code;
+	int	saved_in;
+	int	saved_out;
+	int	saved_err;
+	int	exit_code;
 
 	saved_in = dup(STDIN_FILENO);
 	saved_out = dup(STDOUT_FILENO);

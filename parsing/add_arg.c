@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 11:27:49 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/27 20:56:58 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/28 18:24:03 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	ensure_cmd_capacity(t_node *cmd, int count)
 
 int	add_arg(t_node *cmd, t_token **list)
 {
-	int 	i;
+	int	i;
 
 	i = 0;
 	while (cmd->cmd.cmd && cmd->cmd.cmd[i])
@@ -49,6 +49,6 @@ int	add_arg(t_node *cmd, t_token **list)
 			return (printf(ALLOCATION_FAIL), 1);
 	}
 	cmd->cmd.cmd[i + 1] = NULL;
-    *list = (*list)->next;
+	*list = (*list)->next;
 	return (0);
 }

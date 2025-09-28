@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 13:15:26 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/23 13:32:47 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/28 18:29:23 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,15 @@ t_env	*parse_and_create_env_list(const char *envp)
 	t_env	*new_list;
 	char	*name;
 	char	*value;
-	char	*equalSign;
+	char	*equal_sign;
 
-	equalSign = ft_strchr(envp, '=');
-	if (!equalSign)
+	equal_sign = ft_strchr(envp, '=');
+	if (!equal_sign)
 		return (NULL);
-	name = ft_substr(envp, 0, equalSign - envp);
+	name = ft_substr(envp, 0, equal_sign - envp);
 	if (!name)
 		return (NULL);
-	value = ft_strdup(equalSign + 1);
+	value = ft_strdup(equal_sign + 1);
 	if (!value)
 		return (free(name), NULL);
 	new_list = new_list_f(name, value);
@@ -61,7 +61,7 @@ t_env	*parse_and_create_env_list(const char *envp)
 	return (new_list);
 }
 
-t_env *init_envp_list(char **envp)
+t_env	*init_envp_list(char **envp)
 {
 	t_env	*new_list;
 	t_env	*head;

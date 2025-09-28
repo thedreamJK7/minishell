@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_expression.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 11:35:27 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/28 12:59:40 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/28 18:25:58 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ static int	validate_pipe_syntax(t_token *list, t_node *root, int *exit_code)
 	return (0);
 }
 
-static t_node *create_pipe_node(t_node *left)
+static t_node	*create_pipe_node(t_node *left)
 {
-	t_node *node;
+	t_node	*node;
 
 	node = create_node(PIPE);
 	if (!node)
@@ -35,7 +35,8 @@ static t_node *create_pipe_node(t_node *left)
 	return (node);
 }
 
-static int	parse_right_pipe_branch(t_node *pipe, t_token **list, int *exit_code)
+static int	parse_right_pipe_branch(t_node *pipe, t_token **list, 
+	int *exit_code)
 {
 	pipe->pipe.right = parse_expression(list, exit_code);
 	if (!(pipe->pipe.right))
@@ -49,7 +50,7 @@ static int	parse_right_pipe_branch(t_node *pipe, t_token **list, int *exit_code)
 
 static t_node	*handle_the_pipe(t_node *root, t_token	**list, int *exit_code)
 {
-	t_node *node;
+	t_node	*node;
 
 	if (validate_pipe_syntax((*list)->next, root, exit_code))
 		return (NULL);
@@ -60,7 +61,7 @@ static t_node	*handle_the_pipe(t_node *root, t_token	**list, int *exit_code)
 	return (node);
 }
 
-t_node *parse_expression(t_token **list, int *exit_code)
+t_node	*parse_expression(t_token **list, int *exit_code)
 {
 	t_node	*root;
 
@@ -77,4 +78,3 @@ t_node *parse_expression(t_token **list, int *exit_code)
 		root = handle_the_pipe(root, list, exit_code);
 	return (root);
 }
-

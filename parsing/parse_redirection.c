@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 11:30:50 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/27 21:14:51 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/28 18:26:19 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	set_redir_type(t_redir_token *redir, t_token *list)
 		redir->redir_type = HEREDOC;
 }
 
-static int assign_value(t_redir_token **redir, t_token **list, int *exit_code)
+static int	assign_value(t_redir_token **redir, t_token **list, int *exit_code)
 {
 	set_redir_type(*redir, *list);
 	(*list) = (*list)->next;
@@ -47,7 +47,7 @@ static int assign_value(t_redir_token **redir, t_token **list, int *exit_code)
 t_redir_token	*parse_redirection(t_token **list, int *exit_code)
 {
 	t_redir_token	*redir;
-	t_token	*tmp;
+	t_token			*tmp;
 
 	tmp = *list;
 	redir = malloc(sizeof(t_redir_token));
