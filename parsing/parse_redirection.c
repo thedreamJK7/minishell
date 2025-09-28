@@ -6,32 +6,34 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 11:30:50 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/27 12:05:36 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/27 21:14:51 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+static void	set_redir_type(t_redir_token *redir, t_token *list)
+{
+	if (list->type == T_LESS)
+		redir->redir_type = IN;
+	else if (list->type == T_GREAT)
+		redir->redir_type = OUT;
+	else if (list->type == T_DGREAT)
+		redir->redir_type = APPEND;
+	else if (list->type == T_DLESS)
+		redir->redir_type = HEREDOC;
+}
+
 static int assign_value(t_redir_token **redir, t_token **list, int *exit_code)
 {
-	t_token	*tmp;
-
-	tmp = *list;
-	if (tmp->type == T_LESS)
-		(*redir)->redir_type = IN;
-	else if (tmp->type == T_GREAT)
-		(*redir)->redir_type = OUT;
-	else if (tmp->type == T_DGREAT)
-		(*redir)->redir_type = APPEND;
-	else if (tmp->type == T_DLESS)
-		(*redir)->redir_type = HEREDOC;
-	tmp = tmp->next;
-	if (tmp && tmp->type == T_WORD)
+	set_redir_type(*redir, *list);
+	(*list) = (*list)->next;
+	if ((*list) && (*list)->type == T_WORD)
 	{
-		(*redir)->file = ft_strdup(tmp->value);
+		(*redir)->file = ft_strdup((*list)->value);
 		if (!(*redir)->file)
 			return (printf(ALLOCATION_FAIL), free(*redir), 1);
-		tmp = tmp->next;
+		(*list) = (*list)->next;
 	}
 	else
 	{
@@ -39,7 +41,6 @@ static int assign_value(t_redir_token **redir, t_token **list, int *exit_code)
 		return (printf(SYNTAX_ERROR2), free(*redir), 1);
 	}
 	(*redir)->next = NULL;
-	*list = tmp;
 	return (0);
 }
 
