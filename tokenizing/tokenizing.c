@@ -6,12 +6,18 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 22:19:04 by javokhir          #+#    #+#             */
-/*   Updated: 2025/09/27 17:05:25 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/28 18:47:00 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+/**
+ * If quote unclosed, return syntax error;
+ * skip spaces;
+ * logical tokens -> specify_tokens();
+ * neither space nor sprecial token without quotation -> handle_word();
+ */
 t_token	*ft_tokenize(char *s, t_shell *shell)
 {
 	t_token	*list;

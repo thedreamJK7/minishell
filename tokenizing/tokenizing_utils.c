@@ -6,13 +6,13 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 12:53:25 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/27 16:59:24 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/28 17:23:09 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-//Add new nodes to the back of link list
+/*Add new nodes to the back of link list*/
 void	add_tokens(t_token **list, t_token_type type, char *value)
 {
 	t_token	*new;
@@ -38,6 +38,7 @@ void	add_tokens(t_token **list, t_token_type type, char *value)
 	last->next = new;
 }
 
+/*Attach to buffer char by char*/
 void	ft_realloc(int pos, char c, char **value, t_token **list)
 {
 	char	*tmp;

@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 18:52:46 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/27 16:59:13 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/28 17:14:31 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,12 @@ static int	add_var(char **s, char **value, t_shell *shell, t_token **list)
 	return ((int)ft_strlen(*value));
 }
 
+/**
+ * One of 2 conditions should satisfied for adding to T_WORD buffer:
+ * 1. already in quotation, including quotation mark
+ * 2. neither in quotation nor quotation mark
+ * if variable -> add_variable()
+ * break to ft_tokenize when conditions not satisfied*/
 static char	*add_word(char **s, int *quote, t_token **list, t_shell *shell)
 {
 	int		pos;

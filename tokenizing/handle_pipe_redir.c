@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 18:48:01 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/05 19:49:57 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/28 17:19:37 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static int	specify_tokens_double(char **value, char c, t_token **list)
 	return (2);
 }
 
-//Specify special tokens and add to the list
+/*Specify special tokens and add to the list*/
 int	specify_tokens(char *s, t_token **list)
 {
 	char	*value;

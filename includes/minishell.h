@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 17:03:16 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/28 11:39:43 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/28 18:51:35 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,48 +34,78 @@
 
 extern sig_atomic_t				g_sig_received;
 
+/**
+ * COMMAND : command (ls, grep, etc.)
+ * PIPE : pipe (|)
+ * REDIR : redirection(<, >, <<, >>)
+ */
 typedef enum e_node_type
 {
-	COMMAND,// command (ls, grep, etc.)
-	PIPE,// pipe (|)
-	REDIR,// redirection(<, >, <<, >>)
+	COMMAND,
+	PIPE,
+	REDIR,
 }	t_node_type;
 
+/**
+ * IN : <
+ * OUT : >
+ * APPEND : >>
+ * HEREDOC : <<
+ */
 typedef enum e_redir_type
 {
-	IN,// <
-	OUT,// >
-	APPEND,// >>
-	HEREDOC,// <<
+	IN,
+	OUT,
+	APPEND,
+	HEREDOC,
 }	t_redir_type;
 
+/**
+ * redir_type : IN, OUT..
+ * file : Filename or limiter
+ * next : token for redirection
+ */
 typedef struct s_redir_token
 {
-	t_redir_type			redir_type;// IN, OUT..
-	char					*file;// Filename or limiter
-	struct s_redir_token	*next;// token for redirection
+	t_redir_type			redir_type;
+	char					*file;
+	struct s_redir_token	*next;
 }	t_redir_token;
 
+/**
+ * cmd : ["-l"], ["txt"], etc.
+ * redir_token;
+ * heredoc_fd : Redirection node if exists
+ */
 typedef struct s_command
 {
-	char			**cmd;// ["-l"], ["txt"], etc.
+	char			**cmd;
 	t_redir_token	*redir_token;
-	int				heredoc_fd;// Redirection node if exists
+	int				heredoc_fd;
 }	t_command;
 
+/**
+ * left : left child (Command or Pipe)
+ * right : right child (Command or Pipe)
+ */
 typedef struct s_pipe
 {
-	struct s_node	*left;// left child (Command or Pipe)
-	struct s_node	*right;// right child (Command or Pipe)
+	struct s_node	*left;
+	struct s_node	*right;
 }	t_pipe;
 
+/**
+ * type : COMMAND, PIPE, REDIR
+ * cmd : Command Node uchun
+ * pipe : Pipe Node uchun
+ */
 typedef struct s_node
 {
-	t_node_type	type;// COMMAND, PIPE, REDIR
+	t_node_type	type;
 	union
 	{
-		struct s_command	cmd;// Command Node uchun
-		struct s_pipe		pipe;// Pipe Node uchun
+		struct s_command	cmd;
+		struct s_pipe		pipe;
 	};
 }	t_node;
 
@@ -99,6 +129,8 @@ void	signal_handler_main(int sig);
 void	signal_handler_exit(int sig);
 void	signal_handler_wait(int sig);
 void	find_heredoc(t_node *node, t_shell *shell);
+int		expand_write(char *input, t_shell *shell, int pipe_w);
+void	print_warning(char *s);
 void	free_env_list(t_env *envList);
 void	clean_shell(t_shell	*shell);
 t_shell	*init_envp(char **envp);

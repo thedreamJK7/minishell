@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 16:14:06 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/27 16:56:28 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/28 17:02:53 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,3 +34,9 @@ int	change_quote(char c, int *quote)
 	}
 	return (1);
 }
+/**
+ * Quote status machine:
+ * if quote closed, then one of two quotes ocurrs, status opened;
+ * if already in quote, then the same quote ocurrs, status closed;
+ * if already in quote, then another quote occurs, status unchanged
+ */

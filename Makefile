@@ -15,6 +15,7 @@ SRCS = main.c \
 	./parsing/parse_command.c ./exec/exec_builtin_utils.c \
 	./parsing/parse_expression.c ./parsing/parse_redirection.c \
 	./signals/setup_signals.c ./heredoc/handle_heredoc.c \
+	./heredoc/heredoc_util.c \
 	./env/env_util.c ./env/envp_to_array.c ./env/init_envp.c \
 	./exec/exec.c ./exec/exec_builtin.c ./exec/built_ins/builtin_pwd.c \
 	./exec/built_ins/builtin_export.c ./exec/built_ins/builtin_utils.c \

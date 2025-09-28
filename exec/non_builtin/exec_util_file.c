@@ -6,12 +6,13 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 10:33:16 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/28 10:45:13 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/28 18:40:00 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+/*If more than 1 redirection, close previous one immediately*/
 static int	open_in_out_append(int *fd, t_redir_token *tmp)
 {
 	if (*fd != -1)
