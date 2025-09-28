@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 17:03:16 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/28 18:51:35 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/28 19:06:06 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,5 +135,6 @@ void	free_env_list(t_env *envList);
 void	clean_shell(t_shell	*shell);
 t_shell	*init_envp(char **envp);
 char	**envp_to_array(t_env *env_list);
+char	*exp_heredoc(char *input, t_shell *shell);
 
 #endif

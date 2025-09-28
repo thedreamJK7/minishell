@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 11:35:27 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/28 18:25:58 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/28 19:22:20 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,17 +64,19 @@ static t_node	*handle_the_pipe(t_node *root, t_token	**list, int *exit_code)
 t_node	*parse_expression(t_token **list, int *exit_code)
 {
 	t_node	*root;
+	t_token	*tmp;
 
+	tmp = *list;
 	root = NULL;
-	if (*list && (*list)->type == T_EOF)
+	if (tmp && (tmp)->type == T_EOF)
 		return (NULL);
-	if (*list && !((*list)->type == T_PIPE))
+	if (tmp && !((tmp)->type == T_PIPE))
 	{
-		root = parse_command(list, exit_code);
+		root = parse_command(&tmp, exit_code);
 		if (!root)
 			return (NULL);
 	}
-	if (*list && (*list)->type == T_PIPE)
-		root = handle_the_pipe(root, list, exit_code);
+	if (tmp && (tmp)->type == T_PIPE)
+		root = handle_the_pipe(root, &tmp, exit_code);
 	return (root);
 }
