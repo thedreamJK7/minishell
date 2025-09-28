@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 19:50:04 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/28 18:42:24 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/28 20:03:59 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 t_node			*ft_parse(t_shell *shell, char *input);
 t_node			*create_node(t_node_type type);
 void			free_redir_list(t_redir_token *list);
-void			free_commands(char **argv);
 void			free_ast(t_node *node);
 int				add_arg(t_node *cmd, t_token **list);
 void			add_redir(t_node *cmd_node, t_redir_token *redir);

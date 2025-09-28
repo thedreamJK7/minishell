@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 20:13:50 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/28 18:18:03 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/28 19:50:50 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ int	exec_simple_command(t_node *cmd, t_shell *shell)
 	}
 	else
 		return (exec_non_builtin(cmd, shell));
-	return (shell->exit_code);
 }
 
 void	execute(t_node *node, t_shell *shell)
