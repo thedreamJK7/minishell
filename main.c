@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 17:21:52 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/27 11:54:47 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/27 17:11:46 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ static void	shell_loop(t_shell **shell)
 		{
 			free(input);
 			clean_tokens(&token_list, 0);
-//			(*shell)->exit_code = 0;
 			continue ;
 		}
 		clean_tokens(&token_list, 0);
