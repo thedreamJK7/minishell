@@ -3,15 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 17:21:52 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/28 18:47:17 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/29 11:47:16 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/minishell.h"
 
+/**
+ * g_sig_received is used to indicate a received signal made by user;
+ * 0: no signal;
+ * 1: recieved SIGINT from main or heredoc -- interactive mode;
+ * 2: received SIGINT from wait -- child process executing;
+ */
 sig_atomic_t	g_sig_received = 0;
 
 static int	read_input(t_shell *shell, char **input)

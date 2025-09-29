@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 10:38:08 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/28 10:45:07 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/28 21:00:41 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,3 +90,15 @@ int	print_error_path(int flag, char *cmd_name)
 		ft_putstr_fd(": No such file or directory\n", STDERR_FILENO), \
 		COMMAND_NOT_FOUND);
 }
+
+/**
+ * For cmd name:
+ * 0: command not found
+ * 1: Permission denied
+ *
+ * For cmd with full path:
+ * 0: No such file or directory
+ * 1: Permission denied
+ * 2: Is a directory(e.g. $PWD)
+ * 3: Not a directory(take file as directory, e.g. /etc/passwd/subdir)
+ */
