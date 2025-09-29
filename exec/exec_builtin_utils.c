@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 11:17:35 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/29 10:27:43 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/29 17:22:23 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ static int	setup_heredoc_redir(int heredoc_fd, t_redir_token *redir)
 	fd = heredoc_fd;
 	if (fd == -1)
 		return (perror(redir->file), GENERAL_ERROR);
-	if (dup2(fd, STDOUT_FILENO) == -1)
+	if (dup2(fd, STDIN_FILENO) == -1)
 		return (close(fd), perror("dup2"), GENERAL_ERROR);
 	close(fd);
 	return (0);
@@ -157,7 +157,9 @@ int	setup_redirections(t_node *nodes)
 {
 	t_redir_token	*tmp;
 	int				ret;
+	int				heredoc;
 
+	heredoc = 1;
 	tmp = nodes->cmd.redir_token;
 	while (tmp)
 	{
@@ -167,8 +169,11 @@ int	setup_redirections(t_node *nodes)
 			ret = setup_out_redir(tmp);
 		else if (tmp->redir_type == APPEND)
 			ret = setup_append_redir(tmp);
-		else if (tmp->redir_type == HEREDOC)
+		else if (tmp->redir_type == HEREDOC && heredoc)
+		{
+			heredoc = 0;
 			ret = setup_heredoc_redir(nodes->cmd.heredoc_fd, tmp);
+		}
 		if (ret != 0)
 			return (ret);
 		tmp = tmp->next;
