@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 11:37:01 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/29 13:38:23 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/29 14:45:31 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,7 +193,7 @@ int	builtin_export(t_shell *shell, char **cmd)
 	exit_status = 0;
 	i = 1;
 	if (!cmd[i])
-		return (print_envp(shell->env_list), 1);
+		return (print_envp(shell->env_list), exit_status);
 	while (cmd[i])
 	{
 		if (is_valid_identifier(cmd[i]))
