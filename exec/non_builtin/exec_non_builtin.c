@@ -6,13 +6,13 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 11:13:58 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/28 18:38:37 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/29 11:45:58 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	redir_child(int in_fd, int out_fd)
+static void	redir_child(int in_fd, int out_fd)
 {
 	if (in_fd != -1)
 	{
@@ -28,12 +28,13 @@ void	redir_child(int in_fd, int out_fd)
 
 /*If execve succeeds, exit and clean up automatically;
 if error occurs, clean up and exit manually*/
-int	exec_child(t_node *cmd, int in_fd, int out_fd, t_shell *shell)
+static int	exec_child(t_node *cmd, int in_fd, int out_fd, t_shell *shell)
 {
 	char	*path;
 	char	**env;
 
 	setup_signals(signal_handler_exit);
+	signal(SIGQUIT, SIG_DFL);
 	path = NULL;
 	redir_child(in_fd, out_fd);
 	shell->exit_code = find_cmd_path(cmd->cmd.cmd, &path, shell);
@@ -56,8 +57,30 @@ int	exec_child(t_node *cmd, int in_fd, int out_fd, t_shell *shell)
 	return (0);
 }
 
-/*Print a newline when child process got SIGINT, e.g. cat*/
-int	exec_cmd(t_node *cmd, t_shell *shell, int in_fd, int out_fd)
+/*Print error msg to stdout when SIGQUIT*/
+static int	exec_check_status(int status, t_shell *shell)
+{
+	if (WIFEXITED(status))
+	{
+		shell->exit_code = WEXITSTATUS(status);
+		return (setup_signals(signal_handler_main), shell->exit_code);
+	}
+	else if (WIFSIGNALED(status))
+	{
+		if (WTERMSIG(status))
+		{
+			if (WTERMSIG(status) == 3)
+				ft_putstr_fd("Quit (core dumped)", STDOUT_FILENO);
+			write(STDOUT_FILENO, "\n", 1);
+		}
+		shell->exit_code = 128 + WTERMSIG(status);
+		return (setup_signals(signal_handler_main), shell->exit_code);
+	}
+	return (0);
+}
+
+/*Print a newline when child process got SIGINT or SIGQUIT, e.g. cat*/
+static int	exec_cmd(t_node *cmd, t_shell *shell, int in_fd, int out_fd)
 {
 	int	pid;
 	int	status;
@@ -71,19 +94,7 @@ int	exec_cmd(t_node *cmd, t_shell *shell, int in_fd, int out_fd)
 	setup_signals(signal_handler_wait);
 	close_fd(in_fd, out_fd);
 	waitpid(pid, &status, 0);
-	if (WIFEXITED(status))
-	{
-		shell->exit_code = WEXITSTATUS(status);
-		return (setup_signals(signal_handler_main), shell->exit_code);
-	}
-	else if (WIFSIGNALED(status))
-	{
-		if (WTERMSIG(status))
-			write(STDOUT_FILENO, "\n", 1);
-		shell->exit_code = 128 + WTERMSIG(status);
-		return (setup_signals(signal_handler_main), shell->exit_code);
-	}
-	return (0);
+	return (exec_check_status(status, shell));
 }
 
 /*Check redirection first, if no cmd, exit with 0,
