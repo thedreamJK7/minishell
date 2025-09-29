@@ -11,7 +11,14 @@
 *.pdf
 *.png
 *.img
+*.md
 
 # Ignore tester
 minishell_tester/
 test_files/
+
+# Ignore supresser
+*.supp
+
+# Ignore minishell
+minishell
