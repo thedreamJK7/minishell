@@ -6,18 +6,39 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 11:34:27 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/28 18:27:18 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/29 10:57:15 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+/*
+ * is_redirection checks if a given token type represents a redirection operator
+ *
+ * @param type : The token type to check.
+ * @return     : 1 if the token is a redirection (<, >, <<, >>), 0 otherwise.
+ *
+ * Example usage:
+ * - T_LESS  (<)    -> returns 1
+ * - T_GREAT (>)    -> returns 1
+ * - T_WORD  ("ls") -> returns 0
+ */
 static int	is_redirection(t_token_type type)
 {
 	return (type == T_LESS || type == T_GREAT || type == T_DLESS 
 		|| type == T_DGREAT);
 }
 
+/*
+ * parse_command:
+ * Parses a single command and its associated arguments and 
+ * redirections from the token list.
+ * Parameters:
+ *   - list: pointer to the current token pointer
+ *   - exit_code: pointer to shell exit code (updated in case of syntax errors)
+ * Returns: pointer to a newly created t_node representing 
+ * the command, or NULL on failure
+ */
 t_node	*parse_command(t_token **list, int *exit_code)
 {
 	t_node			*node;

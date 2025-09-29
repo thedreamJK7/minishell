@@ -6,12 +6,16 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 11:35:27 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/28 19:22:20 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/29 11:51:32 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+/*
+ * validate_pipe_syntax checks if the pipe is correctly placed in the token list
+ * Returns 1 on syntax error, 0 otherwise.
+ */
 static int	validate_pipe_syntax(t_token *list, t_node *root, int *exit_code)
 {
 	if (!root || !list || list->type == T_PIPE || list->type == T_EOF)
@@ -24,6 +28,10 @@ static int	validate_pipe_syntax(t_token *list, t_node *root, int *exit_code)
 	return (0);
 }
 
+/*
+ * create_pipe_node allocates a PIPE node and assigns the left branch.
+ * Frees left if allocation fails.
+ */
 static t_node	*create_pipe_node(t_node *left)
 {
 	t_node	*node;
@@ -35,6 +43,10 @@ static t_node	*create_pipe_node(t_node *left)
 	return (node);
 }
 
+/*
+ * parse_right_pipe_branch parses the right side of a PIPE node.
+ * Returns 1 on failure, 0 on success.
+ */
 static int	parse_right_pipe_branch(t_node *pipe, t_token **list, 
 	int *exit_code)
 {
@@ -48,6 +60,10 @@ static int	parse_right_pipe_branch(t_node *pipe, t_token **list,
 	return (0);
 }
 
+/*
+ * handle_the_pipe validates, creates, and parses right branch for a pipe.
+ * Returns the new PIPE node or NULL on error.
+ */
 static t_node	*handle_the_pipe(t_node *root, t_token	**list, int *exit_code)
 {
 	t_node	*node;
@@ -61,6 +77,10 @@ static t_node	*handle_the_pipe(t_node *root, t_token	**list, int *exit_code)
 	return (node);
 }
 
+/*
+ * parse_expression parses a command or a pipeline from a list of tokens.
+ * Returns the root node of the AST, or NULL if parsing fails.
+ */
 t_node	*parse_expression(t_token **list, int *exit_code)
 {
 	t_node	*root;

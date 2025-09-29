@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizing.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 22:04:04 by javokhir          #+#    #+#             */
-/*   Updated: 2025/09/28 17:55:24 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/29 12:14:37 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ typedef struct s_token
 	struct s_token	*next;
 }		t_token;
 
-//	Functions
 t_token	*ft_tokenize(char *s, t_shell *shell);
 char	*handle_dollar(char **s, t_shell *shell, t_token **list);
 int		change_quote(char c, int *quote);
