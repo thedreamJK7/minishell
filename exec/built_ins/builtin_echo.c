@@ -6,12 +6,24 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 16:58:25 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/28 18:12:46 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/29 09:49:10 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+/*
+	* ft_print_cmd function prints command arguments for the 'echo' builtin.
+	*
+	* @param cmd: Array of command arguments.
+	* @param i:   Pointer to the current index in the array.
+	*
+	* Behavior:
+	* - Prints each argument followed by a space.
+	* - Stops printing before the last argument (handled outside).
+	*
+	* Used inside the 'echo' builtin to display user-provided text.
+ */
 static void	ft_print_cmd(char **cmd, int *i)
 {
 	while (cmd[*i] && (cmd[*i + 1] != NULL))

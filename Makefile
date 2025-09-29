@@ -27,7 +27,6 @@ SRCS = main.c \
 	./exec/built_ins/builtin_export_utils.c ./exec/built_ins/builtin_cd.c\
 	./exec/built_ins/builtin_echo.c
 
-
 OBJ_DIR = ./obj
 
 OBJS = $(patsubst %.c,$(OBJ_DIR)/%.o,$(SRCS))
