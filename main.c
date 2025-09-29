@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 17:21:52 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/29 11:47:16 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/29 17:17:00 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ static void	shell_loop(t_shell *shell)
 		{
 			free_ast(shell->nodes);
 			free(input);
+			g_sig_received = 0;
 			continue ;
 		}
 		execute(shell->nodes, shell);
