@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 11:37:01 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/29 10:04:16 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/29 13:38:23 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,9 +145,19 @@ int	update_or_add_env(t_env *list, char	*idf)
 		return (-1);
 	existing = is_env_exist(list, name);
 	if (!existing)
-		return (add_env(list, name, value));
+	{
+		if (add_env(list, name, value))
+			return (free(name), free(value), -1);
+		else
+			return (free(name), free(value), 0);
+	}
 	else
-		return (update_env_value(existing, value));
+	{
+		if (update_env_value(existing, value))
+			return (free(name), free(value), -1);
+		else
+			return (free(name), free(value), 0);
+	}
 }
 
 /*
