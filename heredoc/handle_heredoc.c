@@ -6,14 +6,14 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 16:30:41 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/28 18:50:41 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/29 17:31:50 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
 /*Readline for heredoc*/
-int	process_input(t_redir_token *redir, t_shell *shell, int pipe_w)
+static int	process_input(t_redir_token *redir, t_shell *shell, int pipe_w)
 {
 	char	*input;
 	int		ret;
@@ -40,8 +40,21 @@ int	process_input(t_redir_token *redir, t_shell *shell, int pipe_w)
 	return (close(pipe_w), 0);
 }
 
+static int	heredoc_wait(int status, int pfd, int *in_fd)
+{
+	signal(SIGINT, signal_handler_main);
+	if (WIFEXITED(status) && WEXITSTATUS(status))
+	{
+		if (WEXITSTATUS(status) == 130)
+			g_sig_received = 1;
+		return (close(pfd), WEXITSTATUS(status));
+	}
+	*in_fd = pfd;
+	return (0);
+}
+
 /*Child process for heredoc, because SIGINT*/
-int	exec_heredoc(t_redir_token *redir, t_shell *shell, int *in_fd)
+static int	exec_heredoc(t_redir_token *redir, t_shell *shell, int *in_fd)
 {
 	int		pfd[2];
 	int		pid;
@@ -61,17 +74,13 @@ int	exec_heredoc(t_redir_token *redir, t_shell *shell, int *in_fd)
 	signal(SIGINT, signal_handler_wait);
 	close(pfd[1]);
 	waitpid(pid, &status, 0);
-	signal(SIGINT, signal_handler_main);
-	if (WIFEXITED(status) && WEXITSTATUS(status))
-		return (close(pfd[0]), WEXITSTATUS(status));
-	*in_fd = pfd[0];
-	return (0);
+	return (heredoc_wait(status, pfd[0], in_fd));
 }
 
 /*Heredoc always before execution;
 Set up global variable and $? when SIGINT;
 Close fd immediately when more than 1 <<*/
-void	check_heredoc(t_node *node, t_shell *shell)
+static void	check_heredoc(t_node *node, t_shell *shell)
 {
 	t_redir_token	*tmp;
 
@@ -83,10 +92,9 @@ void	check_heredoc(t_node *node, t_shell *shell)
 			if (node->cmd.heredoc_fd != -1)
 				close(node->cmd.heredoc_fd);
 			shell->exit_code = exec_heredoc(tmp, shell, &node->cmd.heredoc_fd);
-			if (node->cmd.heredoc_fd == -1)
+			if (g_sig_received == 1)
 			{
 				shell->exit_code = 130;
-				g_sig_received = 1;
 				return ;
 			}
 		}
