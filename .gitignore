@@ -18,7 +18,7 @@ minishell_tester/
 test_files/
 
 # Ignore supresser
-*.sup
+*.supp
 
 # Ignore minishell
 minishell
