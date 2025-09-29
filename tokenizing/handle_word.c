@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 18:52:46 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/28 17:14:31 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/29 14:45:25 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ static char	*add_word(char **s, int *quote, t_token **list, t_shell *shell)
 	{
 		if (*(*s) == '\'' || *(*s) == '"')
 			(*s) += change_quote(*(*s), quote);
-		if ((*quote && get_in_quote(*quote, *(*s))) || \
-			(!*quote && *(*s) != '\'' && *(*s) != '"'))
+		if (*(*s) && ((*quote && get_in_quote(*quote, *(*s))) || \
+			(!*quote && *(*s) != '\'' && *(*s) != '"')))
 		{
 			if (break_condition(*quote, *(*s)))
 				break ;
