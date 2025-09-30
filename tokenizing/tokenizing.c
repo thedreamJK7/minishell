@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 22:19:04 by javokhir          #+#    #+#             */
-/*   Updated: 2025/09/28 18:47:00 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/30 14:41:02 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,17 @@
  * logical tokens -> specify_tokens();
  * neither space nor sprecial token without quotation -> handle_word();
  */
+
+static int	is_word(char c, int quote)
+{
+	if (c && !(ft_strchr("|><", c) && !quote))
+	{
+		if (!((c == ' ' && (c >= '\t' && c <= '\r')) && !quote))
+			return (1);
+	}
+	return (0);
+}
+
 t_token	*ft_tokenize(char *s, t_shell *shell)
 {
 	t_token	*list;
@@ -35,8 +46,7 @@ t_token	*ft_tokenize(char *s, t_shell *shell)
 			i += change_quote(s[i], &quote);
 		if (s[i] && !quote && ft_strchr("|><", s[i]))
 			i += specify_tokens(s + i, &list);
-		if (s[i] && s[i] != ' ' && !(s[i] >= '\t' && s[i] <= '\r') \
-			&& !(ft_strchr("|><", s[i]) && !quote))
+		if (is_word(s[i], quote))
 			i += handle_words(s + i, &quote, &list, shell);
 	}
 	if (quote)
