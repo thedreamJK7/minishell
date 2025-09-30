@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 16:58:25 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/30 15:09:39 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/30 15:11:06 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	ft_print_cmd(char **cmd, int *i)
 	}
 }
 
-static int is_valid_n_arg(char *arg)
+static int	is_valid_n_arg(char *arg)
 {
 	if (*arg == '-')
 		arg++;
