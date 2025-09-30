@@ -6,7 +6,7 @@
 /*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 22:19:04 by javokhir          #+#    #+#             */
-/*   Updated: 2025/09/30 14:41:02 by yingzhan         ###   ########.fr       */
+/*   Updated: 2025/09/30 15:43:18 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	is_word(char c, int quote)
 {
 	if (c && !(ft_strchr("|><", c) && !quote))
 	{
-		if (!((c == ' ' && (c >= '\t' && c <= '\r')) && !quote))
+		if (!((c == ' ' || (c >= '\t' && c <= '\r')) && !quote))
 			return (1);
 	}
 	return (0);
