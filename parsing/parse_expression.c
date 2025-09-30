@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 11:35:27 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/29 11:51:32 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/30 10:51:38 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ static int	validate_pipe_syntax(t_token *list, t_node *root, int *exit_code)
 	if (!root || !list || list->type == T_PIPE || list->type == T_EOF)
 	{
 		*exit_code = 2;
-		printf(SYNTAX_ERROR1);
+		ft_putstr_fd("minishell:", STDOUT_FILENO);
+		ft_putstr_fd(" syntax error near unexpected token `", STDERR_FILENO);
+		ft_putstr_fd(list->value, STDERR_FILENO);
+		ft_putstr_fd("'\n", STDERR_FILENO);
 		free_ast(root);
 		return (1);
 	}

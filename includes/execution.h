@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 10:46:10 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/28 19:05:53 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/30 10:46:00 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,6 @@ int		builtin_echo(t_shell *shell, char **cmd);
 int		exec_child_builtin(t_node *cmd, t_shell *shell);
 int		exec_normal_builtin(t_node *cmd, t_shell *shell);
 int		setup_redirections(t_node *nodes);
+void	print_env_vars(t_env *env_list);
 
 #endif

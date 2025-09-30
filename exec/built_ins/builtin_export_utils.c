@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 15:24:18 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/29 10:10:49 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/30 10:45:31 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,4 +143,28 @@ t_env	*is_env_exist(t_env *list, char *name)
 		tmp = tmp->next;
 	}
 	return (NULL);
+}
+
+/**
+ * print_env_vars - Prints all environment variables with export format
+ * @env_list: Linked list of environment variables
+ *
+ * This function displays all environment variables in the format:
+ * declare -x NAME="VALUE"
+ * This matches bash's behavior when 'export' is called without arguments
+ */
+void	print_env_vars(t_env *env_list)
+{
+	t_env	*current;
+
+	current = env_list;
+	while (current)
+	{
+		ft_putstr_fd("declare -x ", STDOUT_FILENO);
+		ft_putstr_fd(current->name, STDOUT_FILENO);
+		ft_putstr_fd("=\"", STDOUT_FILENO);
+		ft_putstr_fd(current->value, STDOUT_FILENO);
+		ft_putstr_fd("\"\n", STDOUT_FILENO);
+		current = current->next;
+	}
 }
