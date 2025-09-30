@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 11:37:01 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/30 16:28:59 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/30 18:23:05 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 	*   Pointer to a newly created t_env struct → success.
 	*   NULL → if memory allocation fails.
  */
-t_env	*create_env(char *name1, char *value)
+t_env	*create_env(char *name1, char *value, int equal_sign)
 {
 	t_env	*new_ist;
 
@@ -45,6 +45,7 @@ t_env	*create_env(char *name1, char *value)
 	new_ist->value = ft_strdup(value);
 	if (!new_ist->value)
 		return (free(new_ist->name), free(new_ist), NULL);
+	new_ist->equal_sign = equal_sign;
 	new_ist->next = NULL;
 	return (new_ist);
 }
@@ -67,12 +68,12 @@ t_env	*create_env(char *name1, char *value)
 	*   0  → success, added to the end of the list.
 	*  -1  → list was originally NULL (caller should update the head).
  */
-int	add_env(t_env *list, char *name, char *value)
+int	add_env(t_env *list, char *name, char *value, int equal_sign)
 {
 	t_env	*new_list;
 	t_env	*current;
 
-	new_list = create_env(name, value);
+	new_list = create_env(name, value, equal_sign);
 	if (list == NULL) 
 	{
 		list = new_list; 
@@ -102,7 +103,7 @@ int	add_env(t_env *list, char *name, char *value)
  *   0 → success, value updated.
  *   1 → memory allocation failed.
  */
-static int	update_env_value(t_env *node, char *value)
+static int	update_env_value(t_env *node, char *value, int equal_sign)
 {
 	char	*new_value;
 
@@ -111,6 +112,7 @@ static int	update_env_value(t_env *node, char *value)
 		return (1);
 	free(node->value);
 	node->value = new_value;
+	node->equal_sign = equal_sign;
 	return (0);
 }
 
@@ -138,22 +140,24 @@ int	update_or_add_env(t_env *list, char	*idf)
 {
 	char	*name;
 	char	*value;
+	int 	equal_sign;
 	t_env	*existing;
 
-	parse_export_arg(idf, &name, &value);
+	equal_sign = 0;
+	parse_export_arg(idf, &name, &value, &equal_sign);
 	if (!name || !value)
 		return (-1);
 	existing = is_env_exist(list, name);
 	if (!existing)
 	{
-		if (add_env(list, name, value))
+		if (add_env(list, name, value, equal_sign))
 			return (free(name), free(value), -1);
 		else
 			return (free(name), free(value), 0);
 	}
 	else
 	{
-		if (update_env_value(existing, value))
+		if (update_env_value(existing, value, equal_sign))
 			return (free(name), free(value), -1);
 		else
 			return (free(name), free(value), 0);
@@ -189,24 +193,21 @@ int	builtin_export(t_shell *shell, char **cmd)
 {
 	int	i;
 	int	exit_status;
-	int	is_valid;
 
 	exit_status = 0;
 	i = 1;
 	if (!cmd[i])
-		return (print_envp(shell->env_list), exit_status);
+		return (print_env_vars(shell->env_list), exit_status);
 	while (cmd[i])
 	{
-		is_valid = is_valid_identifier(cmd[i]); 
-		if (is_valid && is_valid != 10)
+		if (is_valid_identifier(cmd[i]))
 		{
 			ft_putstr_fd("export: `", STDERR_FILENO);
 			ft_putstr_fd(cmd[i], STDERR_FILENO);
 			ft_putstr_fd("`: not a valid identifier\n", STDERR_FILENO);
 			exit_status = 1;
 		}
-		else if (is_valid == 10 && \
-				update_or_add_env(shell->env_list, cmd[i]) == -1)
+		else if (update_or_add_env(shell->env_list, cmd[i]) == -1)
 			return (printf("Memory fail\n"), 1);
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 15:24:18 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/30 16:22:38 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/30 18:20:39 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	is_valid_identifier(char *name)
 		}
 		if (name[i] == '=')
 		{
-			valid = 10;
+			valid = 0;
 			break ;
 		}
 		i++;
@@ -97,7 +97,7 @@ int	is_valid_identifier(char *name)
 	*         - Characters after '=' are duplicated as the value.
 	* - Both name and value are dynamically allocated (caller must free them).
  */
-void	parse_export_arg(char *arg, char **name, char **value)
+void	parse_export_arg(char *arg, char **name, char **value, int *equal_s)
 {
 	char	*equal_sign;
 
@@ -111,6 +111,7 @@ void	parse_export_arg(char *arg, char **name, char **value)
 	{
 		*name = ft_substr(arg, 0, equal_sign - arg);
 		*value = ft_strdup(equal_sign + 1);
+		*equal_s = 1;
 	}
 }
 
@@ -162,6 +163,12 @@ void	print_env_vars(t_env *env_list)
 	{
 		ft_putstr_fd("declare -x ", STDOUT_FILENO);
 		ft_putstr_fd(current->name, STDOUT_FILENO);
+		if (!current->equal_sign)
+		{
+			ft_putstr_fd("\n", STDOUT_FILENO);
+			current = current->next;
+			continue ;
+		}
 		ft_putstr_fd("=\"", STDOUT_FILENO);
 		ft_putstr_fd(current->value, STDOUT_FILENO);
 		ft_putstr_fd("\"\n", STDOUT_FILENO);
