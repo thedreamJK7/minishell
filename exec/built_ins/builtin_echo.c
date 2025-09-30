@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 16:58:25 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/29 09:49:10 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/30 15:09:39 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,30 @@ static void	ft_print_cmd(char **cmd, int *i)
 	}
 }
 
+static int is_valid_n_arg(char *arg)
+{
+	if (*arg == '-')
+		arg++;
+	else
+		return (1);
+	while (*arg)
+	{
+		if (*arg != 'n')
+			return (1);
+		arg++;
+	}
+	return (0);
+}
+
 int	builtin_echo(t_shell *shell, char **cmd)
 {
 	int	i;
 
 	i = 1;
-	if (cmd[i] && !ft_strcmp(cmd[i], "-n"))
-	{
+	while (cmd[i] && !is_valid_n_arg(cmd[i]))
 		i++;
+	if (i != 1)
+	{
 		ft_print_cmd(cmd, &i);
 		if (cmd[i])
 			printf("%s", cmd[i]);
