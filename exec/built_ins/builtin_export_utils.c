@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 15:24:18 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/30 10:45:31 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/30 16:22:38 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	is_valid_identifier(char *name)
 		}
 		if (name[i] == '=')
 		{
-			valid = 0;
+			valid = 10;
 			break ;
 		}
 		i++;
