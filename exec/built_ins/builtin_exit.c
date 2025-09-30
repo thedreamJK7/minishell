@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 16:58:36 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/29 09:56:22 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/30 15:46:54 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,14 +85,14 @@ static long	handle_exit_args(char *arg)
 
 	exit_code = validate_exit_arg(arg);
 	if (exit_code == -1)
-		return (exit_code);
+		return (258);
 	exit_code = ft_atoi(arg);
 	if (exit_code > 2147483647 || exit_code < -2147483648)
 	{
 		ft_putstr_fd("exit: `", STDERR_FILENO);
 		ft_putstr_fd(arg, STDERR_FILENO);
 		ft_putstr_fd("`: numeric argument required\n", STDERR_FILENO);
-		return (-1);
+		return (258);
 	}
 	return (exit_code);
 }
@@ -129,11 +129,7 @@ int	builtin_exit(t_shell *shell, char **cmd)
 	if (count >= 3)
 		return (ft_putstr_fd("exit: too many arguments\n", STDERR_FILENO), 1);
 	if (count == 2)
-	{
 		exit_code = handle_exit_args(*(cmd + 1));
-		if (exit_code == -1)
-			exit_code = 2;
-	}
 	if (exit_code > 256)
 		exit_code = exit_code % 256;
 	free_ast(shell->nodes);
