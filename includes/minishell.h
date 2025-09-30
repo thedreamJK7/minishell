@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 17:03:16 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/28 19:06:06 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/30 17:43:12 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ typedef struct s_env
 {
 	char			*name;
 	char			*value;
+	int				equal_sign;
 	struct s_env	*next;
 }	t_env;
 

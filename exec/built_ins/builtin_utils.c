@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 15:01:55 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/29 10:21:22 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/30 17:48:11 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,11 @@ void	print_envp(t_env *shell)
 	current = shell;
 	while (current)
 	{
+		if (!current->equal_sign)
+		{
+			current = current->next;
+			continue ;
+		}
 		ft_putstr_fd(current->name, STDOUT_FILENO);
 		ft_putstr_fd("=", STDOUT_FILENO);
 		ft_putstr_fd(current->value, STDOUT_FILENO);

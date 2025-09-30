@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/14 16:11:29 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/29 09:53:31 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/30 16:45:36 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,9 @@ int	builtin_env(t_shell *shell, char **cmd)
 		print_envp(shell->env_list);
 		return (0);
 	}
-	fprintf(stderr, "env: %s: No such file or directory\n", cmd[1]);
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
+	ft_putstr_fd("env: ", STDERR_FILENO);
+	ft_putstr_fd(cmd[1], STDERR_FILENO);
+	ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);
 	return (127);
 }

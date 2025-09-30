@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 13:15:26 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/29 11:54:08 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/30 17:57:09 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ t_env	*new_list_f(char *name, char *value)
 		return (NULL);
 	new_list->name = name;
 	new_list->value = value;
+	new_list->equal_sign = 1;
 	new_list->next = NULL;
 	return (new_list);
 }

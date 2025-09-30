@@ -6,7 +6,7 @@
 /*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 10:46:10 by yingzhan          #+#    #+#             */
-/*   Updated: 2025/09/30 10:46:00 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/09/30 17:45:29 by jkubaev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int		builtin_pwd(char **cmd);
 int		builtin_export(t_shell *shell, char **cmd);
 void	print_envp(t_env *envp);
 int		is_valid_identifier(char *name);
-void	parse_export_arg(char *arg, char **name, char **value);
+void	parse_export_arg(char *arg, char **name, char **value, int *equal_sign);
 t_env	*is_env_exist(t_env *list, char *name);
 int		builtin_cd(t_shell *shell, char **cmd);
 int		count_arguments(char **cmd);
