@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_expression.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 11:35:27 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/30 10:51:38 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/10/01 12:17:11 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static t_node	*create_pipe_node(t_node *left)
  * parse_right_pipe_branch parses the right side of a PIPE node.
  * Returns 1 on failure, 0 on success.
  */
-static int	parse_right_pipe_branch(t_node *pipe, t_token **list, 
+static int	parse_right_pipe_branch(t_node *pipe, t_token **list, \
 	int *exit_code)
 {
 	pipe->pipe.right = parse_expression(list, exit_code);
