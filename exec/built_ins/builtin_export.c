@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 11:37:01 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/30 18:23:05 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/10/01 12:13:49 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,9 @@ int	add_env(t_env *list, char *name, char *value, int equal_sign)
 	t_env	*current;
 
 	new_list = create_env(name, value, equal_sign);
-	if (list == NULL) 
+	if (list == NULL)
 	{
-		list = new_list; 
+		list = new_list;
 		return (-1);
 	}
 	current = list;
@@ -117,7 +117,7 @@ static int	update_env_value(t_env *node, char *value, int equal_sign)
 }
 
 /*
-	* update_or_add_env function updates the value of an 
+	* update_or_add_env function updates the value of an
 	* existing environment variable
 	* or adds a new variable if it does not exist.
 	*
@@ -125,7 +125,7 @@ static int	update_env_value(t_env *node, char *value, int equal_sign)
 	* @param idf:  String representing the variable in "NAME=VALUE" format.
 	*
 	* Behavior:
-	* - Parses the input string into a variable name and value 
+	* - Parses the input string into a variable name and value
 	* using parse_export_arg().
 	* - If parsing fails (name or value is NULL), returns -1.
 	* - Checks if the variable already exists in the list with is_env_exist().
@@ -140,7 +140,7 @@ int	update_or_add_env(t_env *list, char	*idf)
 {
 	char	*name;
 	char	*value;
-	int 	equal_sign;
+	int		equal_sign;
 	t_env	*existing;
 
 	equal_sign = 0;
@@ -167,19 +167,19 @@ int	update_or_add_env(t_env *list, char	*idf)
 /*
 	* builtin_export function implements the 'export' builtin command.
 	*
-	* @param shell: Pointer to the shell structure 
+	* @param shell: Pointer to the shell structure
 	* containing the environment list.
-	* @param cmd:   Command arguments (e.g., 
+	* @param cmd:   Command arguments (e.g.,
 	* ["export", "VAR=value", "NAME=VAL"]).
 	*
 	* Behavior:
 	* - If no arguments are provided, prints the current environment variables.
 	* - Iterates over each argument starting from index 1:
-	*     - Checks if the argument is a valid identifier 
+	*     - Checks if the argument is a valid identifier
 	* using is_valid_identifier():
-	*         - If invalid, prints an error message to STDERR 
+	*         - If invalid, prints an error message to STDERR
 	* and sets exit_status = 1.
-	*     - If valid, updates the existing environment 
+	*     - If valid, updates the existing environment
 	* variable or adds a new one
 	*       using update_or_add_env().
 	* - Returns the exit status:

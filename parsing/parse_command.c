@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 11:34:27 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/29 12:31:34 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/10/01 12:15:27 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ static int	is_redirection(t_token_type type)
 
 /*
  * parse_command:
- * Parses a single command and its associated arguments and 
+ * Parses a single command and its associated arguments and
  * redirections from the token list.
  * Parameters:
  *   - list: pointer to the current token pointer
  *   - exit_code: pointer to shell exit code (updated in case of syntax errors)
- * Returns: pointer to a newly created t_node representing 
+ * Returns: pointer to a newly created t_node representing
  * the command, or NULL on failure
  */
 t_node	*parse_command(t_token **list, int *exit_code)
@@ -49,8 +49,8 @@ t_node	*parse_command(t_token **list, int *exit_code)
 		return (NULL);
 	while ((*list) && (*list)->type != T_PIPE && (*list)->type != T_EOF)
 	{
-		while ((*list)->type == T_WORD && 
-			(*list)->value && ((*list)->value[0] == 0))
+		while ((*list)->type == T_WORD \
+			&& (*list)->value && ((*list)->value[0] == 0))
 			(*list) = (*list)->next;
 		if ((*list)->type == T_WORD)
 		{

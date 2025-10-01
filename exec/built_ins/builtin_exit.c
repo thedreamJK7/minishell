@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_exit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 16:58:36 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/30 15:46:54 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/10/01 12:12:51 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,8 @@ static long	handle_exit_args(char *arg)
 /*
 	* builtin_exit function implements the 'exit' builtin command.
 	*
-	* @param shell: Pointer to the shell structure containing state and resources.
+	* @param shell: Pointer to the shell structure containing state
+	and resources.
 	* @param cmd:   Command arguments (e.g., ["exit", "42"]).
 	*
 	* Behavior:

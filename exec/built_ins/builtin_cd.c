@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkubaev <jkubaev@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: yingzhan <yingzhan@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 12:50:16 by jkubaev           #+#    #+#             */
-/*   Updated: 2025/09/29 15:06:37 by jkubaev          ###   ########.fr       */
+/*   Updated: 2025/10/01 12:13:09 by yingzhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int	go_home(t_shell *shell)
 }
 
 /*
-	* change_directory function changes the current working directory 
+	* change_directory function changes the current working directory
 	* to the given path.
 	*
 	* @param arg: The target directory path to change into.
@@ -53,14 +53,14 @@ static int	change_directory(char *arg)
 }
 
 /*
-	* update_env_value function updates the values of PWD and OLDPWD 
+	* update_env_value function updates the values of PWD and OLDPWD
 	* environment variables in the shell's environment list.
 	*
 	* @param shell:   The main shell structure containing the environment list.
 	* @param oldpwd:  The previous working directory path to set as OLDPWD.
 	* @param pwd:     The new current working directory path to set as PWD.
 	*
-	* This function iterates through the environment list and updates 
+	* This function iterates through the environment list and updates
 	* the values of "PWD" and "OLDPWD" if they exist.
 */
 static void	update_env_value(t_shell *shell, char *oldpwd, char *pwd)
@@ -92,7 +92,8 @@ static void	update_env_value(t_shell *shell, char *oldpwd, char *pwd)
 	*
 	* Behavior:
 	* - If more than one argument is given, it prints an error.
-	* - If no argument is provided, it tries to change to the user's HOME directory.
+	* - If no argument is provided, it tries to change to the user's HOME
+	directory.
 	* - If one argument is provided, it attempts to change to that directory.
 	* - Updates PWD and OLDPWD environment variables after a successful change.
 	*
