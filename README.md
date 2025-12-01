@@ -4,8 +4,8 @@ A lightweight Unix shell implementation written in C, recreating the core functi
 
 ## 👥 Authors
 
-- **jkubaev** - [GitHub Profile](https://github.com/jkubaev)
-- **yingzhan** - [GitHub Profile](https://github.com/yingzhan)
+- **jkubaev** - [GitHub Profile](https://github.com/thedreamJK7)
+- **yingzhan** - [GitHub Profile](https://github.com/yingzhan25)
 
 ## 📋 Table of Contents
 
